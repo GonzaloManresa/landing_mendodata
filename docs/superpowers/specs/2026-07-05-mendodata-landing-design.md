@@ -20,8 +20,13 @@ La pagina tiene que comunicar un solo problema de fondo: el duenio no sabe que p
 - Nombre: MendoData.
 - Logo: conservar el concepto del icono de montania con grafico de barras ascendente.
 - Tipografia: no usar tipografia cursiva.
-- Paleta: blanco, negro y naranja fuerte `#F2994A` como unico acento.
-- Direccion visual: minimalista y directa; no ir hacia azul tech ni hacia una paleta calida-terrosa.
+- Paleta:
+  - Montania: terracota `#C1502E`.
+  - Barras del grafico: verde oliva `#6B7548`.
+  - Detalle/circulo de acento: verde oliva claro `#A9B481`.
+  - Texto `MendoData`: marron oscuro/carbon `#3A362E`.
+  - Fondo, si aplica: crema `#F5F1E8`.
+- Direccion visual: cercana, simple y sobria; evitar una estetica tech azulada o demasiado corporativa.
 
 ## Estructura de la pagina
 
@@ -60,4 +65,4 @@ La pagina tiene que comunicar un solo problema de fondo: el duenio no sabe que p
 
 ## Direccion aprobada
 
-Usar la direccion visual mostrada en el companion del navegador el 5 de julio de 2026: corta, emocional, blanco/negro/naranja, con hero fuerte y mockup de telefono. El usuario aprobo avanzar con esta direccion.
+Usar la direccion visual mostrada en el companion del navegador el 5 de julio de 2026 como base estructural: corta, emocional, con hero fuerte y mockup de telefono. La paleta vigente es terracota, verdes oliva, marron oscuro/carbon y crema.
