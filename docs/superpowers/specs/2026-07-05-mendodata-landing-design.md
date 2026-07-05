@@ -1,63 +1,63 @@
-# MendoData Landing Design
+# Diseno de landing para MendoData
 
-## Goal
+## Objetivo
 
-Build a static landing page for MendoData aimed at owners of small local businesses: pizzerias, cafes, sports courts, shops, and similar PyMEs.
+Armar una landing page estatica para MendoData, orientada a duenios de negocios chicos: pizzerias, cafes, canchas, comercios y PyMEs similares.
 
-The page should communicate one core problem: the owner does not know what is happening in the business when they are not physically present. The emotional consequences are losing money, anxiety, and lack of real free time.
+La pagina tiene que comunicar un solo problema de fondo: el duenio no sabe que pasa en su negocio cuando no esta fisicamente ahi. Las consecuencias emocionales y practicas son perdida de plata, ansiedad y falta de tiempo libre real.
 
-## Communication Rules
+## Reglas de comunicacion
 
-- Do not mention product, technology, portal, AI, system, dashboard, or data.
-- Talk about the real pain, not the mechanism.
-- Keep one central problem; business categories are examples only.
-- Use a close, informal, rioplatense tone.
-- Avoid tech startup language and corporate language.
-- Keep copy direct and short.
+- No mencionar producto, tecnologia, portal, IA, sistema, dashboard ni datos.
+- Hablar del dolor real, no del mecanismo.
+- Mantener un solo problema central; los rubros son ejemplos, no mensajes distintos.
+- Usar un tono cercano, informal y rioplatense.
+- Evitar lenguaje de startup tech y lenguaje corporativo.
+- Mantener el copy directo y corto.
 
-## Brand Direction
+## Direccion de marca
 
-- Name: MendoData.
-- Logo: keep the mountain plus rising bar chart icon concept.
-- Typography: do not use cursive typography.
-- Palette: white, black, and strong orange `#F2994A` as the only accent.
-- Visual direction: minimal, direct, not tech-blue and not earthy/warm-terra.
+- Nombre: MendoData.
+- Logo: conservar el concepto del icono de montania con grafico de barras ascendente.
+- Tipografia: no usar tipografia cursiva.
+- Paleta: blanco, negro y naranja fuerte `#F2994A` como unico acento.
+- Direccion visual: minimalista y directa; no ir hacia azul tech ni hacia una paleta calida-terrosa.
 
-## Page Structure
+## Estructura de la pagina
 
 1. Hero
-   - Main promise: `Tu negocio funciona, vos tambien podes desconectar`.
-   - Supporting copy should name the anxiety of being away without overexplaining.
-   - CTA should point to a simple contact action.
+   - Promesa principal: `Tu negocio funciona, vos tambien podes desconectar`.
+   - El texto de apoyo debe nombrar la ansiedad de estar lejos sin sobreexplicar.
+   - El CTA debe llevar a una accion de contacto simple.
 
-2. Weekend Example
-   - Use a phone-style mockup.
-   - Show weekend messages organized for Monday.
-   - The example should make the benefit feel concrete without explaining any mechanism.
+2. Ejemplo del finde
+   - Usar un mockup con formato de telefono.
+   - Mostrar mensajes del finde ordenados para el lunes.
+   - El ejemplo debe hacer concreto el beneficio sin explicar ningun mecanismo.
 
-3. Four Concrete Pains
-   - Short cards or blocks for:
-     - Not knowing if money was lost.
-     - Chasing updates through messages.
-     - Resting with guilt or anxiety.
-     - Starting Monday by putting out fires.
+3. Cuatro dolores concretos
+   - Bloques cortos para:
+     - No saber si se perdio plata.
+     - Perseguir novedades por mensajes.
+     - Descansar con culpa o ansiedad.
+     - Arrancar el lunes apagando incendios.
 
-4. Closing Promise
-   - Restate the emotional outcome: the owner can leave, rest, and come back with clarity.
-   - Keep it human and short.
+4. Promesa de cierre
+   - Reforzar el resultado emocional: el duenio puede irse, descansar y volver con claridad.
+   - Mantenerlo humano y corto.
 
-5. Contact Form
-   - Simple fields: name, business, contact, and message.
-   - CTA copy should feel conversational, not salesy.
+5. Formulario de contacto
+   - Campos simples: nombre, negocio, contacto y mensaje.
+   - El copy del CTA debe sentirse conversacional, no vendedor.
 
-## Interaction And Implementation
+## Interaccion e implementacion
 
-- Static HTML/CSS is enough unless the existing project requires a framework.
-- The form can be presentational for now unless a backend endpoint already exists.
-- The page must be responsive for mobile and desktop.
-- The first screen should show the brand, promise, and contact CTA.
-- The phone mockup and brand icon can be built with HTML/CSS/SVG-like CSS shapes if no image assets exist.
+- HTML/CSS estatico alcanza, salvo que el proyecto existente requiera un framework.
+- El formulario puede ser presentacional por ahora si no existe un endpoint.
+- La pagina debe ser responsive para mobile y desktop.
+- La primera pantalla debe mostrar marca, promesa y CTA de contacto.
+- El mockup del telefono y el icono de marca pueden construirse con HTML/CSS y formas tipo SVG si no hay assets disponibles.
 
-## Approved Direction
+## Direccion aprobada
 
-Use the visual direction shown in the browser companion on July 5, 2026: short, emotional, white/black/orange, with a bold hero and phone mockup. The user approved moving forward with this direction.
+Usar la direccion visual mostrada en el companion del navegador el 5 de julio de 2026: corta, emocional, blanco/negro/naranja, con hero fuerte y mockup de telefono. El usuario aprobo avanzar con esta direccion.
