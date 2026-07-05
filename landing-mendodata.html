@@ -319,26 +319,32 @@
         position: relative;
         z-index: 1;
         width: min(100%, 326px);
-        border: 12px solid var(--charcoal);
-        border-radius: 38px;
-        background: #fffaf1;
+        border: 10px solid var(--charcoal);
+        border-radius: 42px;
+        background: linear-gradient(180deg, #fffdf8, #f7efe0);
         box-shadow: var(--shadow);
         overflow: hidden;
         transform: rotate(2deg);
       }
 
+      .phone-modern {
+        aspect-ratio: 9 / 18.8;
+      }
+
       .phone-top {
-        height: 42px;
-        display: grid;
-        place-items: center;
-        background: var(--charcoal);
+        height: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fffdf8;
       }
 
       .speaker {
-        width: 82px;
-        height: 8px;
+        width: 92px;
+        height: 24px;
         border-radius: 999px;
-        background: rgba(255, 252, 245, 0.26);
+        background: var(--charcoal);
+        box-shadow: 0 0 0 4px rgba(58, 54, 46, 0.04);
       }
 
       .phone-screen {
@@ -392,6 +398,41 @@
       .message.ok {
         border-color: rgba(107, 117, 72, 0.38);
         background: rgba(169, 180, 129, 0.2);
+      }
+
+      .phone-summary {
+        margin-top: 14px;
+        border: 1px solid rgba(107, 117, 72, 0.28);
+        border-radius: 18px;
+        background: rgba(107, 117, 72, 0.09);
+        padding: 14px;
+      }
+
+      .phone-summary strong {
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .phone-tabs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-bottom: 14px;
+      }
+
+      .phone-tab {
+        border-radius: 999px;
+        padding: 8px 10px;
+        background: rgba(58, 54, 46, 0.08);
+        color: rgba(58, 54, 46, 0.72);
+        font-size: 0.78rem;
+        font-weight: 860;
+        text-align: center;
+      }
+
+      .phone-tab.active {
+        background: var(--charcoal);
+        color: var(--paper);
       }
 
       @keyframes float-message {
@@ -532,6 +573,92 @@
         color: rgba(58, 54, 46, 0.7);
       }
 
+      .before-after {
+        background: #fffaf1;
+        border-block: 1px solid var(--line);
+      }
+
+      .comparison-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-top: 34px;
+      }
+
+      .comparison-card {
+        min-height: 340px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--paper);
+        padding: clamp(20px, 4vw, 32px);
+        transition:
+          transform 220ms ease,
+          box-shadow 220ms ease,
+          border-color 220ms ease;
+      }
+
+      .comparison-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(58, 54, 46, 0.3);
+        box-shadow: 0 22px 60px rgba(58, 54, 46, 0.12);
+      }
+
+      .comparison-card.after {
+        background: rgba(169, 180, 129, 0.18);
+      }
+
+      .comparison-label {
+        display: inline-flex;
+        margin-bottom: 18px;
+        border-radius: 999px;
+        padding: 8px 12px;
+        background: rgba(193, 80, 46, 0.12);
+        color: var(--terracotta);
+        font-size: 0.82rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .comparison-card.after .comparison-label {
+        background: rgba(107, 117, 72, 0.14);
+        color: var(--olive);
+      }
+
+      .comparison-card h3 {
+        margin-bottom: 16px;
+        font-size: 2rem;
+        line-height: 1.05;
+      }
+
+      .check-list {
+        display: grid;
+        gap: 12px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .check-list li {
+        position: relative;
+        padding-left: 30px;
+        color: rgba(58, 54, 46, 0.74);
+      }
+
+      .check-list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.56em;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--terracotta);
+      }
+
+      .after .check-list li::before {
+        background: var(--olive);
+      }
+
       .pain-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -576,6 +703,120 @@
       .pain-card p {
         margin-bottom: 0;
         color: rgba(58, 54, 46, 0.68);
+      }
+
+      .about {
+        background: var(--charcoal);
+        color: var(--paper);
+      }
+
+      .about .section-kicker {
+        color: var(--olive-light);
+      }
+
+      .about .lead {
+        color: rgba(255, 252, 245, 0.76);
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: clamp(28px, 6vw, 76px);
+        align-items: start;
+      }
+
+      .principle-grid {
+        display: grid;
+        gap: 14px;
+      }
+
+      .principle-card {
+        border: 1px solid rgba(245, 241, 232, 0.18);
+        border-radius: var(--radius);
+        background: rgba(255, 252, 245, 0.06);
+        padding: 22px;
+      }
+
+      .principle-card h3 {
+        margin-bottom: 8px;
+        color: var(--olive-light);
+      }
+
+      .principle-card p {
+        margin-bottom: 0;
+        color: rgba(255, 252, 245, 0.76);
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-top: 34px;
+      }
+
+      .project-card,
+      .testimonial-card {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--paper);
+        padding: 22px;
+        transition:
+          transform 220ms ease,
+          box-shadow 220ms ease,
+          border-color 220ms ease;
+      }
+
+      .project-card:hover,
+      .testimonial-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(58, 54, 46, 0.28);
+        box-shadow: 0 22px 60px rgba(58, 54, 46, 0.12);
+      }
+
+      .project-type {
+        display: inline-flex;
+        margin-bottom: 26px;
+        border-radius: 999px;
+        padding: 8px 12px;
+        background: rgba(169, 180, 129, 0.24);
+        color: var(--olive);
+        font-size: 0.82rem;
+        font-weight: 900;
+      }
+
+      .project-card h3 {
+        margin-bottom: 10px;
+        font-size: 1.45rem;
+        line-height: 1.08;
+      }
+
+      .project-card p {
+        margin-bottom: 0;
+        color: rgba(58, 54, 46, 0.68);
+      }
+
+      .social-proof {
+        background: #fffaf1;
+        border-block: 1px solid var(--line);
+      }
+
+      .testimonial-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        margin-top: 34px;
+      }
+
+      .testimonial-card blockquote {
+        margin: 0 0 18px;
+        color: rgba(58, 54, 46, 0.82);
+        font-size: 1.2rem;
+        line-height: 1.36;
+      }
+
+      .testimonial-card figcaption {
+        color: var(--olive);
+        font-weight: 860;
       }
 
       .promise {
@@ -731,6 +972,7 @@
 
         .hero-grid,
         .split,
+        .about-grid,
         .contact-grid,
         .promise-row {
           grid-template-columns: 1fr;
@@ -744,8 +986,14 @@
           position: static;
         }
 
-        .pain-grid {
+        .pain-grid,
+        .projects-grid,
+        .testimonial-grid {
           grid-template-columns: repeat(2, 1fr);
+        }
+
+        .comparison-grid {
+          grid-template-columns: 1fr;
         }
 
         .seal {
@@ -795,7 +1043,9 @@
         }
 
         .micro-proof,
-        .pain-grid {
+        .pain-grid,
+        .projects-grid,
+        .testimonial-grid {
           grid-template-columns: 1fr;
         }
 
@@ -874,7 +1124,9 @@
           <span class="brand-word">MendoData</span>
         </a>
         <div class="nav-actions">
+          <a class="nav-link" href="#antes-despues">Antes/despues</a>
           <a class="nav-link" href="#dolores">Lo que pasa</a>
+          <a class="nav-link" href="#quienes-somos">Quienes somos</a>
           <a class="button accent" href="#contacto">Escribime</a>
         </div>
       </nav>
@@ -892,7 +1144,7 @@
             </p>
             <div class="hero-actions">
               <a class="button accent" href="#contacto">Quiero estar mas tranquilo</a>
-              <a class="button secondary" href="#finde">Ver ejemplo</a>
+              <a class="button secondary" href="#antes-despues">Ver antes y despues</a>
             </div>
             <div class="micro-proof" aria-label="Situaciones que ordena">
               <div class="proof-item"><strong>Finde</strong>sin estar encima</div>
@@ -902,12 +1154,16 @@
           </div>
 
           <div class="phone-stage reveal" aria-label="Ejemplo de mensajes organizados">
-            <div class="phone" aria-hidden="true">
+            <div class="phone phone-modern" aria-hidden="true">
               <div class="phone-top"><span class="speaker"></span></div>
               <div class="phone-screen">
                 <div class="phone-date">
                   <span>Lunes, 8:41</span>
                   <span class="status-dot"></span>
+                </div>
+                <div class="phone-tabs">
+                  <span class="phone-tab">Ruido</span>
+                  <span class="phone-tab active">Claro</span>
                 </div>
                 <div class="message">
                   <strong>Viernes</strong>
@@ -921,11 +1177,56 @@
                   <strong>Domingo</strong>
                   Todo tranquilo. Sin pendientes raros.
                 </div>
+                <div class="phone-summary">
+                  <strong>Para arrancar</strong>
+                  Primero revisar caja, despues faltantes. Lo demas puede esperar.
+                </div>
               </div>
             </div>
           </div>
         </div>
         <a class="scroll-cue" href="#finde" aria-label="Bajar"><span></span></a>
+      </section>
+
+      <section
+        class="section before-after"
+        id="antes-despues"
+        aria-labelledby="before-after-title"
+      >
+        <div class="wrap">
+          <div class="reveal">
+            <p class="section-kicker">La diferencia</p>
+            <h2 id="before-after-title">Antes era estar encima. Despues es saber que mirar.</h2>
+            <p class="lead">
+              El cambio no es hacer mas cosas. Es dejar de juntar pedazos sueltos
+              y llegar a lo importante sin perder la cabeza.
+            </p>
+          </div>
+
+          <div class="comparison-grid">
+            <article class="comparison-card reveal">
+              <span class="comparison-label">Antes</span>
+              <h3>Todo cae mezclado</h3>
+              <ul class="check-list">
+                <li>Audios a cualquier hora y capturas sin contexto.</li>
+                <li>Dudas sobre caja, faltantes o turnos que nadie ordeno.</li>
+                <li>El lunes arranca reconstruyendo que paso.</li>
+                <li>Vos descansando a medias, con el telefono cerca.</li>
+              </ul>
+            </article>
+
+            <article class="comparison-card after reveal">
+              <span class="comparison-label">Despues</span>
+              <h3>Pocas prioridades claras</h3>
+              <ul class="check-list">
+                <li>Sabes que paso y que merece atencion.</li>
+                <li>Lo urgente queda separado de lo que puede esperar.</li>
+                <li>Arrancas la semana con una idea simple de accion.</li>
+                <li>Si no paso nada raro, tambien te vas tranquilo.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
       </section>
 
       <section class="section tight" id="finde" aria-labelledby="weekend-title">
@@ -996,6 +1297,107 @@
                 <p>Primero hay que reconstruir que paso. Despues recien decidir.</p>
               </div>
             </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section about" id="quienes-somos" aria-labelledby="about-title">
+        <div class="wrap about-grid">
+          <div class="reveal">
+            <p class="section-kicker">Quienes somos</p>
+            <h2 id="about-title">Estamos del lado del duenio que termina haciendo de todo</h2>
+            <p class="lead">
+              MendoData nace para acompaniar a negocios chicos que funcionan con
+              mucho oficio, mucha intuicion y poco margen para perder tiempo. Nos
+              importa que el duenio pueda mirar su negocio con calma, incluso
+              cuando no esta ahi.
+            </p>
+          </div>
+
+          <div class="principle-grid">
+            <article class="principle-card reveal">
+              <h3>Nuestra mision</h3>
+              <p>
+                Ayudar a que cada negocio chico tenga menos ruido, menos ansiedad
+                y mas claridad para decidir.
+              </p>
+            </article>
+            <article class="principle-card reveal">
+              <h3>Nuestra vision</h3>
+              <p>
+                Que crecer no signifique vivir preso del local, del telefono o de
+                la duda constante.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="proyectos" aria-labelledby="projects-title">
+        <div class="wrap">
+          <div class="reveal">
+            <p class="section-kicker">Proyectos</p>
+            <h2 id="projects-title">Problemas parecidos, negocios distintos</h2>
+            <p class="lead">
+              Los rubros cambian. La sensacion es la misma: cuando no estas, algo
+              puede pasar y enterarte tarde sale caro.
+            </p>
+          </div>
+
+          <div class="projects-grid">
+            <article class="project-card reveal">
+              <span class="project-type">Gastronomia</span>
+              <h3>Cierres flojos y faltantes</h3>
+              <p>
+                El duenio queria dejar de reconstruir el finde con tickets,
+                mensajes y recuerdos cruzados.
+              </p>
+            </article>
+            <article class="project-card reveal">
+              <span class="project-type">Canchas</span>
+              <h3>Turnos que cambian a ultimo momento</h3>
+              <p>
+                La preocupacion era saber que habia quedado pendiente sin cortar
+                la cena para preguntar.
+              </p>
+            </article>
+            <article class="project-card reveal">
+              <span class="project-type">Comercio</span>
+              <h3>Estar pendiente fuera de horario</h3>
+              <p>
+                El problema no era trabajar mucho: era no poder cortar nunca del
+                todo.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section social-proof" aria-labelledby="social-title">
+        <div class="wrap">
+          <div class="reveal">
+            <p class="section-kicker">Mensajes de clientes</p>
+            <h2 id="social-title">Testimonios que se repiten</h2>
+            <p class="lead">
+              Cambian las palabras, pero el alivio suele aparecer en el mismo
+              lugar: poder bajar un cambio sin perder control.
+            </p>
+          </div>
+
+          <div class="testimonial-grid">
+            <figure class="testimonial-card reveal">
+              <blockquote>
+                "Antes me iba a cenar y seguia preguntando. Ahora llego al lunes
+                sabiendo por donde empezar."
+              </blockquote>
+              <figcaption>Duenio de cafe, problema de cierres y faltantes</figcaption>
+            </figure>
+            <figure class="testimonial-card reveal">
+              <blockquote>
+                "El problema no era trabajar mucho. Era no poder cortar nunca."
+              </blockquote>
+              <figcaption>Duenia de comercio, problema de estar siempre pendiente</figcaption>
+            </figure>
           </div>
         </div>
       </section>

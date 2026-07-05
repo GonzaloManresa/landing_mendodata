@@ -56,3 +56,44 @@ Patch `landing-mendodata.html` only where the browser inspection reveals layout,
 
 Run: `node --test tests/landing.test.mjs`
 Expected: PASS.
+
+### Task 3: Approved V2 Expansion
+
+**Files:**
+- Modify: `tests/landing.test.mjs`
+- Modify: `landing-mendodata.html`
+- Modify: `docs/superpowers/specs/2026-07-05-mendodata-landing-design.md`
+
+- [ ] **Step 1: Extend the test first**
+
+Update `tests/landing.test.mjs` so it requires:
+- `Antes`
+- `Despues`
+- `Quienes somos`
+- `Nuestra mision`
+- `Nuestra vision`
+- `Proyectos`
+- `Mensajes de clientes`
+- `Testimonios`
+- `class="phone-modern"`
+- `aria-labelledby="before-after-title"`
+
+- [ ] **Step 2: Run test to verify it fails**
+
+Run: `node --test tests/landing.test.mjs`
+Expected: FAIL because the approved V2 sections are not in the landing yet.
+
+- [ ] **Step 3: Implement V2 content and layout**
+
+Update `landing-mendodata.html` with:
+- A more modern phone mockup.
+- A clear before/after section near the top.
+- A compact `Quienes somos` section.
+- Mission and vision cards.
+- Projects by problem type.
+- Client-message and testimonial examples using generic rubro/cargo labels unless real names are approved.
+
+- [ ] **Step 4: Re-run tests**
+
+Run: `node --test tests/landing.test.mjs`
+Expected: PASS.
