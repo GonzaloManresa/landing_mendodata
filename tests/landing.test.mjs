@@ -11,21 +11,14 @@ const visibleText = html
   .trim()
   .toLowerCase();
 
-test('renders the approved landing sections and core promise', () => {
+test('renders the four simplified landing sections', () => {
   const requiredSnippets = [
-    'Tu negocio funciona, vos tambien podes desconectar',
-    'Antes',
-    'Despues',
+    'Hola, bienvenido',
+    'Si te identificas con una de estas 3 cosas',
     'El finde, ordenado para arrancar el lunes',
-    'Lo que te saca tiempo y cabeza',
-    'Quienes somos',
-    'Nuestra mision',
-    'Nuestra vision',
-    'Proyectos',
-    'Mensajes de clientes',
-    'Testimonios',
-    'Que puedas irte sin quedarte pensando',
+    'Lo que nos dicen',
     'Contame de tu negocio',
+    'Escribime por WhatsApp',
   ];
 
   for (const snippet of requiredSnippets) {
@@ -33,11 +26,33 @@ test('renders the approved landing sections and core promise', () => {
   }
 });
 
-test('uses the approved color palette', () => {
-  const colors = ['#C1502E', '#6B7548', '#A9B481', '#3A362E', '#F5F1E8'];
+test('drops the removed sections', () => {
+  const removed = [
+    'id="antes-despues"',
+    'id="dolores"',
+    'id="quienes-somos"',
+    'id="proyectos"',
+    'class="section promise"',
+  ];
+
+  for (const marker of removed) {
+    assert.doesNotMatch(html, new RegExp(marker, 'i'));
+  }
+});
+
+test('uses the lime-green Stitch accent palette', () => {
+  const colors = ['#A3E635', '#17170F', '#FAFBF7'];
 
   for (const color of colors) {
     assert.match(html, new RegExp(color, 'i'));
+  }
+});
+
+test('drops the retired orange and terracotta palettes', () => {
+  const retired = ['#F2994A', '#C1502E', '#6B7548', '#A9B481'];
+
+  for (const color of retired) {
+    assert.doesNotMatch(html, new RegExp(color, 'i'));
   }
 });
 
@@ -53,13 +68,15 @@ test('includes baseline accessibility and usability hooks', () => {
   assert.match(html, /<main\b/i);
   assert.match(html, /aria-label="MendoData"/i);
   assert.match(html, /href="#contacto"/i);
-  assert.match(html, /href="#antes-despues"/i);
-  assert.match(html, /href="#quienes-somos"/i);
+  assert.match(html, /href="#ejemplo"/i);
+  assert.match(html, /href="#clientes"/i);
   assert.match(html, /prefers-reduced-motion/i);
   assert.match(html, /class="[^"]*phone-modern/i);
-  assert.match(html, /aria-labelledby="before-after-title"/i);
-  assert.match(html, /name="nombre"/i);
-  assert.match(html, /name="negocio"/i);
-  assert.match(html, /name="contacto"/i);
-  assert.match(html, /name="mensaje"/i);
+});
+
+test('closes with a WhatsApp contact instead of a cold form', () => {
+  assert.match(html, /wa\.me\//i);
+  assert.doesNotMatch(html, /<form\b/i);
+  assert.doesNotMatch(html, /<input\b/i);
+  assert.doesNotMatch(html, /<textarea\b/i);
 });

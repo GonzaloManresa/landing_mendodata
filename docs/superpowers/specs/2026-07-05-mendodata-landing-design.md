@@ -84,6 +84,30 @@ La pagina tiene que comunicar un solo problema de fondo: el duenio no sabe que p
 - Las transiciones deben mejorar lectura y usabilidad, no tapar contenido ni bloquear navegacion.
 - Respetar `prefers-reduced-motion` para usuarios que prefieren menos movimiento.
 
+## Revision 2026-07-05 (segunda direccion visual, aprobada)
+
+El objetivo de esta revision es que en los primeros 3 segundos el visitante sienta
+que le puede confiar su problema a alguien que lo entiende, no que esta frente a una
+empresa de tecnologia. Cambios aprobados por el usuario:
+
+- Paleta nueva calida: fondo blanco apenas cremoso `#FBF9F5`, tinta carbon `#211E1A`,
+  y un unico acento naranja `#F2994A` reservado solo para CTA y detalles clave (nunca
+  como fondo grande). Se retira el uso protagonico de terracota/oliva/crema. El logo
+  se adapta a naranja + carbon.
+- Tipografia: titulos en sans humanista redondeada (Nunito), texto en sans limpia
+  (Inter). Sin fuentes tecnicas ni cursivas de titulo.
+- Se quita el fondo de grilla tipo papel milimetrado (lee como "tech").
+- Jerarquia de confianza: 1) promesa emocional corta + foto real de quien esta detras
+  (reemplaza el mockup de telefono en el hero); 2) el ejemplo concreto (telefono) sube
+  a ser lo primero despues del hero, como prueba; 3) los 4 dolores; 4) quienes somos y
+  equipo; 5) cierre humano.
+- Cierre: se elimina el formulario. El contacto es solo un boton grande de WhatsApp
+  (`wa.me`) con copy hablado tipo "Contame tu problema".
+- Sensacion: el contenido arriba del fold se ve al instante (no depende de reveals),
+  reveals mas suaves abajo, menos simetria tipo plantilla SaaS, cero iconos abstractos,
+  copy en voseo hablado. Se respeta `prefers-reduced-motion`.
+- Assets pendientes del usuario: foto real (`equipo.jpg`) y numero de WhatsApp.
+
 ## Direccion aprobada
 
 Usar la direccion visual mostrada en el companion del navegador el 5 de julio de 2026 como base estructural: corta, emocional, con hero fuerte y mockup de telefono. La paleta vigente es terracota, verdes oliva, marron oscuro/carbon y crema. El usuario aprobo luego la opcion A de expansion: telefono mas actualizado, antes/despues claro, quienes somos, mision, vision, proyectos, mensajes de clientes y testimonios.
