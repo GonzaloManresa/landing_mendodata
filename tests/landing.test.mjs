@@ -13,8 +13,8 @@ const visibleText = html
 
 test('renders the four simplified landing sections', () => {
   const requiredSnippets = [
-    'Hola, bienvenido',
-    'Si te identificas con una de estas 3 cosas',
+    'Hola, dueño de negocio',
+    'Ayudamos a dueños de negocios a tener',
     'El finde, ordenado para arrancar el lunes',
     'Lo que nos dicen',
     'Contame de tu negocio',
@@ -40,16 +40,16 @@ test('drops the removed sections', () => {
   }
 });
 
-test('uses the lime-green Stitch accent palette', () => {
-  const colors = ['#A3E635', '#17170F', '#FAFBF7'];
+test('uses the indigo Stitch accent palette', () => {
+  const colors = ['#6366F1', '#0D0B33', '#64748B'];
 
   for (const color of colors) {
     assert.match(html, new RegExp(color, 'i'));
   }
 });
 
-test('drops the retired orange and terracotta palettes', () => {
-  const retired = ['#F2994A', '#C1502E', '#6B7548', '#A9B481'];
+test('drops the retired lime, orange and terracotta palettes', () => {
+  const retired = ['#A3E635', '#F2994A', '#C1502E', '#6B7548', '#A9B481'];
 
   for (const color of retired) {
     assert.doesNotMatch(html, new RegExp(color, 'i'));
