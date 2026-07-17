@@ -821,90 +821,59 @@
         font-size: 1.02rem;
       }
 
-      /* Testimonials ---------------------------------------------------- */
-      .social-proof {
-        padding-block: clamp(48px, 6vw, 80px);
+      /* Process (Como trabajamos) --------------------------------------- */
+      .process {
         background: var(--tint-mint);
         border-block: 1px solid var(--line);
       }
 
-      .clients-head {
-        text-align: center;
-        max-width: 40ch;
-        margin: 0 auto 8px;
+      .process-head {
+        max-width: 48ch;
       }
 
-      .clients-head h2 {
-        max-width: none;
-        margin-inline: auto;
-      }
-
-      .clients-marquee {
-        margin-top: 36px;
-        overflow: hidden;
-        -webkit-mask-image: linear-gradient(
-          90deg,
-          transparent,
-          #000 7%,
-          #000 93%,
-          transparent
-        );
-        mask-image: linear-gradient(
-          90deg,
-          transparent,
-          #000 7%,
-          #000 93%,
-          transparent
-        );
-      }
-
-      .marquee-track {
-        display: flex;
+      .process-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
         gap: 18px;
-        width: max-content;
-        padding: 4px 0;
-        animation: marquee 46s linear infinite;
+        margin-top: clamp(36px, 5vw, 52px);
       }
 
-      .clients-marquee:hover .marquee-track {
-        animation-play-state: paused;
-      }
-
-      @keyframes marquee {
-        to {
-          transform: translateX(-50%);
-        }
-      }
-
-      .testimonial-card {
-        flex: 0 0 auto;
-        width: 340px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+      .process-step {
         border: 1px solid var(--line);
         border-radius: var(--radius);
         background: var(--surface);
-        padding: 26px;
-        box-shadow: 0 10px 26px rgba(33, 30, 26, 0.05);
+        padding: clamp(24px, 3vw, 32px);
+        box-shadow: 0 10px 30px rgba(18, 33, 46, 0.04);
       }
 
-      .testimonial-card blockquote {
-        margin: 0 0 16px;
+      .process-num {
+        display: grid;
+        place-items: center;
+        width: 46px;
+        height: 46px;
+        margin-bottom: 20px;
+        border-radius: 14px;
+        background: var(--accent-soft);
+        color: var(--accent-strong);
         font-family: var(--font-display);
         font-weight: 600;
-        font-size: 1.14rem;
-        line-height: 1.4;
+        font-size: 1.35rem;
       }
 
-      .testimonial-card figcaption {
-        color: var(--ink-mute);
-        font-size: 0.92rem;
+      .process-grid .process-step:nth-child(2) .process-num {
+        background: var(--green-soft);
+        color: var(--green-strong);
       }
 
-      .testimonial-card figcaption strong {
-        color: var(--ink);
-        font-weight: 700;
+      .process-step h3 {
+        margin: 0 0 8px;
+        font-size: 1.24rem;
+        font-weight: 600;
+      }
+
+      .process-step p {
+        margin: 0;
+        color: var(--ink-soft);
       }
 
       /* Contact / mail -------------------------------------------------- */
@@ -1116,7 +1085,8 @@
           width: 100%;
         }
 
-        .team {
+        .team,
+        .process-grid {
           grid-template-columns: 1fr;
         }
 
@@ -1161,7 +1131,7 @@
         </a>
         <div class="nav-actions">
           <a class="nav-link" href="#ejemplo">El ejemplo</a>
-          <a class="nav-link" href="#clientes">Clientes</a>
+          <a class="nav-link" href="#proceso">Proceso</a>
           <a class="nav-link" href="#nosotros">Nosotros</a>
           <a class="button accent" href="#contacto">Contactanos</a>
         </div>
@@ -1287,66 +1257,45 @@
         </div>
       </section>
 
-      <!-- MINI CLIENTES: carrusel que va pasando -->
-      <section class="section social-proof" id="clientes" aria-labelledby="social-title">
+      <!-- COMO TRABAJAMOS: 3 pasos del proceso -->
+      <section class="section process" id="proceso" aria-labelledby="process-title">
         <div class="wrap">
-          <div class="reveal clients-head">
-            <p class="kicker">Clientes</p>
-            <h2 id="social-title">Lo que dicen nuestros clientes</h2>
+          <div class="reveal process-head">
+            <p class="kicker">Como trabajamos</p>
+            <h2 id="process-title">Un proceso simple, de principio a fin</h2>
+            <p class="lead">
+              No necesitas cambiar como trabajas hoy. Nos ocupamos de ordenar la
+              informacion y vos recibis solo lo que importa.
+            </p>
           </div>
-        </div>
 
-        <div class="clients-marquee reveal" aria-label="Lo que dicen los clientes">
-          <div class="marquee-track">
-            <figure class="testimonial-card">
-              <blockquote>"Antes no lograba desconectarme del local. Ahora llego el lunes sabiendo exactamente por donde empezar."</blockquote>
-              <figcaption><strong>Martin</strong> &middot; Pizzeria</figcaption>
-            </figure>
-            <figure class="testimonial-card">
-              <blockquote>"El problema no era el volumen de trabajo, sino no poder desconectarme nunca. Eso cambio."</blockquote>
-              <figcaption><strong>Caro</strong> &middot; Comercio de ropa</figcaption>
-            </figure>
-            <figure class="testimonial-card">
-              <blockquote>"Los domingos dejamos de estar pendientes del telefono a cada momento."</blockquote>
-              <figcaption><strong>Lucas</strong> &middot; Cancha de futbol</figcaption>
-            </figure>
-            <figure class="testimonial-card">
-              <blockquote>"Llego el lunes con claridad sobre que priorizar. Nos organizo la semana."</blockquote>
-              <figcaption><strong>Vale</strong> &middot; Cafeteria</figcaption>
-            </figure>
-            <figure class="testimonial-card">
-              <blockquote>"Dejamos de reconstruir el fin de semana entre todos cada lunes."</blockquote>
-              <figcaption><strong>Diego</strong> &middot; Kiosco</figcaption>
-            </figure>
-            <figure class="testimonial-card">
-              <blockquote>"Nos enteramos de lo importante sin necesidad de estar presentes en el local."</blockquote>
-              <figcaption><strong>Sofi</strong> &middot; Resto</figcaption>
-            </figure>
+          <div class="process-grid reveal">
+            <article class="process-step">
+              <span class="process-num" aria-hidden="true">1</span>
+              <h3>Entendemos tu negocio</h3>
+              <p>
+                Analizamos como funciona tu operacion hoy y que informacion se te
+                esta escapando. Una primera charla, sin compromiso.
+              </p>
+            </article>
 
-            <figure class="testimonial-card" aria-hidden="true">
-              <blockquote>"Antes no lograba desconectarme del local. Ahora llego el lunes sabiendo exactamente por donde empezar."</blockquote>
-              <figcaption><strong>Martin</strong> &middot; Pizzeria</figcaption>
-            </figure>
-            <figure class="testimonial-card" aria-hidden="true">
-              <blockquote>"El problema no era el volumen de trabajo, sino no poder desconectarme nunca. Eso cambio."</blockquote>
-              <figcaption><strong>Caro</strong> &middot; Comercio de ropa</figcaption>
-            </figure>
-            <figure class="testimonial-card" aria-hidden="true">
-              <blockquote>"Los domingos dejamos de estar pendientes del telefono a cada momento."</blockquote>
-              <figcaption><strong>Lucas</strong> &middot; Cancha de futbol</figcaption>
-            </figure>
-            <figure class="testimonial-card" aria-hidden="true">
-              <blockquote>"Llego el lunes con claridad sobre que priorizar. Nos organizo la semana."</blockquote>
-              <figcaption><strong>Vale</strong> &middot; Cafeteria</figcaption>
-            </figure>
-            <figure class="testimonial-card" aria-hidden="true">
-              <blockquote>"Dejamos de reconstruir el fin de semana entre todos cada lunes."</blockquote>
-              <figcaption><strong>Diego</strong> &middot; Kiosco</figcaption>
-            </figure>
-            <figure class="testimonial-card" aria-hidden="true">
-              <blockquote>"Nos enteramos de lo importante sin necesidad de estar presentes en el local."</blockquote>
-              <figcaption><strong>Sofi</strong> &middot; Resto</figcaption>
-            </figure>
+            <article class="process-step">
+              <span class="process-num" aria-hidden="true">2</span>
+              <h3>Armamos tu sistema</h3>
+              <p>
+                Conectamos tus datos y automatizamos los resumenes, adaptandonos a
+                las herramientas que ya usas en el dia a dia.
+              </p>
+            </article>
+
+            <article class="process-step">
+              <span class="process-num" aria-hidden="true">3</span>
+              <h3>Te acompanamos</h3>
+              <p>
+                Ajustamos lo que haga falta y respondemos tus dudas. Vos recibis la
+                informacion clara; nosotros nos ocupamos del resto.
+              </p>
+            </article>
           </div>
         </div>
       </section>
