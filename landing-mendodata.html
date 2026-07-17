@@ -203,12 +203,6 @@
         font-size: 1.14rem;
       }
 
-      .btn-icon {
-        width: 22px;
-        height: 22px;
-        flex: 0 0 auto;
-      }
-
       :focus-visible {
         outline: 3px solid var(--accent);
         outline-offset: 3px;
@@ -976,16 +970,73 @@
         font-size: 1.02rem;
       }
 
-      .contact-actions {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 14px;
+      .contact-form {
+        display: grid;
+        gap: 16px;
+        max-width: 540px;
+        margin: 8px auto 0;
+        text-align: left;
       }
 
-      .contact-aside {
+      .field {
+        display: grid;
+        gap: 7px;
+      }
+
+      .field label {
+        color: var(--ink);
+        font-weight: 600;
+        font-size: 0.92rem;
+      }
+
+      .field-opt {
         color: var(--ink-mute);
-        font-size: 0.94rem;
+        font-weight: 500;
+      }
+
+      .field input,
+      .field textarea {
+        width: 100%;
+        padding: 13px 15px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--surface);
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-size: 1rem;
+        line-height: 1.4;
+        transition:
+          border-color 160ms ease,
+          box-shadow 160ms ease;
+      }
+
+      .field textarea {
+        min-height: 132px;
+        resize: vertical;
+      }
+
+      .field input::placeholder,
+      .field textarea::placeholder {
+        color: var(--ink-mute);
+      }
+
+      .field input:focus,
+      .field textarea:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px var(--accent-soft);
+      }
+
+      .contact-form .button {
+        width: 100%;
+        margin-top: 4px;
+      }
+
+      .form-hint {
+        margin: 0;
+        text-align: center;
+        color: var(--ink-mute);
+        font-size: 0.9rem;
       }
 
       /* Footer ---------------------------------------------------------- */
@@ -1110,8 +1161,8 @@
         </a>
         <div class="nav-actions">
           <a class="nav-link" href="#ejemplo">El ejemplo</a>
-          <a class="nav-link" href="#nosotros">Nosotros</a>
           <a class="nav-link" href="#clientes">Clientes</a>
+          <a class="nav-link" href="#nosotros">Nosotros</a>
           <a class="button accent" href="#contacto">Contactanos</a>
         </div>
       </nav>
@@ -1236,59 +1287,6 @@
         </div>
       </section>
 
-      <!-- QUIENES SOMOS: las personas de confianza detras -->
-      <!-- REEMPLAZAR: nombres, roles, "de que se encarga" y fotos reales del equipo -->
-      <section class="section" id="nosotros" aria-labelledby="about-title">
-        <div class="wrap">
-          <div class="reveal about-head">
-            <p class="kicker">Quienes somos</p>
-            <h2 id="about-title">Un equipo especializado en datos y automatizacion</h2>
-            <p class="lead">
-              Somos un equipo de Mendoza especializado en analisis de datos y
-              automatizacion. Nos complementamos para que no tengas que ocuparte
-              de la parte tecnica: uno estructura la informacion, el otro
-              construye el sistema que la entrega automaticamente.
-            </p>
-          </div>
-
-          <div class="team reveal">
-            <article class="team-member">
-              <div class="team-head">
-                <!-- Para foto real: reemplaza el <span> por <img class="team-photo" src="..." alt="Foto de ..."> -->
-                <span class="team-photo" aria-hidden="true">JD</span>
-                <div>
-                  <span class="team-name">Nombre Apellido</span>
-                  <span class="team-role">Analisis de datos</span>
-                </div>
-              </div>
-              <p class="team-do">
-                Convierte los numeros de tu negocio en <strong>informacion clara</strong>:
-                que revisar primero y que puede esperar.
-              </p>
-            </article>
-
-            <article class="team-member">
-              <div class="team-head">
-                <span class="team-photo" aria-hidden="true">GM</span>
-                <div>
-                  <span class="team-name">Nombre Apellido</span>
-                  <span class="team-role">Implementacion y automatizacion</span>
-                </div>
-              </div>
-              <p class="team-do">
-                Desarrolla el sistema para que los datos <strong>lleguen automaticamente</strong>,
-                sin que modifiques tu forma de trabajar actual.
-              </p>
-            </article>
-          </div>
-
-          <p class="team-note reveal">
-            Trabajamos con comercios y negocios a diario. Sabemos que informacion
-            es relevante, cual se puede ignorar y como presentartela con claridad.
-          </p>
-        </div>
-      </section>
-
       <!-- MINI CLIENTES: carrusel que va pasando -->
       <section class="section social-proof" id="clientes" aria-labelledby="social-title">
         <div class="wrap">
@@ -1353,6 +1351,59 @@
         </div>
       </section>
 
+      <!-- QUIENES SOMOS: las personas de confianza detras -->
+      <!-- REEMPLAZAR: nombres, roles, "de que se encarga" y fotos reales del equipo -->
+      <section class="section" id="nosotros" aria-labelledby="about-title">
+        <div class="wrap">
+          <div class="reveal about-head">
+            <p class="kicker">Quienes somos</p>
+            <h2 id="about-title">Un equipo especializado en datos y automatizacion</h2>
+            <p class="lead">
+              Somos un equipo de Mendoza especializado en analisis de datos y
+              automatizacion. Nos complementamos para que no tengas que ocuparte
+              de la parte tecnica: uno estructura la informacion, el otro
+              construye el sistema que la entrega automaticamente.
+            </p>
+          </div>
+
+          <div class="team reveal">
+            <article class="team-member">
+              <div class="team-head">
+                <!-- Para foto real: reemplaza el <span> por <img class="team-photo" src="..." alt="Foto de ..."> -->
+                <span class="team-photo" aria-hidden="true">JD</span>
+                <div>
+                  <span class="team-name">Nombre Apellido</span>
+                  <span class="team-role">Analisis de datos</span>
+                </div>
+              </div>
+              <p class="team-do">
+                Convierte los numeros de tu negocio en <strong>informacion clara</strong>:
+                que revisar primero y que puede esperar.
+              </p>
+            </article>
+
+            <article class="team-member">
+              <div class="team-head">
+                <span class="team-photo" aria-hidden="true">GM</span>
+                <div>
+                  <span class="team-name">Nombre Apellido</span>
+                  <span class="team-role">Implementacion y automatizacion</span>
+                </div>
+              </div>
+              <p class="team-do">
+                Desarrolla el sistema para que los datos <strong>lleguen automaticamente</strong>,
+                sin que modifiques tu forma de trabajar actual.
+              </p>
+            </article>
+          </div>
+
+          <p class="team-note reveal">
+            Trabajamos con comercios y negocios a diario. Sabemos que informacion
+            es relevante, cual se puede ignorar y como presentartela con claridad.
+          </p>
+        </div>
+      </section>
+
       <!-- CIERRE: contacto por mail -->
       <section class="section contact" id="contacto" aria-labelledby="contact-title">
         <div class="wrap reveal">
@@ -1366,20 +1417,48 @@
             Trabajamos con negocios que buscan mas orden y tranquilidad en su
             operacion diaria.
           </p>
-          <div class="contact-actions">
-            <!-- REEMPLAZAR: contacto@mendodata.com por tu direccion de mail real -->
-            <a
-              class="button accent big"
-              href="mailto:contacto@mendodata.com?subject=Consulta%20desde%20la%20web&body=Hola%2C%20tengo%20un%20negocio%20y%20me%20gustaria%20saber%20como%20pueden%20ayudarme."
+          <!-- REEMPLAZAR: contacto@mendodata.com por tu direccion de mail real (en el action) -->
+          <!-- FormSubmit activa el envio la primera vez con un mail de confirmacion a esa casilla -->
+          <form
+            class="contact-form reveal"
+            action="https://formsubmit.co/contacto@mendodata.com"
+            method="POST"
+          >
+            <input type="hidden" name="_subject" value="Nueva consulta desde la web">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <input
+              type="text"
+              name="_honey"
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+              style="display: none"
             >
-              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-                <path d="m3 7 9 6 9-6"></path>
-              </svg>
-              Escribinos un correo
-            </a>
-            <span class="contact-aside">Respondemos todas las consultas a la brevedad.</span>
-          </div>
+
+            <div class="field">
+              <label for="cf-nombre">Nombre</label>
+              <input id="cf-nombre" name="nombre" type="text" autocomplete="name" required placeholder="Tu nombre">
+            </div>
+
+            <div class="field">
+              <label for="cf-email">Email</label>
+              <input id="cf-email" name="email" type="email" autocomplete="email" required placeholder="tucorreo@ejemplo.com">
+            </div>
+
+            <div class="field">
+              <label for="cf-negocio">Negocio <span class="field-opt">(opcional)</span></label>
+              <input id="cf-negocio" name="negocio" type="text" placeholder="Nombre o rubro de tu negocio">
+            </div>
+
+            <div class="field">
+              <label for="cf-mensaje">Mensaje</label>
+              <textarea id="cf-mensaje" name="mensaje" required placeholder="Contanos brevemente que necesitas."></textarea>
+            </div>
+
+            <button type="submit" class="button accent big">Enviar consulta</button>
+            <p class="form-hint">Respondemos todas las consultas a la brevedad.</p>
+          </form>
         </div>
       </section>
     </main>
