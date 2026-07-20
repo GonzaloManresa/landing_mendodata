@@ -97,6 +97,18 @@ test('uses Manrope for display typography and keeps Inter for body copy', () => 
   assert.match(html, /h1\s*\{[^}]*font-weight:\s*700;/i);
   assert.match(html, /h2\s*\{[^}]*font-weight:\s*700;/i);
   assert.match(html, /h3\s*\{[^}]*font-weight:\s*600;/i);
+  const secondaryDisplaySelectors = [
+    /\.help-list strong\s*\{[^}]*font-weight:\s*600;/i,
+    /\.chat-avatar\s*\{[^}]*font-weight:\s*600;/i,
+    /\.team-photo\s*\{[^}]*font-weight:\s*600;/i,
+    /\.team-name\s*\{[^}]*font-weight:\s*600;/i,
+    /\.process-num\s*\{[^}]*font-weight:\s*600;/i,
+    /\.timeline-item h3\s*\{[^}]*font-weight:\s*600;/i,
+  ];
+
+  for (const selector of secondaryDisplaySelectors) {
+    assert.match(html, selector);
+  }
   assert.doesNotMatch(html, /Fraunces|Iowan Old Style|Palatino Linotype/i);
 });
 
