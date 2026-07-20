@@ -75,10 +75,17 @@ test('includes baseline accessibility and usability hooks', () => {
   assert.match(html, /class="[^"]*phone-modern/i);
 });
 
-test('closes with an accessible FormSubmit contact form', () => {
+test('closes with the configured FormSubmit contact form', () => {
   assert.match(html, /<form\b/i);
-  assert.match(html, /action="https:\/\/formsubmit\.co\//i);
+  assert.match(
+    html,
+    /action="https:\/\/formsubmit\.co\/mendodata@gmail\.com"/i,
+  );
   assert.match(html, /method="POST"/i);
+  assert.match(html, /name="_subject" value="Nueva consulta desde la web"/i);
+  assert.match(html, /name="_template" value="table"/i);
+  assert.match(html, /name="_honey"/i);
+  assert.doesNotMatch(html, /name="_captcha"\s+value="false"/i);
   assert.match(html, /<input[^>]+name="nombre"[^>]+required/i);
   assert.match(html, /<input[^>]+name="email"[^>]+required/i);
   assert.match(html, /<textarea[^>]+name="mensaje"[^>]+required/i);
