@@ -80,3 +80,22 @@ test('closes with a WhatsApp contact instead of a cold form', () => {
   assert.doesNotMatch(html, /<input\b/i);
   assert.doesNotMatch(html, /<textarea\b/i);
 });
+
+test('uses Manrope for display typography and keeps Inter for body copy', () => {
+  assert.match(
+    html,
+    /family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700&display=swap/i,
+  );
+  assert.match(
+    html,
+    /--font-display:\s*"Manrope", ui-sans-serif, system-ui, -apple-system, sans-serif;/i,
+  );
+  assert.match(
+    html,
+    /--font-body:\s*"Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;/i,
+  );
+  assert.match(html, /h1\s*\{[^}]*font-weight:\s*700;/i);
+  assert.match(html, /h2\s*\{[^}]*font-weight:\s*700;/i);
+  assert.match(html, /h3\s*\{[^}]*font-weight:\s*600;/i);
+  assert.doesNotMatch(html, /Fraunces|Iowan Old Style|Palatino Linotype/i);
+});
