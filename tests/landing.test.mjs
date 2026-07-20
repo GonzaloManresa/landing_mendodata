@@ -45,6 +45,32 @@ test('guides Instagram visitors from the hero and example to contact', () => {
   );
 });
 
+test('keeps a progressively enhanced contact CTA available on mobile', () => {
+  assert.match(
+    html,
+    /<a[^>]+class="[^"]*mobile-contact-cta[^"]*"[^>]+href="#contacto"[^>]*>\s*Contanos tu caso\s*<\/a>/i,
+  );
+  assert.match(
+    html,
+    /\.mobile-contact-cta\s*\{[^}]*display:\s*none;/i,
+  );
+  assert.match(
+    html,
+    /@media\s*\(max-width:\s*640px\)[\s\S]*\.mobile-contact-cta\s*\{[^}]*display:\s*inline-flex;/i,
+  );
+  assert.match(
+    html,
+    /\.mobile-contact-cta\.is-hidden\s*\{[^}]*pointer-events:\s*none;/i,
+  );
+  assert.match(html, /const contactSection = document\.querySelector\('#contacto'\)/i);
+  assert.match(html, /const contactObserver = new IntersectionObserver/i);
+  assert.match(
+    html,
+    /mobileContactCta\.classList\.toggle\('is-hidden',\s*entry\.isIntersecting\)/i,
+  );
+  assert.doesNotMatch(html, /addEventListener\(['"]submit/i);
+});
+
 test('drops the removed sections', () => {
   const removed = [
     'id="antes-despues"',
@@ -92,6 +118,11 @@ test('includes baseline accessibility and usability hooks', () => {
   assert.match(html, /href="#nosotros"/i);
   assert.match(html, /prefers-reduced-motion/i);
   assert.match(html, /class="[^"]*phone-modern/i);
+  assert.match(html, /#contacto\s*\{[^}]*scroll-margin-top:/i);
+  assert.match(
+    html,
+    /\.mobile-contact-cta[\s\S]*min-height:\s*50px/i,
+  );
 });
 
 test('closes with the configured FormSubmit contact form', () => {
@@ -110,6 +141,13 @@ test('closes with the configured FormSubmit contact form', () => {
   assert.match(html, /<textarea[^>]+name="mensaje"[^>]+required/i);
   assert.match(html, /<button[^>]+type="submit"/i);
   assert.doesNotMatch(html, /wa\.me\//i);
+  const visibleContactFields = [
+    ...html.matchAll(/<(?:input|textarea)[^>]+name="(nombre|email|negocio|mensaje)"[^>]*>/gi),
+  ].map((match) => match[1].toLowerCase());
+  assert.deepEqual(
+    visibleContactFields,
+    ['nombre', 'email', 'negocio', 'mensaje'],
+  );
 });
 
 test('uses Manrope for display typography and keeps Inter for body copy', () => {

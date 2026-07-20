@@ -913,6 +913,14 @@
         color: var(--ink-soft);
       }
 
+      #contacto {
+        scroll-margin-top: 82px;
+      }
+
+      .mobile-contact-cta {
+        display: none;
+      }
+
       /* Contact / mail -------------------------------------------------- */
       .contact {
         position: relative;
@@ -1150,6 +1158,29 @@
 
         .lead {
           font-size: 1.06rem;
+        }
+
+        .mobile-contact-cta {
+          position: fixed;
+          right: 16px;
+          bottom: max(16px, env(safe-area-inset-bottom));
+          left: 16px;
+          z-index: 20;
+          display: inline-flex;
+          min-height: 50px;
+          opacity: 1;
+          visibility: visible;
+          transition:
+            opacity 160ms ease,
+            transform 160ms ease,
+            visibility 160ms ease;
+        }
+
+        .mobile-contact-cta.is-hidden {
+          opacity: 0;
+          visibility: hidden;
+          transform: translateY(12px);
+          pointer-events: none;
         }
       }
 
@@ -1472,6 +1503,8 @@
       </section>
     </main>
 
+    <a class="mobile-contact-cta button accent" href="#contacto">Contanos tu caso</a>
+
     <footer class="site-footer">
       <div class="footer-inner">
         <a class="brand" href="#inicio" aria-label="MendoData inicio">
@@ -1501,6 +1534,19 @@
         for (const item of reveals) observer.observe(item);
       } else {
         for (const item of reveals) item.classList.add('is-visible');
+      }
+
+      const mobileContactCta = document.querySelector('.mobile-contact-cta');
+      const contactSection = document.querySelector('#contacto');
+
+      if (mobileContactCta && contactSection && 'IntersectionObserver' in window) {
+        const contactObserver = new IntersectionObserver((entries) => {
+          for (const entry of entries) {
+            mobileContactCta.classList.toggle('is-hidden', entry.isIntersecting);
+          }
+        }, { threshold: 0.05 });
+
+        contactObserver.observe(contactSection);
       }
     </script>
   </body>
