@@ -99,3 +99,11 @@ test('uses Manrope for display typography and keeps Inter for body copy', () => 
   assert.match(html, /h3\s*\{[^}]*font-weight:\s*600;/i);
   assert.doesNotMatch(html, /Fraunces|Iowan Old Style|Palatino Linotype/i);
 });
+
+test('positions the hero content closer to the header', () => {
+  assert.match(
+    html,
+    /\.hero\s*\{[^}]*padding:\s*clamp\(24px, 3vw, 40px\) 22px clamp\(56px, 8vw, 92px\);/i,
+  );
+  assert.doesNotMatch(html, /clamp\(40px, 6vw, 76px\)/i);
+});
