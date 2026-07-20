@@ -14,7 +14,7 @@ const visibleText = html
 test('renders the current landing sections', () => {
   const requiredSnippets = [
     'Analisis de datos y automatizacion',
-    'Si buscas alguno de estos objetivos, podemos ayudarte a lograrlo',
+    'Más control de tu negocio, menos tiempo reuniendo información',
     'El fin de semana, ordenado para arrancar el lunes',
     'Un proceso simple, de principio a fin',
     'Un equipo especializado en datos y automatizacion',
@@ -24,6 +24,25 @@ test('renders the current landing sections', () => {
   for (const snippet of requiredSnippets) {
     assert.match(html, new RegExp(snippet, 'i'));
   }
+});
+
+test('guides Instagram visitors from the hero and example to contact', () => {
+  assert.match(
+    html,
+    /Más control de tu negocio, menos tiempo reuniendo información/i,
+  );
+  assert.match(
+    html,
+    /Organizamos tus datos y automatizamos tareas para que puedas decidir con claridad y trabajar con más tranquilidad\./i,
+  );
+  assert.match(
+    html,
+    /<a[^>]+href="#contacto"[^>]*>\s*Contanos qué necesitás\s*<\/a>/i,
+  );
+  assert.match(
+    html,
+    /<section[^>]+class="[^"]*conversion-cta[^"]*"[\s\S]*¿Te gustaría tener esta claridad en tu negocio\?[\s\S]*Contanos cómo trabajás hoy y evaluamos dónde podemos ayudarte\.[\s\S]*<a[^>]+href="#contacto"[^>]*>\s*Contanos tu caso\s*<\/a>[\s\S]*<\/section>/i,
+  );
 });
 
 test('drops the removed sections', () => {

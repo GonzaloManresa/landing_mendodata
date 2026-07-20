@@ -383,6 +383,13 @@
         color: var(--ink);
       }
 
+      .hero-lead {
+        max-width: 58ch;
+        margin: 0 0 28px;
+        color: var(--ink-soft);
+        font-size: 1.12rem;
+      }
+
       .hooks {
         display: flex;
         flex-direction: column;
@@ -427,6 +434,33 @@
         flex-wrap: wrap;
         gap: 12px;
         align-items: center;
+      }
+
+      .conversion-cta {
+        padding: 40px 22px;
+        border-bottom: 1px solid var(--line);
+        background: var(--tint-blue);
+      }
+
+      .conversion-cta .wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 28px;
+      }
+
+      .conversion-cta h2 {
+        margin-bottom: 8px;
+        font-size: clamp(1.55rem, 3vw, 2.25rem);
+      }
+
+      .conversion-cta p:last-child {
+        margin: 0;
+        color: var(--ink-soft);
+      }
+
+      .conversion-cta .button {
+        flex: 0 0 auto;
       }
 
       /* "Asi te ayudamos" card ----------------------------------------- */
@@ -1096,6 +1130,19 @@
           width: 100%;
         }
 
+        .conversion-cta {
+          padding: 34px 16px;
+        }
+
+        .conversion-cta .wrap {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .conversion-cta .button {
+          width: 100%;
+        }
+
         .team,
         .process-grid {
           grid-template-columns: 1fr;
@@ -1154,12 +1201,10 @@
               <li>Menos trabajo los fines de semana</li>
               <li>Mayor organizacion y control</li>
             </ul>
-            <h1 id="hero-title">Si buscas alguno de estos objetivos, podemos ayudarte a lograrlo</h1>
+            <h1 id="hero-title">Más control de tu negocio, menos tiempo reuniendo información</h1>
+            <p class="hero-lead">Organizamos tus datos y automatizamos tareas para que puedas decidir con claridad y trabajar con más tranquilidad.</p>
             <div class="hero-actions">
-              <a
-                class="button accent"
-                href="#contacto"
-              >Contactanos</a>
+              <a class="button accent" href="#contacto">Contanos qué necesitás</a>
               <a class="button ghost" href="#ejemplo">Ver un ejemplo</a>
             </div>
           </div>
@@ -1259,6 +1304,17 @@
               <div class="phone-home" aria-hidden="true"></div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section class="conversion-cta" aria-labelledby="conversion-title">
+        <div class="wrap reveal">
+          <div>
+            <p class="kicker">Hablemos de tu negocio</p>
+            <h2 id="conversion-title">¿Te gustaría tener esta claridad en tu negocio?</h2>
+            <p>Contanos cómo trabajás hoy y evaluamos dónde podemos ayudarte.</p>
+          </div>
+          <a class="button accent" href="#contacto">Contanos tu caso</a>
         </div>
       </section>
 
