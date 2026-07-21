@@ -27,6 +27,25 @@ test('renders the current landing sections', () => {
   }
 });
 
+test('presents the approved MendoData team profiles', () => {
+  const approvedProfiles = [
+    'Juan Diego Caballero',
+    'Ingeniero en Sistemas',
+    'Construye las automatizaciones y sistemas para que la informaciÃ³n llegue sola, sin que cambies tu forma de trabajar.',
+    'Gonzalo Manresa',
+    'Analista de Negocios',
+    'Transforma los datos de tu negocio en informaciÃ³n clara para saber quÃ© revisar primero y tomar mejores decisiones.',
+  ];
+
+  for (const profileText of approvedProfiles) {
+    assert.match(html, new RegExp(profileText, 'i'));
+  }
+
+  assert.doesNotMatch(html, /<span class="team-name">Nombre Apellido<\/span>/i);
+  assert.match(html, /<span class="team-photo" aria-hidden="true">JD<\/span>/i);
+  assert.match(html, /<span class="team-photo" aria-hidden="true">GM<\/span>/i);
+});
+
 test('guides Instagram visitors from the hero and example to contact', () => {
   assert.match(
     html,
