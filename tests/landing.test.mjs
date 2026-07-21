@@ -28,17 +28,27 @@ test('renders the current landing sections', () => {
 });
 
 test('presents the approved MendoData team profiles', () => {
-  const approvedProfiles = [
-    'Juan Diego Caballero',
-    'Ingeniero en Sistemas',
-    'Construye las automatizaciones y sistemas para que la información llegue sola, sin que cambies tu forma de trabajar.',
-    'Gonzalo Manresa',
-    'Analista de Negocios',
-    'Transforma los datos de tu negocio en información clara para saber qué revisar primero y tomar mejores decisiones.',
+  const teamMembers = [...html.matchAll(/<article class="team-member">([\s\S]*?)<\/article>/gi)]
+    .map((match) => match[1]);
+  const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const profilesByCard = [
+    [
+      'Juan Diego Caballero',
+      'Ingeniero en Sistemas',
+      'Construye las automatizaciones y sistemas para que la informaci\u00f3n llegue sola, sin que cambies tu forma de trabajar.',
+    ],
+    [
+      'Gonzalo Manresa',
+      'Analista de Negocios',
+      'Transforma los datos de tu negocio en informaci\u00f3n clara para saber qu\u00e9 revisar primero y tomar mejores decisiones.',
+    ],
   ];
 
-  for (const profileText of approvedProfiles) {
-    assert.match(html, new RegExp(profileText, 'i'));
+  assert.equal(teamMembers.length, 2);
+  for (const [index, profile] of profilesByCard.entries()) {
+    for (const profileText of profile) {
+      assert.match(teamMembers[index], new RegExp(escapeRegExp(profileText), 'i'));
+    }
   }
 
   assert.doesNotMatch(html, /<span class="team-name">Nombre Apellido<\/span>/i);
