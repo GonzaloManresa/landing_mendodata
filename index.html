@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>document.documentElement.classList.add('js');</script>
     <title>MendoData | Analisis de datos y automatizacion para tu negocio</title>
     <meta
       name="description"
@@ -1076,6 +1077,11 @@
 
       /* Reveal (below the fold only) ------------------------------------ */
       .reveal {
+        opacity: 1;
+        transform: none;
+      }
+
+      .js .reveal {
         opacity: 0;
         transform: translateY(18px);
         transition:
@@ -1196,7 +1202,7 @@
           transition-duration: 0.001ms !important;
         }
 
-        .reveal {
+        .js .reveal {
           opacity: 1;
           transform: none;
         }

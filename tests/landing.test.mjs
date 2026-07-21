@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { runInNewContext } from 'node:vm';
 
 const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
 const visibleText = html
@@ -64,11 +65,77 @@ test('keeps a progressively enhanced contact CTA available on mobile', () => {
   );
   assert.match(html, /const contactSection = document\.querySelector\('#contacto'\)/i);
   assert.match(html, /const contactObserver = new IntersectionObserver/i);
+  assert.match(html, /contactObserver\.observe\(contactSection\)/i);
   assert.match(
     html,
     /mobileContactCta\.classList\.toggle\('is-hidden',\s*entry\.isIntersecting\)/i,
   );
   assert.doesNotMatch(html, /addEventListener\(['"]submit/i);
+});
+
+test('keeps reveal content visible until JavaScript opts into animation', () => {
+  assert.match(
+    html,
+    /<head>[\s\S]*?<script>\s*document\.documentElement\.classList\.add\(['"]js['"]\);\s*<\/script>/i,
+  );
+  assert.match(html, /\.reveal\s*\{[^}]*opacity:\s*1;[^}]*transform:\s*none;/i);
+  assert.match(
+    html,
+    /\.js\s+\.reveal\s*\{[^}]*opacity:\s*0;[^}]*transform:\s*translateY\(18px\);/i,
+  );
+  assert.doesNotMatch(html, /(?<!\.js\s)\.reveal\s*\{[^}]*opacity:\s*0;/i);
+  assert.match(
+    html,
+    /\.reveal\.is-visible\s*\{[^}]*opacity:\s*1;[^}]*transform:\s*translateY\(0\);/i,
+  );
+});
+
+test('toggles the mobile contact CTA as the contact section enters and leaves view', () => {
+  const scripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/gi)];
+  const behaviorScript = scripts.at(-1)[1];
+  const hiddenClasses = new Set();
+  const mobileContactCta = {
+    classList: {
+      toggle(name, force) {
+        if (force) hiddenClasses.add(name);
+        else hiddenClasses.delete(name);
+      },
+    },
+  };
+  const contactSection = {};
+  const observers = [];
+
+  class IntersectionObserver {
+    constructor(callback) {
+      this.callback = callback;
+      this.observed = [];
+      observers.push(this);
+    }
+
+    observe(target) {
+      this.observed.push(target);
+    }
+
+    unobserve() {}
+  }
+
+  runInNewContext(behaviorScript, {
+    document: {
+      querySelectorAll: () => [],
+      querySelector: (selector) => selector === '#contacto' ? contactSection : mobileContactCta,
+    },
+    window: { IntersectionObserver },
+    IntersectionObserver,
+  });
+
+  const contactObserver = observers.at(-1);
+  assert.deepEqual(contactObserver.observed, [contactSection]);
+
+  contactObserver.callback([{ isIntersecting: true }]);
+  assert.equal(hiddenClasses.has('is-hidden'), true);
+
+  contactObserver.callback([{ isIntersecting: false }]);
+  assert.equal(hiddenClasses.has('is-hidden'), false);
 });
 
 test('drops the removed sections', () => {
