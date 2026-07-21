@@ -31,10 +31,10 @@ test('presents the approved MendoData team profiles', () => {
   const approvedProfiles = [
     'Juan Diego Caballero',
     'Ingeniero en Sistemas',
-    'Construye las automatizaciones y sistemas para que la informaciÃ³n llegue sola, sin que cambies tu forma de trabajar.',
+    'Construye las automatizaciones y sistemas para que la información llegue sola, sin que cambies tu forma de trabajar.',
     'Gonzalo Manresa',
     'Analista de Negocios',
-    'Transforma los datos de tu negocio en informaciÃ³n clara para saber quÃ© revisar primero y tomar mejores decisiones.',
+    'Transforma los datos de tu negocio en información clara para saber qué revisar primero y tomar mejores decisiones.',
   ];
 
   for (const profileText of approvedProfiles) {
