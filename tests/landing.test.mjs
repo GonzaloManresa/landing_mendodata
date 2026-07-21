@@ -1,4 +1,5 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { runInNewContext } from 'node:vm';
@@ -52,9 +53,19 @@ test('presents the approved MendoData team profiles', () => {
   }
 
   assert.doesNotMatch(html, /<span class="team-name">Nombre Apellido<\/span>/i);
-  assert.match(html, /<span class="team-photo" aria-hidden="true">JD<\/span>/i);
-  assert.match(html, /<span class="team-photo" aria-hidden="true">GM<\/span>/i);
 });
+test('uses the approved accessible team photos and face-prioritized crops', () => {
+  const projectRoot = fileURLToPath(new URL('..', import.meta.url));
+  assert.equal(existsSync(`${projectRoot}/assets/team-gonzalo.jpeg`), true);
+  assert.equal(existsSync(`${projectRoot}/assets/team-juan-diego.png`), true);
+  assert.match(html, /<img class="team-photo team-photo-juan" src="assets\/team-juan-diego\.png" alt="Juan Diego Caballero">/i);
+  assert.match(html, /<img class="team-photo team-photo-gonzalo" src="assets\/team-gonzalo\.jpeg" alt="Gonzalo Manresa">/i);
+  assert.match(html, /\.team-photo-gonzalo\s*\{[^}]*object-position:\s*50%\s+24%;/i);
+  assert.match(html, /\.team-photo-juan\s*\{[^}]*object-position:\s*50%\s+38%;/i);
+  assert.doesNotMatch(html, /<span class="team-photo" aria-hidden="true">(?:JD|GM)<\/span>/i);
+  assert.match(html, /\.team-photo\s*\{[^}]*width:\s*76px;[^}]*height:\s*76px;[^}]*object-fit:\s*cover;/i);
+});
+
 
 test('guides Instagram visitors from the hero and example to contact', () => {
   assert.match(
