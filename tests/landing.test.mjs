@@ -15,11 +15,11 @@ const visibleText = html
 
 test('renders the current landing sections', () => {
   const requiredSnippets = [
-    'Analisis de datos y automatizacion',
+    'Análisis de datos y automatización',
     'Más control de tu negocio, menos tiempo reuniendo información',
     'El fin de semana, ordenado para arrancar el lunes',
     'Un proceso simple, de principio a fin',
-    'Un equipo especializado en datos y automatizacion',
+    'Un equipo especializado en datos y automatización',
     'Contanos sobre tu negocio',
   ];
 
