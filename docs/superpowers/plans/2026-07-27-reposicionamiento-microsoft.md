@@ -118,8 +118,8 @@ En `index.html`, reemplazar el contenido de `<div class="hero-grid">` (la column
             </div>
           </div>
 
-          <aside class="help-card" aria-label="Asi te ayudamos">
-            <p class="help-kicker">Asi te ayudamos</p>
+          <aside class="help-card" aria-label="Así te ayudamos">
+            <p class="help-kicker">Así te ayudamos</p>
             <ul class="help-list">
               <li>
                 <strong>Menos trabajo manual</strong>
@@ -138,7 +138,10 @@ En `index.html`, reemplazar el contenido de `<div class="hero-grid">` (la column
           </aside>
 ```
 
-El `aria-label` de `.help-card` y el texto de `.help-kicker` quedan sin tilde (`Asi te ayudamos`) tal como están hoy. No corregirlos acá: es un cambio independiente y hay un test de ortografía previo que asume el estado actual.
+Notar que `Asi te ayudamos` pasa a `Así te ayudamos`, con tilde, tanto en el
+texto visible como en el `aria-label`. Es un typo que quedó suelto y se corrige
+acá. Corregir también el comentario del CSS en `index.html:467`, que dice
+`/* "Asi te ayudamos" card */`, para que siga coincidiendo con el markup.
 
 - [ ] **Step 6: Correr los tests y verificar que pasan**
 
