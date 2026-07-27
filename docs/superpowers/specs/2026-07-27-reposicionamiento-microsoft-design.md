@@ -60,9 +60,10 @@ después se nombran las herramientas.
 Se agrega `Qué hacemos` → `#servicios`. Queda: Qué hacemos · El ejemplo ·
 Proceso · Nosotros + botón Contáctanos.
 
-Riesgo aceptado: el nav pasa de 3 a 4 links y puede quedar apretado en
-pantallas chicas. Si al verlo en el navegador molesta, se saca "Proceso" del
-nav; la sección permanece.
+Riesgo acotado: por debajo de 640px la hoja de estilos ya oculta todos los
+`.nav-link` y deja solo la marca y el botón, así que en móvil no cambia nada.
+El único rango a verificar es 641–940px. Si ahí queda apretado, se saca
+"Proceso" del nav; la sección permanece.
 
 ### Reutilización de CSS
 
