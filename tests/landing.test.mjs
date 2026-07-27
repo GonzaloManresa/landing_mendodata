@@ -17,7 +17,7 @@ test('renders the current landing sections', () => {
   const requiredSnippets = [
     'Digitalización de procesos con Microsoft',
     'Tu empresa ya tiene Microsoft. Nosotros lo convertimos en tu sistema de trabajo.',
-    'El fin de semana, ordenado para arrancar el lunes',
+    'Aprobaciones internas: de la cadena de mails a un flujo que se resuelve solo',
     'Un proceso simple, de principio a fin',
     'Un equipo especializado en datos y automatización',
     'Contanos sobre tu negocio',
@@ -26,6 +26,35 @@ test('renders the current landing sections', () => {
   for (const snippet of requiredSnippets) {
     assert.match(html, new RegExp(snippet, 'i'));
   }
+});
+
+test('contrasts the manual approval process against the digitized one', () => {
+  const example = html.match(
+    /<section[^>]+id="ejemplo"[\s\S]*?<\/section>/i,
+  )?.[0];
+  assert.ok(example, 'la sección #ejemplo debe existir');
+
+  const beforeSteps = [
+    'La solicitud arranca en un mail',
+    'La aprobación depende de encontrar a la persona',
+    'El registro se arma después',
+  ];
+  const afterSteps = [
+    'Se pide desde una app',
+    'La aprobación llega sola',
+    'El tablero se actualiza solo',
+  ];
+
+  for (const step of [...beforeSteps, ...afterSteps]) {
+    assert.match(example, new RegExp(step, 'i'));
+  }
+
+  assert.match(example, /Cómo funciona hoy/i);
+  assert.match(example, /Cómo queda/i);
+  assert.match(example, /aria-label="Ejemplo de solicitudes de aprobación"/i);
+  assert.match(example, /Compra de insumos/i);
+  assert.doesNotMatch(example, /resumen del fin de semana/i);
+  assert.doesNotMatch(example, /caja floja/i);
 });
 
 test('presents the approved MendoData team profiles', () => {
