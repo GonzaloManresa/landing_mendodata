@@ -18,7 +18,7 @@ test('renders the current landing sections', () => {
     'Digitalización de procesos con Microsoft',
     'Tu empresa ya tiene Microsoft. Nosotros lo convertimos en tu sistema de trabajo.',
     'Aprobaciones internas: de la cadena de mails a un flujo que se resuelve solo',
-    'Un proceso simple, de principio a fin',
+    'De la primera charla al proceso funcionando',
     'Un equipo especializado en datos y automatización',
     'Contanos sobre tu negocio',
   ];
@@ -128,7 +128,7 @@ test('guides Instagram visitors from the hero and example to contact', () => {
   );
   assert.match(
     html,
-    /<section[^>]+class="[^"]*conversion-cta[^"]*"[\s\S]*¿Te gustaría tener esta claridad en tu negocio\?[\s\S]*Contanos cómo trabajás hoy y evaluamos dónde podemos ayudarte\.[\s\S]*<a[^>]+href="#contacto"[^>]*>\s*Contanos tu caso\s*<\/a>[\s\S]*<\/section>/i,
+    /<section[^>]+class="[^"]*conversion-cta[^"]*"[\s\S]*¿Qué proceso te está consumiendo más tiempo\?[\s\S]*Contanos cómo funciona hoy y te decimos si conviene digitalizarlo\.[\s\S]*<a[^>]+href="#contacto"[^>]*>\s*Contanos tu caso\s*<\/a>[\s\S]*<\/section>/i,
   );
 });
 
