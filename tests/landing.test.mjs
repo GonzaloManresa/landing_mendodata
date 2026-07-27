@@ -57,6 +57,23 @@ test('contrasts the manual approval process against the digitized one', () => {
   assert.doesNotMatch(example, /caja floja/i);
 });
 
+test('names the Microsoft tools without claiming a partnership', () => {
+  const services = html.match(
+    /<section[^>]+id="servicios"[\s\S]*?<\/section>/i,
+  )?.[0];
+  assert.ok(services, 'la sección #servicios debe existir');
+
+  assert.match(services, /Tres herramientas, un proceso que funciona solo/i);
+  assert.match(services, /Power Apps · Aplicaciones internas a medida/i);
+  assert.match(services, /Power Automate · Flujos y aprobaciones automáticas/i);
+  assert.match(services, /Power BI · Tableros para decidir/i);
+  assert.match(services, /SharePoint, Teams y Listas de Microsoft 365/i);
+
+  assert.doesNotMatch(visibleText, /\bpartner\b/i);
+  assert.doesNotMatch(visibleText, /socio de microsoft/i);
+  assert.doesNotMatch(visibleText, /sin pagar licencias/i);
+});
+
 test('presents the approved MendoData team profiles', () => {
   const teamMembers = [...html.matchAll(/<article class="team-member">([\s\S]*?)<\/article>/gi)]
     .map((match) => match[1]);
@@ -252,6 +269,7 @@ test('includes baseline accessibility and usability hooks', () => {
   assert.match(html, /href="#ejemplo"/i);
   assert.match(html, /href="#proceso"/i);
   assert.match(html, /href="#nosotros"/i);
+  assert.match(html, /href="#servicios"/i);
   assert.match(html, /prefers-reduced-motion/i);
   assert.match(html, /class="[^"]*phone-modern/i);
   assert.match(html, /#contacto\s*\{[^}]*scroll-margin-top:/i);
