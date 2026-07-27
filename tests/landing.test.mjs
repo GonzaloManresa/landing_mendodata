@@ -19,8 +19,8 @@ test('renders the current landing sections', () => {
     'Tu empresa ya tiene Microsoft. Nosotros lo convertimos en tu sistema de trabajo.',
     'Aprobaciones internas: de la cadena de mails a un flujo que se resuelve solo',
     'De la primera charla al proceso funcionando',
-    'Un equipo especializado en datos y automatización',
-    'Contanos sobre tu negocio',
+    'Un equipo que entiende el proceso antes de escribir código',
+    'Contanos qué proceso querés digitalizar',
   ];
 
   for (const snippet of requiredSnippets) {
@@ -82,12 +82,12 @@ test('presents the approved MendoData team profiles', () => {
     [
       'Juan Diego Caballero',
       'Ingeniero en Sistemas',
-      'Construye las automatizaciones y sistemas para que la informaci\u00f3n llegue sola, sin que cambies tu forma de trabajar.',
+      'Construye las apps, los flujos y las integraciones sobre Power Platform para que el proceso corra solo.',
     ],
     [
       'Gonzalo Manresa',
       'Analista de Negocios',
-      'Transforma los datos de tu negocio en informaci\u00f3n clara para saber qu\u00e9 revisar primero y tomar mejores decisiones.',
+      'Releva c\u00f3mo trabaja tu empresa hoy y define qu\u00e9 conviene digitalizar primero para que el cambio se note r\u00e1pido.',
     ],
   ];
 
