@@ -15,8 +15,8 @@ const visibleText = html
 
 test('renders the current landing sections', () => {
   const requiredSnippets = [
-    'Análisis de datos y automatización',
-    'Más control de tu negocio, menos tiempo reuniendo información',
+    'Digitalización de procesos con Microsoft',
+    'Tu empresa ya tiene Microsoft. Nosotros lo convertimos en tu sistema de trabajo.',
     'El fin de semana, ordenado para arrancar el lunes',
     'Un proceso simple, de principio a fin',
     'Un equipo especializado en datos y automatización',
@@ -70,15 +70,15 @@ test('uses the approved accessible team photos and face-prioritized crops', () =
 test('guides Instagram visitors from the hero and example to contact', () => {
   assert.match(
     html,
-    /Más control de tu negocio, menos tiempo reuniendo información/i,
+    /Tu empresa ya tiene Microsoft\. Nosotros lo convertimos en tu sistema de trabajo\./i,
   );
   assert.match(
     html,
-    /Organizamos tus datos y automatizamos tareas para que puedas decidir con claridad y trabajar con más tranquilidad\./i,
+    /Relevamos los procesos que hoy funcionan a fuerza de planillas y mails, y los pasamos a Power Apps, Power Automate y Power BI\./i,
   );
   assert.match(
     html,
-    /<a[^>]+href="#contacto"[^>]*>\s*Contanos qué necesitás\s*<\/a>/i,
+    /<a[^>]+href="#contacto"[^>]*>\s*Contanos tu proceso\s*<\/a>/i,
   );
   assert.match(
     html,
