@@ -15,17 +15,62 @@ const visibleText = html
 
 test('renders the current landing sections', () => {
   const requiredSnippets = [
-    'Análisis de datos y automatización',
-    'Más control de tu negocio, menos tiempo reuniendo información',
-    'El fin de semana, ordenado para arrancar el lunes',
-    'Un proceso simple, de principio a fin',
-    'Un equipo especializado en datos y automatización',
-    'Contanos sobre tu negocio',
+    'Digitalización de procesos con Microsoft',
+    'Tu empresa ya tiene <span class="hl">Microsoft</span>. Nosotros lo convertimos en tu <em>sistema de trabajo</em>.',
+    'Aprobaciones internas: de la cadena de mails a un flujo que se resuelve solo',
+    'De la primera charla al proceso funcionando',
+    'Un equipo que entiende el proceso antes de escribir código',
+    'Contanos qué proceso querés digitalizar',
   ];
 
   for (const snippet of requiredSnippets) {
     assert.match(html, new RegExp(snippet, 'i'));
   }
+});
+
+test('contrasts the manual approval process against the digitized one', () => {
+  const example = html.match(
+    /<section[^>]+id="ejemplo"[\s\S]*?<\/section>/i,
+  )?.[0];
+  assert.ok(example, 'la sección #ejemplo debe existir');
+
+  const beforeSteps = [
+    'La solicitud arranca en un mail',
+    'La aprobación depende de encontrar a la persona',
+    'El registro se arma después',
+  ];
+  const afterSteps = [
+    'Se pide desde una app',
+    'La aprobación llega sola',
+    'El tablero se actualiza solo',
+  ];
+
+  for (const step of [...beforeSteps, ...afterSteps]) {
+    assert.match(example, new RegExp(step, 'i'));
+  }
+
+  assert.match(example, /Cómo funciona hoy/i);
+  assert.match(example, /Cómo queda/i);
+  assert.match(example, /aria-label="Cómo se integra el proceso sobre Microsoft"/i);
+  assert.doesNotMatch(example, /resumen del fin de semana/i);
+  assert.doesNotMatch(example, /caja floja/i);
+});
+
+test('names the Microsoft tools without claiming a partnership', () => {
+  const services = html.match(
+    /<section[^>]+id="servicios"[\s\S]*?<\/section>/i,
+  )?.[0];
+  assert.ok(services, 'la sección #servicios debe existir');
+
+  assert.match(services, /Tres herramientas, un proceso que funciona solo/i);
+  assert.match(services, /Power Apps · Aplicaciones internas a medida/i);
+  assert.match(services, /Power Automate · Flujos y aprobaciones automáticas/i);
+  assert.match(services, /Power BI · Tableros para decidir/i);
+  assert.match(services, /SharePoint, Teams y Listas de Microsoft 365/i);
+
+  assert.doesNotMatch(visibleText, /\bpartner\b/i);
+  assert.doesNotMatch(visibleText, /socio de microsoft/i);
+  assert.doesNotMatch(visibleText, /sin pagar licencias/i);
 });
 
 test('presents the approved MendoData team profiles', () => {
@@ -36,12 +81,12 @@ test('presents the approved MendoData team profiles', () => {
     [
       'Juan Diego Caballero',
       'Ingeniero en Sistemas',
-      'Construye las automatizaciones y sistemas para que la informaci\u00f3n llegue sola, sin que cambies tu forma de trabajar.',
+      'Construye las apps, los flujos y las integraciones sobre Power Platform para que el proceso corra solo.',
     ],
     [
       'Gonzalo Manresa',
       'Analista de Negocios',
-      'Transforma los datos de tu negocio en informaci\u00f3n clara para saber qu\u00e9 revisar primero y tomar mejores decisiones.',
+      'Releva c\u00f3mo trabaja tu empresa hoy y define qu\u00e9 conviene digitalizar primero para que el cambio se note r\u00e1pido.',
     ],
   ];
 
@@ -63,26 +108,26 @@ test('uses the approved accessible team photos and face-prioritized crops', () =
   assert.match(html, /\.team-photo-gonzalo\s*\{[^}]*object-position:\s*50%\s+24%;/i);
   assert.match(html, /\.team-photo-juan\s*\{[^}]*object-position:\s*50%\s+38%;/i);
   assert.doesNotMatch(html, /<span class="team-photo" aria-hidden="true">(?:JD|GM)<\/span>/i);
-  assert.match(html, /\.team-photo\s*\{[^}]*width:\s*76px;[^}]*height:\s*76px;[^}]*object-fit:\s*cover;/i);
+  assert.match(html, /\.team-photo\s*\{[^}]*width:\s*96px;[^}]*height:\s*96px;[^}]*object-fit:\s*cover;/i);
 });
 
 
 test('guides Instagram visitors from the hero and example to contact', () => {
   assert.match(
     html,
-    /Más control de tu negocio, menos tiempo reuniendo información/i,
+    /Tu empresa ya tiene <span class="hl">Microsoft<\/span>\. Nosotros lo convertimos en tu <em>sistema de trabajo<\/em>\./i,
   );
   assert.match(
     html,
-    /Organizamos tus datos y automatizamos tareas para que puedas decidir con claridad y trabajar con más tranquilidad\./i,
+    /Relevamos los procesos que hoy funcionan a fuerza de planillas y mails, y los pasamos a Power Apps, Power Automate y Power BI\./i,
   );
   assert.match(
     html,
-    /<a[^>]+href="#contacto"[^>]*>\s*Contanos qué necesitás\s*<\/a>/i,
+    /<a[^>]+href="#contacto"[^>]*>\s*Contanos tu proceso\s*<\/a>/i,
   );
   assert.match(
     html,
-    /<section[^>]+class="[^"]*conversion-cta[^"]*"[\s\S]*¿Te gustaría tener esta claridad en tu negocio\?[\s\S]*Contanos cómo trabajás hoy y evaluamos dónde podemos ayudarte\.[\s\S]*<a[^>]+href="#contacto"[^>]*>\s*Contanos tu caso\s*<\/a>[\s\S]*<\/section>/i,
+    /<section[^>]+class="[^"]*conversion-cta[^"]*"[\s\S]*¿Qué proceso te está consumiendo más tiempo\?[\s\S]*Contanos cómo funciona hoy y te decimos si conviene digitalizarlo\.[\s\S]*<a[^>]+href="#contacto"[^>]*>\s*Contanos tu caso\s*<\/a>[\s\S]*<\/section>/i,
   );
 });
 
@@ -192,16 +237,33 @@ test('drops the removed sections', () => {
   }
 });
 
-test('uses the approved blue trust palette', () => {
-  const colors = ['#2563EB', '#12212E', '#5A6B7B', '#1FA971'];
+test('uses the editorial ink and paper palette', () => {
+  const colors = ['#1668B0', '#14293D', '#7A8B9C', '#2F7D5C', '#F7F3EC', '#E4DCD0'];
 
   for (const color of colors) {
     assert.match(html, new RegExp(color, 'i'));
   }
 });
 
-test('drops the retired lime, orange and terracotta palettes', () => {
-  const retired = ['#A3E635', '#F2994A', '#C1502E', '#6B7548', '#A9B481'];
+test('drops the retired palettes, including the previous blue system', () => {
+  const retired = [
+    '#A3E635',
+    '#F2994A',
+    '#C1502E',
+    '#6B7548',
+    '#A9B481',
+    '#2563EB',
+    '#1B4DB1',
+    '#1FA971',
+    '#16855A',
+    '#12212E',
+    '#F5F8FC',
+    '#E9F1FC',
+    '#E9F6EF',
+    '#26C083',
+    '#7FB0FF',
+    '#4C8DFF',
+  ];
 
   for (const color of retired) {
     assert.doesNotMatch(html, new RegExp(color, 'i'));
@@ -223,12 +285,24 @@ test('includes baseline accessibility and usability hooks', () => {
   assert.match(html, /href="#ejemplo"/i);
   assert.match(html, /href="#proceso"/i);
   assert.match(html, /href="#nosotros"/i);
+  assert.match(html, /href="#servicios"/i);
   assert.match(html, /prefers-reduced-motion/i);
-  assert.match(html, /class="[^"]*phone-modern/i);
+  assert.match(html, /<div class="showcase"/i);
   assert.match(html, /#contacto\s*\{[^}]*scroll-margin-top:/i);
   assert.match(
     html,
     /\.mobile-contact-cta[\s\S]*min-height:\s*50px/i,
+  );
+});
+
+test('hides the nav links before they run out of room', () => {
+  assert.match(
+    html,
+    /@media\s*\(max-width:\s*820px\)\s*\{\s*\.nav-link\s*\{[^}]*display:\s*none;/i,
+  );
+  assert.doesNotMatch(
+    html,
+    /@media\s*\(max-width:\s*640px\)\s*\{\s*\.nav-link/i,
   );
 });
 
@@ -257,41 +331,55 @@ test('closes with the configured FormSubmit contact form', () => {
   );
 });
 
-test('uses Manrope for display typography and keeps Inter for body copy', () => {
+test('uses Inter throughout with a heavy tight display weight', () => {
   assert.match(
     html,
-    /family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700&display=swap/i,
+    /family=Inter:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@1,6\.\.72,400&display=swap/i,
   );
   assert.match(
     html,
-    /--font-display:\s*"Manrope", ui-sans-serif, system-ui, -apple-system, sans-serif;/i,
+    /--font-display:\s*"Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;/i,
   );
   assert.match(
     html,
     /--font-body:\s*"Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;/i,
   );
-  assert.match(html, /h1\s*\{[^}]*font-weight:\s*700;/i);
-  assert.match(html, /h2\s*\{[^}]*font-weight:\s*700;/i);
-  assert.match(html, /h3\s*\{[^}]*font-weight:\s*600;/i);
-  const secondaryDisplaySelectors = [
-    /\.help-list strong\s*\{[^}]*font-weight:\s*600;/i,
-    /\.chat-avatar\s*\{[^}]*font-weight:\s*600;/i,
-    /\.team-photo\s*\{[^}]*font-weight:\s*600;/i,
-    /\.team-name\s*\{[^}]*font-weight:\s*600;/i,
-    /\.process-num\s*\{[^}]*font-weight:\s*600;/i,
-    /\.timeline-item h3\s*\{[^}]*font-weight:\s*600;/i,
-  ];
-
-  for (const selector of secondaryDisplaySelectors) {
-    assert.match(html, selector);
-  }
-  assert.doesNotMatch(html, /Fraunces|Iowan Old Style|Palatino Linotype/i);
-});
-
-test('positions the hero content closer to the header', () => {
+  assert.match(html, /h1\s*\{[^}]*font-weight:\s*800;[^}]*letter-spacing:\s*-0\.038em;/i);
+  assert.match(html, /h2\s*\{[^}]*font-weight:\s*800;/i);
   assert.match(
     html,
-    /\.hero\s*\{[^}]*padding:\s*clamp\(24px, 3vw, 40px\) 22px clamp\(56px, 8vw, 92px\);/i,
+    /--font-accent:\s*"Newsreader", "Iowan Old Style", Georgia, serif;/i,
   );
-  assert.doesNotMatch(html, /clamp\(40px, 6vw, 76px\)/i);
+  assert.match(html, /\.hero h1 em\s*\{[^}]*font-style:\s*italic;/i);
+  assert.match(html, /h3\s*\{[^}]*font-weight:\s*600;/i);
+  assert.match(html, /\.team-name\s*\{[^}]*font-family:\s*var\(--font-display\);/i);
+  assert.match(html, /\.process-num\s*\{[^}]*font-family:\s*var\(--font-display\);/i);
+  assert.doesNotMatch(html, /Manrope/i);
+});
+
+test('leads with a tabbed product panel over the scenic backdrop', () => {
+  assert.match(
+    html,
+    /\.hero::before\s*\{[^}]*background-image:\s*url\("assets\/hero\.jpg"\);/i,
+  );
+
+  const showcase = html.match(/<div class="showcase"[\s\S]*?<\/section>/i)?.[0];
+  assert.ok(showcase, 'el panel de producto debe existir en el hero');
+  assert.match(showcase, /aria-label="Ejemplo de solicitudes de aprobación"/i);
+  assert.match(showcase, /Compra de insumos/i);
+
+  // las pestañas son radios: siguen funcionando sin JavaScript
+  assert.match(showcase, /<input class="tab-input" type="radio" name="vista" id="vista-app" checked>/i);
+  assert.match(showcase, /<input class="tab-input" type="radio" name="vista" id="vista-bi">/i);
+  assert.match(
+    html,
+    /#vista-app:checked ~ \.board \.panel-app,\s*#vista-bi:checked ~ \.board \.panel-bi\s*\{\s*display:\s*block;/i,
+  );
+
+  // el diagrama del flujo se mudó a la sección del ejemplo
+  const flow = html.match(/<figure class="flow reveal"[\s\S]*?<\/figure>/i)?.[0];
+  assert.ok(flow, 'el diagrama del flujo debe existir en el ejemplo');
+  for (const tool of ['Power Apps', 'Power Automate', 'Power BI']) {
+    assert.match(flow, new RegExp(tool, 'i'));
+  }
 });
