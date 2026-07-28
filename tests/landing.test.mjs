@@ -279,6 +279,17 @@ test('includes baseline accessibility and usability hooks', () => {
   );
 });
 
+test('hides the nav links before they run out of room', () => {
+  assert.match(
+    html,
+    /@media\s*\(max-width:\s*820px\)\s*\{\s*\.nav-link\s*\{[^}]*display:\s*none;/i,
+  );
+  assert.doesNotMatch(
+    html,
+    /@media\s*\(max-width:\s*640px\)\s*\{\s*\.nav-link/i,
+  );
+});
+
 test('closes with the configured FormSubmit contact form', () => {
   assert.match(html, /<form\b/i);
   assert.match(
