@@ -109,7 +109,7 @@ test('uses the approved accessible team photos and face-prioritized crops', () =
   assert.match(html, /\.team-photo-gonzalo\s*\{[^}]*object-position:\s*50%\s+24%;/i);
   assert.match(html, /\.team-photo-juan\s*\{[^}]*object-position:\s*50%\s+38%;/i);
   assert.doesNotMatch(html, /<span class="team-photo" aria-hidden="true">(?:JD|GM)<\/span>/i);
-  assert.match(html, /\.team-photo\s*\{[^}]*width:\s*76px;[^}]*height:\s*76px;[^}]*object-fit:\s*cover;/i);
+  assert.match(html, /\.team-photo\s*\{[^}]*width:\s*96px;[^}]*height:\s*96px;[^}]*object-fit:\s*cover;/i);
 });
 
 
@@ -238,16 +238,33 @@ test('drops the removed sections', () => {
   }
 });
 
-test('uses the approved blue trust palette', () => {
-  const colors = ['#2563EB', '#12212E', '#5A6B7B', '#1FA971'];
+test('uses the editorial ink and paper palette', () => {
+  const colors = ['#1B3FA8', '#0E1116', '#6B7280', '#2F7D5C', '#FBFAF8', '#E2DFD9'];
 
   for (const color of colors) {
     assert.match(html, new RegExp(color, 'i'));
   }
 });
 
-test('drops the retired lime, orange and terracotta palettes', () => {
-  const retired = ['#A3E635', '#F2994A', '#C1502E', '#6B7548', '#A9B481'];
+test('drops the retired palettes, including the previous blue system', () => {
+  const retired = [
+    '#A3E635',
+    '#F2994A',
+    '#C1502E',
+    '#6B7548',
+    '#A9B481',
+    '#2563EB',
+    '#1B4DB1',
+    '#1FA971',
+    '#16855A',
+    '#12212E',
+    '#F5F8FC',
+    '#E9F1FC',
+    '#E9F6EF',
+    '#26C083',
+    '#7FB0FF',
+    '#4C8DFF',
+  ];
 
   for (const color of retired) {
     assert.doesNotMatch(html, new RegExp(color, 'i'));
@@ -315,41 +332,31 @@ test('closes with the configured FormSubmit contact form', () => {
   );
 });
 
-test('uses Manrope for display typography and keeps Inter for body copy', () => {
+test('uses Instrument Serif for display typography and Inter for body copy', () => {
   assert.match(
     html,
-    /family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700&display=swap/i,
+    /family=Instrument\+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap/i,
   );
   assert.match(
     html,
-    /--font-display:\s*"Manrope", ui-sans-serif, system-ui, -apple-system, sans-serif;/i,
+    /--font-display:\s*"Instrument Serif", "Iowan Old Style", "Palatino Linotype", Georgia, serif;/i,
   );
   assert.match(
     html,
     /--font-body:\s*"Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;/i,
   );
-  assert.match(html, /h1\s*\{[^}]*font-weight:\s*700;/i);
-  assert.match(html, /h2\s*\{[^}]*font-weight:\s*700;/i);
+  assert.match(html, /h1\s*\{[^}]*font-weight:\s*400;/i);
+  assert.match(html, /h2\s*\{[^}]*font-weight:\s*400;/i);
   assert.match(html, /h3\s*\{[^}]*font-weight:\s*600;/i);
-  const secondaryDisplaySelectors = [
-    /\.help-list strong\s*\{[^}]*font-weight:\s*600;/i,
-    /\.chat-avatar\s*\{[^}]*font-weight:\s*600;/i,
-    /\.team-photo\s*\{[^}]*font-weight:\s*600;/i,
-    /\.team-name\s*\{[^}]*font-weight:\s*600;/i,
-    /\.process-num\s*\{[^}]*font-weight:\s*600;/i,
-    /\.timeline-item h3\s*\{[^}]*font-weight:\s*600;/i,
-  ];
-
-  for (const selector of secondaryDisplaySelectors) {
-    assert.match(html, selector);
-  }
-  assert.doesNotMatch(html, /Fraunces|Iowan Old Style|Palatino Linotype/i);
+  assert.match(html, /\.team-name\s*\{[^}]*font-family:\s*var\(--font-display\);/i);
+  assert.match(html, /\.process-num\s*\{[^}]*font-family:\s*var\(--font-display\);/i);
+  assert.doesNotMatch(html, /Manrope/i);
 });
 
-test('positions the hero content closer to the header', () => {
+test('gives the hero editorial breathing room', () => {
   assert.match(
     html,
-    /\.hero\s*\{[^}]*padding:\s*clamp\(24px, 3vw, 40px\) 22px clamp\(56px, 8vw, 92px\);/i,
+    /\.hero\s*\{[^}]*padding:\s*clamp\(28px, 4vw, 56px\) 22px clamp\(64px, 9vw, 110px\);/i,
   );
-  assert.doesNotMatch(html, /clamp\(40px, 6vw, 76px\)/i);
+  assert.doesNotMatch(html, /clamp\(24px, 3vw, 40px\)/i);
 });
