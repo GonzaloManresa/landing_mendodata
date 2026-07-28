@@ -20,18 +20,18 @@
     >
     <style>
       :root {
-        --bg: #FBFAF8;
+        --bg: #F7F3EC;
         --surface: #FFFFFF;
-        --ink: #0E1116;
-        --ink-soft: #2C323B;
-        --ink-mute: #6B7280;
-        --accent: #1B3FA8;
-        --accent-strong: #142F80;
-        --accent-soft: rgba(27, 63, 168, 0.08);
+        --ink: #14293D;
+        --ink-soft: #3B5064;
+        --ink-mute: #7A8B9C;
+        --accent: #1668B0;
+        --accent-strong: #10528C;
+        --accent-soft: rgba(22, 104, 176, 0.09);
         --ok: #2F7D5C;
         --ok-soft: rgba(47, 125, 92, 0.1);
-        --line: #E2DFD9;
-        --line-soft: #EDEAE4;
+        --line: #E4DCD0;
+        --line-soft: #EFE9E0;
         --radius: 6px;
         --radius-card: 14px;
         --shadow-soft:
@@ -285,47 +285,82 @@
 
       /* Hero ------------------------------------------------------------ */
       .hero {
-        padding: clamp(28px, 4vw, 56px) 22px clamp(64px, 9vw, 110px);
-        border-bottom: 1px solid var(--line);
+        position: relative;
+        overflow: hidden;
+        padding: clamp(40px, 6vw, 84px) 22px 0;
+        text-align: center;
+        background:
+          radial-gradient(70% 46% at 50% 8%, rgba(255, 255, 255, 0.95), transparent 66%),
+          radial-gradient(96% 66% at 50% 104%, rgba(22, 104, 176, 0.24), transparent 68%),
+          linear-gradient(180deg, var(--bg) 0%, #EDE6DA 100%);
+      }
+
+      /* Escena de fondo. Dejá el archivo en assets/hero.jpg y aparece sola;
+         si no existe, queda el degradado de arriba. */
+      .hero::before {
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 78%;
+        background-image: url("assets/hero.jpg");
+        background-size: cover;
+        background-position: 50% 42%;
+        -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 34%, #000 100%);
+        mask-image: linear-gradient(180deg, transparent 0%, #000 34%, #000 100%);
+        pointer-events: none;
       }
 
       .hero-grid {
+        position: relative;
+        z-index: 1;
         max-width: var(--max);
         margin: 0 auto;
       }
 
+      .hero-copy {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .hero .eyebrow {
+        justify-content: center;
+      }
+
       .hero h1 {
-        max-width: 19ch;
-        margin-top: 4px;
-        font-size: clamp(3rem, 7.6vw, 5.6rem);
+        max-width: 18ch;
+        margin: 4px auto 20px;
+        font-size: clamp(2.9rem, 6.6vw, 4.9rem);
         color: var(--ink);
       }
 
       .hero-lead {
-        max-width: 54ch;
-        margin: 0 0 34px;
+        max-width: 56ch;
+        margin: 0 auto 32px;
         color: var(--ink-soft);
-        font-size: 1.2rem;
+        font-size: 1.18rem;
       }
 
       .hooks {
         display: flex;
         flex-wrap: wrap;
-        margin: 0 0 28px;
+        justify-content: center;
+        margin: 30px 0 0;
         padding: 0;
         list-style: none;
       }
 
       .hooks li {
         color: var(--ink-soft);
-        font-size: 0.94rem;
+        font-size: 0.92rem;
         font-weight: 500;
       }
 
       .hooks li + li {
-        margin-left: 26px;
-        padding-left: 26px;
-        border-left: 1px solid var(--line);
+        margin-left: 22px;
+        padding-left: 22px;
+        border-left: 1px solid rgba(20, 41, 61, 0.18);
       }
 
       .hero-actions {
@@ -381,26 +416,34 @@
 
       /* "Así te ayudamos" card ----------------------------------------- */
       .help-card {
-        margin-top: clamp(52px, 6vw, 80px);
-        padding-top: 26px;
-        border-top: 1px solid var(--ink);
+        position: relative;
+        z-index: 2;
+        max-width: 1000px;
+        margin: clamp(56px, 7vw, 96px) auto -72px;
+        padding: clamp(22px, 2.6vw, 32px);
+        border: 1px solid rgba(255, 255, 255, 0.85);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.74);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 30px 70px rgba(20, 41, 61, 0.18);
+        text-align: left;
       }
 
       .help-list {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 20px;
+        gap: 0;
         margin: 0;
         padding: 0;
         list-style: none;
       }
 
       .help-list li {
-        padding: clamp(20px, 2.4vw, 26px);
-        border: 1px solid var(--line);
-        border-radius: var(--radius-card);
-        background: var(--surface);
-        box-shadow: var(--shadow-soft);
+        padding: 4px clamp(16px, 2vw, 26px);
+      }
+
+      .help-list li + li {
+        border-left: 1px solid var(--line);
       }
 
       .help-list strong {
@@ -418,15 +461,18 @@
       }
 
       .help-foot {
-        margin: 22px 0 0;
+        margin: 20px 0 0;
+        padding-top: 16px;
+        border-top: 1px solid var(--line);
         color: var(--ink-mute);
-        font-size: 0.95rem;
+        font-size: 0.93rem;
       }
 
       /* Ejemplo (antes / después) --------------------------------------- */
       .example {
+        padding-top: clamp(108px, 12vw, 160px);
         background: var(--surface);
-        border-block: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
       }
 
       .example-grid {
@@ -1065,6 +1111,19 @@
           width: 100%;
         }
 
+        .help-card {
+          margin-bottom: -56px;
+        }
+
+        .help-list li {
+          padding: 14px 0;
+        }
+
+        .help-list li + li {
+          border-left: 0;
+          border-top: 1px solid var(--line);
+        }
+
         .team,
         .help-list,
         .process-grid,
@@ -1158,19 +1217,19 @@
       <!-- HERO: promesa emocional corta + foto real de quien está detrás -->
       <section class="hero" id="inicio" aria-labelledby="hero-title">
         <div class="hero-grid">
-          <div>
+          <div class="hero-copy">
             <p class="eyebrow greet">Digitalización de procesos con Microsoft</p>
+            <h1 id="hero-title">Tu empresa ya tiene Microsoft. Nosotros lo convertimos en tu sistema de trabajo.</h1>
+            <p class="hero-lead">Relevamos los procesos que hoy funcionan a fuerza de planillas y mails, y los pasamos a Power Apps, Power Automate y Power BI.</p>
+            <div class="hero-actions">
+              <a class="button accent big" href="#contacto">Contanos tu proceso</a>
+              <a class="button ghost" href="#ejemplo">Ver un ejemplo</a>
+            </div>
             <ul class="hooks" aria-label="Objetivos con los que podés identificarte">
               <li>Menos planillas y mails sueltos</li>
               <li>Procesos que no dependen de una persona</li>
               <li>Información al día sin cargarla a mano</li>
             </ul>
-            <h1 id="hero-title">Tu empresa ya tiene Microsoft. Nosotros lo convertimos en tu sistema de trabajo.</h1>
-            <p class="hero-lead">Relevamos los procesos que hoy funcionan a fuerza de planillas y mails, y los pasamos a Power Apps, Power Automate y Power BI.</p>
-            <div class="hero-actions">
-              <a class="button accent" href="#contacto">Contanos tu proceso</a>
-              <a class="button ghost" href="#ejemplo">Ver un ejemplo</a>
-            </div>
           </div>
 
           <aside class="help-card" aria-label="Así te ayudamos">

@@ -239,7 +239,7 @@ test('drops the removed sections', () => {
 });
 
 test('uses the editorial ink and paper palette', () => {
-  const colors = ['#1B3FA8', '#0E1116', '#6B7280', '#2F7D5C', '#FBFAF8', '#E2DFD9'];
+  const colors = ['#1668B0', '#14293D', '#7A8B9C', '#2F7D5C', '#F7F3EC', '#E4DCD0'];
 
   for (const color of colors) {
     assert.match(html, new RegExp(color, 'i'));
@@ -353,10 +353,14 @@ test('uses Instrument Serif for display typography and Inter for body copy', () 
   assert.doesNotMatch(html, /Manrope/i);
 });
 
-test('gives the hero editorial breathing room', () => {
+test('centers the hero over a scenic backdrop', () => {
   assert.match(
     html,
-    /\.hero\s*\{[^}]*padding:\s*clamp\(28px, 4vw, 56px\) 22px clamp\(64px, 9vw, 110px\);/i,
+    /\.hero\s*\{[^}]*padding:\s*clamp\(40px, 6vw, 84px\) 22px 0;[^}]*text-align:\s*center;/i,
   );
-  assert.doesNotMatch(html, /clamp\(24px, 3vw, 40px\)/i);
+  assert.match(
+    html,
+    /\.hero::before\s*\{[^}]*background-image:\s*url\("assets\/hero\.jpg"\);/i,
+  );
+  assert.match(html, /\.help-card\s*\{[^}]*backdrop-filter:\s*blur\(18px\);/i);
 });
