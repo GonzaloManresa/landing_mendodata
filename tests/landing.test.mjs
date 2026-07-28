@@ -16,7 +16,7 @@ const visibleText = html
 test('renders the current landing sections', () => {
   const requiredSnippets = [
     'Digitalización de procesos con Microsoft',
-    'Tu empresa ya tiene Microsoft. Nosotros lo convertimos en tu sistema de trabajo.',
+    'Tu empresa ya tiene Microsoft. Nosotros lo convertimos en tu <em>sistema de trabajo</em>.',
     'Aprobaciones internas: de la cadena de mails a un flujo que se resuelve solo',
     'De la primera charla al proceso funcionando',
     'Un equipo que entiende el proceso antes de escribir código',
@@ -51,8 +51,7 @@ test('contrasts the manual approval process against the digitized one', () => {
 
   assert.match(example, /Cómo funciona hoy/i);
   assert.match(example, /Cómo queda/i);
-  assert.match(example, /aria-label="Ejemplo de solicitudes de aprobación"/i);
-  assert.match(example, /Compra de insumos/i);
+  assert.match(example, /aria-label="Cómo se integra el proceso sobre Microsoft"/i);
   assert.doesNotMatch(example, /resumen del fin de semana/i);
   assert.doesNotMatch(example, /caja floja/i);
 });
@@ -116,7 +115,7 @@ test('uses the approved accessible team photos and face-prioritized crops', () =
 test('guides Instagram visitors from the hero and example to contact', () => {
   assert.match(
     html,
-    /Tu empresa ya tiene Microsoft\. Nosotros lo convertimos en tu sistema de trabajo\./i,
+    /Tu empresa ya tiene Microsoft\. Nosotros lo convertimos en tu <em>sistema de trabajo<\/em>\./i,
   );
   assert.match(
     html,
@@ -288,7 +287,7 @@ test('includes baseline accessibility and usability hooks', () => {
   assert.match(html, /href="#nosotros"/i);
   assert.match(html, /href="#servicios"/i);
   assert.match(html, /prefers-reduced-motion/i);
-  assert.match(html, /class="board reveal"/i);
+  assert.match(html, /<div class="showcase"/i);
   assert.match(html, /#contacto\s*\{[^}]*scroll-margin-top:/i);
   assert.match(
     html,
@@ -335,7 +334,7 @@ test('closes with the configured FormSubmit contact form', () => {
 test('uses Inter throughout with a heavy tight display weight', () => {
   assert.match(
     html,
-    /family=Inter:wght@400;500;600;700;800&display=swap/i,
+    /family=Inter:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@1,6\.\.72,400&display=swap/i,
   );
   assert.match(
     html,
@@ -347,28 +346,40 @@ test('uses Inter throughout with a heavy tight display weight', () => {
   );
   assert.match(html, /h1\s*\{[^}]*font-weight:\s*800;[^}]*letter-spacing:\s*-0\.038em;/i);
   assert.match(html, /h2\s*\{[^}]*font-weight:\s*800;/i);
-  assert.doesNotMatch(html, /Newsreader|Instrument\+Serif/i);
+  assert.match(
+    html,
+    /--font-accent:\s*"Newsreader", "Iowan Old Style", Georgia, serif;/i,
+  );
+  assert.match(html, /\.hero h1 em\s*\{[^}]*font-style:\s*italic;/i);
   assert.match(html, /h3\s*\{[^}]*font-weight:\s*600;/i);
   assert.match(html, /\.team-name\s*\{[^}]*font-family:\s*var\(--font-display\);/i);
   assert.match(html, /\.process-num\s*\{[^}]*font-family:\s*var\(--font-display\);/i);
   assert.doesNotMatch(html, /Manrope/i);
 });
 
-test('splits the hero between copy and the integration flow', () => {
+test('leads with a tabbed product panel over the scenic backdrop', () => {
   assert.match(
     html,
     /\.hero::before\s*\{[^}]*background-image:\s*url\("assets\/hero\.jpg"\);/i,
   );
+
+  const showcase = html.match(/<div class="showcase"[\s\S]*?<\/section>/i)?.[0];
+  assert.ok(showcase, 'el panel de producto debe existir en el hero');
+  assert.match(showcase, /aria-label="Ejemplo de solicitudes de aprobación"/i);
+  assert.match(showcase, /Compra de insumos/i);
+
+  // las pestañas son radios: siguen funcionando sin JavaScript
+  assert.match(showcase, /<input class="tab-input" type="radio" name="vista" id="vista-app" checked>/i);
+  assert.match(showcase, /<input class="tab-input" type="radio" name="vista" id="vista-bi">/i);
   assert.match(
     html,
-    /\.hero-grid\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1\.08fr\) minmax\(320px, 0\.78fr\);/i,
+    /#vista-app:checked ~ \.board \.panel-app,\s*#vista-bi:checked ~ \.board \.panel-bi\s*\{\s*display:\s*block;/i,
   );
-  assert.match(html, /\.flow\s*\{[^}]*backdrop-filter:\s*blur\(18px\);/i);
 
-  const flow = html.match(/<figure[^>]+class="flow"[\s\S]*?<\/figure>/i)?.[0];
-  assert.ok(flow, 'el diagrama del flujo debe existir en el hero');
+  // el diagrama del flujo se mudó a la sección del ejemplo
+  const flow = html.match(/<figure class="flow reveal"[\s\S]*?<\/figure>/i)?.[0];
+  assert.ok(flow, 'el diagrama del flujo debe existir en el ejemplo');
   for (const tool of ['Power Apps', 'Power Automate', 'Power BI']) {
     assert.match(flow, new RegExp(tool, 'i'));
   }
-  assert.match(flow, /Todo sobre la plataforma que tu empresa ya tiene\./i);
 });

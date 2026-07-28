@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@1,6..72,400&display=swap"
       rel="stylesheet"
     >
     <style>
@@ -40,6 +40,7 @@
         --max: 1360px;
         --font-display: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
         --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+        --font-accent: "Newsreader", "Iowan Old Style", Georgia, serif;
       }
 
       * {
@@ -96,20 +97,23 @@
         position: sticky;
         top: 0;
         z-index: 20;
-        backdrop-filter: blur(8px);
-        background: rgba(251, 250, 248, 0.92);
-        border-bottom: 1px solid var(--line);
+        padding: 14px 22px;
       }
 
       .nav {
-        max-width: var(--max);
+        max-width: 940px;
         margin: 0 auto;
-        min-height: 74px;
-        padding: 12px 22px;
+        min-height: 60px;
+        padding: 8px 8px 8px 20px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.72);
+        backdrop-filter: blur(16px);
+        box-shadow: 0 10px 34px rgba(20, 41, 61, 0.12);
       }
 
       .brand {
@@ -156,10 +160,10 @@
         align-items: center;
         justify-content: center;
         gap: 9px;
-        min-height: 50px;
-        padding: 0 24px;
+        min-height: 46px;
+        padding: 0 22px;
         border: 1px solid var(--ink);
-        border-radius: var(--radius);
+        border-radius: 999px;
         background: var(--ink);
         color: var(--bg);
         font-family: var(--font-body);
@@ -288,9 +292,10 @@
       .hero {
         position: relative;
         overflow: hidden;
-        padding: clamp(40px, 6vw, 84px) 22px clamp(72px, 9vw, 120px);
+        padding: clamp(28px, 5vw, 64px) 22px 0;
+        text-align: center;
         background:
-          radial-gradient(70% 46% at 50% 8%, rgba(255, 255, 255, 0.95), transparent 66%),
+          radial-gradient(78% 46% at 50% 2%, rgba(255, 255, 255, 0.98), transparent 72%),
           linear-gradient(180deg, var(--bg) 0%, #EDE6DA 100%);
       }
 
@@ -302,45 +307,57 @@
         right: 0;
         bottom: 0;
         left: 0;
-        height: 56%;
+        height: 66%;
         background-image: url("assets/hero.jpg");
         background-size: cover;
-        background-position: 50% 34%;
-        -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.55) 30%, #000 52%);
-        mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.55) 30%, #000 52%);
+        background-position: 50% 62%;
+        -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.55) 26%, #000 52%);
+        mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.55) 26%, #000 52%);
         pointer-events: none;
       }
 
-      .hero-grid {
+      .hero-copy {
         position: relative;
         z-index: 1;
-        max-width: var(--max);
+        max-width: 940px;
         margin: 0 auto;
-        display: grid;
-        grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.78fr);
-        gap: clamp(36px, 5vw, 72px);
-        align-items: center;
+      }
+
+      .hero .eyebrow {
+        justify-content: center;
       }
 
       .hero h1 {
-        max-width: 15ch;
-        margin: 4px 0 20px;
-        font-size: clamp(2.05rem, 4.6vw, 3.9rem);
+        max-width: 20ch;
+        margin: 4px auto 20px;
+        font-size: clamp(2.15rem, 5.4vw, 4.2rem);
         color: var(--ink);
       }
 
+      /* la frase destacada, en serif itálica */
+      .hero h1 em {
+        font-family: var(--font-accent);
+        font-weight: 400;
+        font-style: italic;
+        letter-spacing: -0.01em;
+      }
+
       .hero-lead {
-        max-width: 48ch;
-        margin: 0 0 26px;
+        max-width: 52ch;
+        margin: 0 auto 30px;
         color: var(--ink-soft);
-        font-size: 1.15rem;
+        font-size: 1.14rem;
+      }
+
+      .hero-actions {
+        justify-content: center;
       }
 
       .hero-actions .button.ghost {
-        border-color: rgba(255, 255, 255, 0.75);
-        background: rgba(255, 255, 255, 0.82);
+        border-color: rgba(255, 255, 255, 0.8);
+        background: rgba(255, 255, 255, 0.85);
         backdrop-filter: blur(10px);
-        box-shadow: 0 8px 24px rgba(20, 41, 61, 0.18);
+        box-shadow: 0 8px 24px rgba(20, 41, 61, 0.16);
       }
 
       .hero-actions .button.ghost:hover {
@@ -348,39 +365,362 @@
         color: var(--ink);
       }
 
-      .hooks {
+      /* Pestañas + panel de producto ------------------------------------ */
+      .showcase {
+        position: relative;
+        z-index: 1;
+        max-width: var(--max);
+        margin: clamp(40px, 5vw, 68px) auto 0;
+      }
+
+      .tabs {
+        display: inline-flex;
+        gap: 4px;
+        margin-bottom: 18px;
+        padding: 5px;
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.68);
+        backdrop-filter: blur(14px);
+        box-shadow: 0 8px 26px rgba(20, 41, 61, 0.12);
+      }
+
+      .tab-input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .tab {
+        padding: 9px 22px;
+        border-radius: 999px;
+        color: var(--ink-soft);
+        font-size: 0.92rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 160ms ease, color 160ms ease;
+      }
+
+      .tab:hover {
+        color: var(--ink);
+      }
+
+      #vista-app:checked ~ .tabs .tab[for="vista-app"],
+      #vista-bi:checked ~ .tabs .tab[for="vista-bi"] {
+        background: var(--ink);
+        color: var(--bg);
+      }
+
+      #vista-app:focus-visible ~ .tabs .tab[for="vista-app"],
+      #vista-bi:focus-visible ~ .tabs .tab[for="vista-bi"] {
+        outline: 3px solid var(--accent);
+        outline-offset: 3px;
+      }
+
+      /* el panel se corta contra el borde inferior del hero */
+      .board {
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        border-radius: 18px 18px 0 0;
+        background: var(--surface);
+        box-shadow:
+          0 2px 4px rgba(20, 41, 61, 0.05),
+          0 -2px 60px rgba(20, 41, 61, 0.16),
+          0 40px 90px rgba(20, 41, 61, 0.24);
+        text-align: left;
+      }
+
+      .panel {
+        display: none;
+        padding: 18px 20px 26px;
+      }
+
+      #vista-app:checked ~ .board .panel-app,
+      #vista-bi:checked ~ .board .panel-bi {
+        display: block;
+      }
+
+      .board-chrome {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 12px 18px;
+        border-bottom: 1px solid var(--line);
+        background: var(--bg);
+      }
+
+      .board-dots {
+        display: flex;
+        gap: 6px;
+      }
+
+      .board-dots i {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--line);
+      }
+
+      .board-name {
+        color: var(--ink);
+        font-size: 0.82rem;
+        font-weight: 700;
+      }
+
+      .board-menu {
+        color: var(--ink-mute);
+        font-size: 0.78rem;
+      }
+
+      .board-search {
+        margin-left: auto;
+        padding: 5px 14px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--ink-mute);
+        font-size: 0.74rem;
+      }
+
+      .board-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      .chip {
+        padding: 6px 14px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        color: var(--ink-soft);
+        font-size: 0.76rem;
+        font-weight: 600;
+      }
+
+      .chip.ghost {
+        flex: 1;
+        min-width: 140px;
+        color: var(--ink-mute);
+        font-weight: 400;
+      }
+
+      .chip.solid {
+        margin-left: auto;
+        border-color: var(--accent);
+        background: var(--accent);
+        color: #ffffff;
+      }
+
+      /* KPIs -------------------------------------------------------------- */
+      .board-kpis {
         display: grid;
-        gap: 9px;
-        margin: 0 0 30px;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        margin-bottom: 26px;
+      }
+
+      .kpi-label {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--ink-mute);
+        font-size: 0.74rem;
+        font-weight: 500;
+      }
+
+      .kpi-value {
+        display: block;
+        font-size: 1.9rem;
+        font-weight: 800;
+        letter-spacing: -0.035em;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .bi-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+        gap: clamp(24px, 3vw, 44px);
+      }
+
+      /* Gráfico de barras ------------------------------------------------- */
+      .board-chart {
+        margin: 0;
+      }
+
+      .board-chart figcaption,
+      .board-split figcaption {
+        margin-bottom: 14px;
+        color: var(--ink-mute);
+        font-size: 0.74rem;
+        font-weight: 500;
+      }
+
+      .chart {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 12px;
+        align-items: end;
+        height: 150px;
+        /* grilla recesiva: hairline sólida, un paso por encima de la superficie */
+        background: repeating-linear-gradient(
+          to top,
+          var(--line-soft) 0 1px,
+          transparent 1px 37px
+        );
+      }
+
+      .chart-col {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        height: 100%;
+        padding-top: 20px;
+      }
+
+      .chart-bar {
+        width: 100%;
+        max-width: 24px;
+        border-radius: 4px 4px 0 0;
+        background: #C3DAEE;
+      }
+
+      .chart-col.is-now .chart-bar {
+        background: var(--accent);
+      }
+
+      /* fuera del flujo, para que no le reste altura a su propia barra */
+      .chart-value {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        color: var(--ink);
+        font-size: 0.8rem;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .chart-tick {
+        margin-top: 8px;
+        color: var(--ink-mute);
+        font-size: 0.7rem;
+      }
+
+      /* Desglose por área -------------------------------------------------- */
+      .board-split {
+        margin: 0;
+      }
+
+      .split-list {
+        display: grid;
+        gap: 14px;
+        margin: 0;
         padding: 0;
         list-style: none;
       }
 
-      .hooks li {
-        position: relative;
-        padding-left: 24px;
-        color: var(--ink-soft);
-        font-size: 0.95rem;
-        font-weight: 500;
-        text-shadow: 0 1px 10px rgba(247, 243, 236, 0.9);
+      .split-list li {
+        display: grid;
+        grid-template-columns: 96px minmax(0, 1fr) 26px;
+        gap: 12px;
+        align-items: center;
+        font-size: 0.82rem;
       }
 
-      .hooks li::before {
-        content: "";
-        position: absolute;
-        top: 0.62em;
-        left: 4px;
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
+      .split-name {
+        color: var(--ink-soft);
+      }
+
+      .split-track {
+        height: 8px;
+        border-radius: 999px;
+        background: var(--line-soft);
+      }
+
+      .split-fill {
+        display: block;
+        height: 100%;
+        border-radius: 999px;
         background: var(--accent);
       }
 
-      .hero-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
+      .split-num {
+        color: var(--ink);
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+        text-align: right;
+      }
+
+      /* Tabla del panel ---------------------------------------------------- */
+      .board-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85rem;
+      }
+
+      .board-table thead th {
+        padding: 0 10px 10px;
+        border-bottom: 1px solid var(--line);
+        color: var(--ink-mute);
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-align: left;
+      }
+
+      .board-table tbody th,
+      .board-table tbody td {
+        padding: 12px 10px;
+        border-bottom: 1px solid var(--line-soft);
+        text-align: left;
+      }
+
+      .board-table tbody th {
+        color: var(--ink);
+        font-weight: 600;
+      }
+
+      .board-table tbody td {
+        color: var(--ink-soft);
+      }
+
+      .board-table .num {
+        font-variant-numeric: tabular-nums;
+      }
+
+      .board-table .muted {
+        color: var(--ink-mute);
+      }
+
+      /* el color de estado nunca va solo: siempre punto + etiqueta */
+      .pill {
+        display: inline-flex;
         align-items: center;
+        gap: 6px;
+        color: var(--ink-soft);
+        font-size: 0.78rem;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .pill::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+
+      .pill.ok {
+        color: #0CA30C;
+      }
+
+      .pill.wait {
+        color: #B57400;
+      }
+
+      .pill.new {
+        color: var(--accent);
       }
 
       /* Conversion CTA (bloque oscuro) ---------------------------------- */
@@ -634,207 +974,6 @@
         font-size: 2.2rem;
         line-height: 1;
         color: var(--accent);
-      }
-
-      /* Tablero de aprobaciones ----------------------------------------- */
-      .board {
-        --series: #1668B0;
-        --series-mute: #C3DAEE;
-        --good: #0CA30C;
-        --warn: #B57400;
-        overflow: hidden;
-        border: 1px solid var(--line);
-        border-radius: var(--radius-card);
-        background: var(--surface);
-        box-shadow:
-          0 2px 4px rgba(20, 41, 61, 0.05),
-          0 30px 70px rgba(20, 41, 61, 0.16);
-      }
-
-      .board-chrome {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        padding: 12px 16px;
-        border-bottom: 1px solid var(--line);
-        background: var(--bg);
-      }
-
-      .board-dots {
-        display: flex;
-        gap: 6px;
-      }
-
-      .board-dots i {
-        width: 9px;
-        height: 9px;
-        border-radius: 50%;
-        background: var(--line);
-      }
-
-      .board-name {
-        color: var(--ink-mute);
-        font-size: 0.78rem;
-        font-weight: 600;
-      }
-
-      .board-body {
-        display: grid;
-        gap: 22px;
-        padding: 20px;
-      }
-
-      .board-kpis {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 14px;
-      }
-
-      .kpi-label {
-        display: block;
-        margin-bottom: 3px;
-        color: var(--ink-mute);
-        font-size: 0.72rem;
-        font-weight: 500;
-      }
-
-      .kpi-value {
-        display: block;
-        font-size: 1.6rem;
-        font-weight: 800;
-        letter-spacing: -0.035em;
-        font-variant-numeric: tabular-nums;
-      }
-
-      .board-chart {
-        margin: 0;
-      }
-
-      .board-chart figcaption {
-        margin-bottom: 12px;
-        color: var(--ink-mute);
-        font-size: 0.72rem;
-        font-weight: 500;
-      }
-
-      .chart {
-        display: grid;
-        grid-template-columns: repeat(6, minmax(0, 1fr));
-        gap: 10px;
-        align-items: end;
-        height: 108px;
-        /* grilla recesiva: hairline sólida, un paso por encima de la superficie */
-        background: repeating-linear-gradient(
-          to top,
-          var(--line-soft) 0 1px,
-          transparent 1px 27px
-        );
-      }
-
-      .chart-col {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        align-items: center;
-        height: 100%;
-        padding-top: 18px;
-      }
-
-      .chart-bar {
-        width: 100%;
-        max-width: 24px;
-        border-radius: 4px 4px 0 0;
-        background: var(--series-mute);
-      }
-
-      .chart-col.is-now .chart-bar {
-        background: var(--series);
-      }
-
-      /* fuera del flujo, para que no le reste altura a su propia barra */
-      .chart-value {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        color: var(--ink);
-        font-size: 0.76rem;
-        font-weight: 700;
-        font-variant-numeric: tabular-nums;
-      }
-
-      .chart-tick {
-        margin-top: 7px;
-        color: var(--ink-mute);
-        font-size: 0.68rem;
-      }
-
-      .board-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 0.84rem;
-      }
-
-      .board-table caption {
-        margin-bottom: 10px;
-        color: var(--ink-mute);
-        font-size: 0.72rem;
-        font-weight: 500;
-        text-align: left;
-      }
-
-      .board-table tr + tr th,
-      .board-table tr + tr td {
-        border-top: 1px solid var(--line-soft);
-      }
-
-      .board-table th {
-        padding: 9px 0;
-        color: var(--ink);
-        font-weight: 600;
-        text-align: left;
-      }
-
-      .board-table td {
-        padding: 9px 0;
-        color: var(--ink-soft);
-        text-align: right;
-      }
-
-      .board-table .num {
-        font-variant-numeric: tabular-nums;
-      }
-
-      /* el color de estado nunca va solo: siempre punto + etiqueta */
-      .pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        color: var(--ink-soft);
-        font-size: 0.76rem;
-        font-weight: 600;
-        white-space: nowrap;
-      }
-
-      .pill::before {
-        content: "";
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: currentColor;
-      }
-
-      .pill.ok {
-        color: var(--good);
-      }
-
-      .pill.wait {
-        color: var(--warn);
-      }
-
-      .pill.new {
-        color: var(--series);
       }
 
       /* Servicios: filas numeradas -------------------------------------- */
@@ -1178,9 +1317,16 @@
 
       /* Responsive ------------------------------------------------------ */
       @media (max-width: 940px) {
-        .hero-grid,
         .example-grid {
           grid-template-columns: 1fr;
+        }
+
+        .bi-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .board-kpis {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
         .flow {
@@ -1268,6 +1414,15 @@
           border-top: 1px solid var(--line);
         }
 
+        /* la tabla ancha scrollea sola en vez de romper el layout */
+        .panel-app {
+          overflow-x: auto;
+        }
+
+        .board-table.wide {
+          min-width: 620px;
+        }
+
         .team,
         .help-list,
         .process-grid,
@@ -1350,49 +1505,182 @@
     <main id="contenido">
       <!-- HERO: promesa emocional corta + foto real de quien está detrás -->
       <section class="hero" id="inicio" aria-labelledby="hero-title">
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <p class="eyebrow greet">Digitalización de procesos con Microsoft</p>
-            <h1 id="hero-title">Tu empresa ya tiene Microsoft. Nosotros lo convertimos en tu sistema de trabajo.</h1>
-            <p class="hero-lead">Relevamos los procesos que hoy funcionan a fuerza de planillas y mails, y los pasamos a Power Apps, Power Automate y Power BI.</p>
-            <ul class="hooks" aria-label="Objetivos con los que podés identificarte">
-              <li>Menos planillas y mails sueltos</li>
-              <li>Procesos que no dependen de una persona</li>
-              <li>Información al día sin cargarla a mano</li>
-            </ul>
-            <div class="hero-actions">
-              <a class="button accent big" href="#contacto">Contanos tu proceso</a>
-              <a class="button ghost" href="#ejemplo">Ver un ejemplo</a>
-            </div>
+        <div class="hero-copy">
+          <p class="eyebrow greet">Digitalización de procesos con Microsoft</p>
+          <h1 id="hero-title">Tu empresa ya tiene Microsoft. Nosotros lo convertimos en tu <em>sistema de trabajo</em>.</h1>
+          <p class="hero-lead">Relevamos los procesos que hoy funcionan a fuerza de planillas y mails, y los pasamos a Power Apps, Power Automate y Power BI.</p>
+          <div class="hero-actions">
+            <a class="button accent big" href="#contacto">Contanos tu proceso</a>
+            <a class="button ghost" href="#ejemplo">Ver un ejemplo</a>
+          </div>
+        </div>
+
+        <!-- Panel de producto. Las pestañas son radios: funcionan sin JavaScript. -->
+        <div class="showcase" aria-label="Ejemplo de solicitudes de aprobación">
+          <input class="tab-input" type="radio" name="vista" id="vista-app" checked>
+          <input class="tab-input" type="radio" name="vista" id="vista-bi">
+          <div class="tabs">
+            <label class="tab" for="vista-app">Solicitudes</label>
+            <label class="tab" for="vista-bi">Tablero</label>
           </div>
 
-          <figure class="flow" aria-label="Cómo se integra el proceso sobre Microsoft">
-            <figcaption class="flow-head">Un proceso, tres piezas</figcaption>
-            <ol class="flow-steps">
-              <li class="flow-step">
-                <span class="flow-badge" aria-hidden="true">01</span>
-                <div>
-                  <strong>Power Apps</strong>
-                  <span>La solicitud se carga una sola vez, ya validada.</span>
+          <div class="board">
+            <div class="board-chrome">
+              <span class="board-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="board-name">Aprobaciones internas</span>
+              <span class="board-menu" aria-hidden="true">Archivo · Editar · Ver</span>
+              <span class="board-search" aria-hidden="true">Buscar</span>
+            </div>
+
+            <!-- Vista 1: la app de solicitudes -->
+            <div class="panel panel-app">
+              <div class="board-toolbar" aria-hidden="true">
+                <span class="chip">Filtro · 3</span>
+                <span class="chip">Orden · Fecha</span>
+                <span class="chip ghost">Buscar en la lista</span>
+                <span class="chip solid">Exportar</span>
+              </div>
+              <table class="board-table wide">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Solicitud</th>
+                    <th scope="col" class="num">Monto</th>
+                    <th scope="col">Área</th>
+                    <th scope="col">Aprueba</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Creada</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="num muted">01</td>
+                    <th scope="row">Compra de insumos</th>
+                    <td class="num">$180.000</td>
+                    <td>Operaciones</td>
+                    <td>M. Torres</td>
+                    <td><span class="pill new">Nuevo</span></td>
+                    <td class="muted">27 jul</td>
+                  </tr>
+                  <tr>
+                    <td class="num muted">02</td>
+                    <th scope="row">Vacaciones · L. Giménez</th>
+                    <td class="num">12 al 23/8</td>
+                    <td>Administración</td>
+                    <td>R. Paz</td>
+                    <td><span class="pill ok">Aprobado</span></td>
+                    <td class="muted">24 jul</td>
+                  </tr>
+                  <tr>
+                    <td class="num muted">03</td>
+                    <th scope="row">Anticipo a proveedor</th>
+                    <td class="num">$95.000</td>
+                    <td>Compras</td>
+                    <td>M. Torres</td>
+                    <td><span class="pill wait">Demorado</span></td>
+                    <td class="muted">22 jul</td>
+                  </tr>
+                  <tr>
+                    <td class="num muted">04</td>
+                    <th scope="row">Reintegro de viáticos</th>
+                    <td class="num">$46.500</td>
+                    <td>Comercial</td>
+                    <td>S. Ledesma</td>
+                    <td><span class="pill ok">Aprobado</span></td>
+                    <td class="muted">21 jul</td>
+                  </tr>
+                  <tr>
+                    <td class="num muted">05</td>
+                    <th scope="row">Alta de proveedor</th>
+                    <td class="num">—</td>
+                    <td>Compras</td>
+                    <td>R. Paz</td>
+                    <td><span class="pill ok">Aprobado</span></td>
+                    <td class="muted">19 jul</td>
+                  </tr>
+                  <tr>
+                    <td class="num muted">06</td>
+                    <th scope="row">Licencia por estudio</th>
+                    <td class="num">3 días</td>
+                    <td>Administración</td>
+                    <td>S. Ledesma</td>
+                    <td><span class="pill new">Nuevo</span></td>
+                    <td class="muted">18 jul</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Vista 2: el tablero -->
+            <div class="panel panel-bi">
+              <div class="board-kpis">
+                <div class="kpi">
+                  <span class="kpi-label">Solicitudes</span>
+                  <strong class="kpi-value">34</strong>
                 </div>
-              </li>
-              <li class="flow-step">
-                <span class="flow-badge" aria-hidden="true">02</span>
-                <div>
-                  <strong>Power Automate</strong>
-                  <span>Se deriva a quien aprueba y avisa si se demora.</span>
+                <div class="kpi">
+                  <span class="kpi-label">Resueltas en 24 h</span>
+                  <strong class="kpi-value">31</strong>
                 </div>
-              </li>
-              <li class="flow-step">
-                <span class="flow-badge" aria-hidden="true">03</span>
-                <div>
-                  <strong>Power BI</strong>
-                  <span>Queda en el tablero, actualizado solo.</span>
+                <div class="kpi">
+                  <span class="kpi-label">Monto aprobado</span>
+                  <strong class="kpi-value">$2,4 M</strong>
                 </div>
-              </li>
-            </ol>
-            <p class="flow-foot">Todo sobre la plataforma que tu empresa ya tiene.</p>
-          </figure>
+                <div class="kpi">
+                  <span class="kpi-label">Demora promedio</span>
+                  <strong class="kpi-value">6 h</strong>
+                </div>
+              </div>
+
+              <div class="bi-grid">
+                <figure class="board-chart">
+                  <figcaption>Aprobadas por mes</figcaption>
+                  <div
+                    class="chart"
+                    role="img"
+                    aria-label="Solicitudes aprobadas por mes: febrero 18, marzo 22, abril 19, mayo 27, junio 24, julio 34."
+                  >
+                    <div class="chart-col"><span class="chart-bar" style="height: 53%"></span><span class="chart-tick">Feb</span></div>
+                    <div class="chart-col"><span class="chart-bar" style="height: 65%"></span><span class="chart-tick">Mar</span></div>
+                    <div class="chart-col"><span class="chart-bar" style="height: 56%"></span><span class="chart-tick">Abr</span></div>
+                    <div class="chart-col"><span class="chart-bar" style="height: 79%"></span><span class="chart-tick">May</span></div>
+                    <div class="chart-col"><span class="chart-bar" style="height: 71%"></span><span class="chart-tick">Jun</span></div>
+                    <div class="chart-col is-now">
+                      <span class="chart-value">34</span>
+                      <span class="chart-bar" style="height: 100%"></span>
+                      <span class="chart-tick">Jul</span>
+                    </div>
+                  </div>
+                </figure>
+
+                <figure class="board-split">
+                  <figcaption>Por área</figcaption>
+                  <ul class="split-list">
+                    <li>
+                      <span class="split-name">Compras</span>
+                      <span class="split-track"><span class="split-fill" style="width: 100%"></span></span>
+                      <span class="split-num">14</span>
+                    </li>
+                    <li>
+                      <span class="split-name">Operaciones</span>
+                      <span class="split-track"><span class="split-fill" style="width: 64%"></span></span>
+                      <span class="split-num">9</span>
+                    </li>
+                    <li>
+                      <span class="split-name">Administración</span>
+                      <span class="split-track"><span class="split-fill" style="width: 50%"></span></span>
+                      <span class="split-num">7</span>
+                    </li>
+                    <li>
+                      <span class="split-name">Comercial</span>
+                      <span class="split-track"><span class="split-fill" style="width: 29%"></span></span>
+                      <span class="split-num">4</span>
+                    </li>
+                  </ul>
+                </figure>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1448,70 +1736,33 @@
               </div>
             </div>
 
-            <div class="board reveal" aria-label="Ejemplo de solicitudes de aprobación">
-              <div class="board-chrome" aria-hidden="true">
-                <span class="board-dots"><i></i><i></i><i></i></span>
-                <span class="board-name">Aprobaciones · Julio</span>
-              </div>
-
-              <div class="board-body">
-                <div class="board-kpis">
-                  <div class="kpi">
-                    <span class="kpi-label">Solicitudes</span>
-                    <strong class="kpi-value">34</strong>
+            <figure class="flow reveal" aria-label="Cómo se integra el proceso sobre Microsoft">
+              <figcaption class="flow-head">Cómo queda, en tres piezas</figcaption>
+              <ol class="flow-steps">
+                <li class="flow-step">
+                  <span class="flow-badge" aria-hidden="true">01</span>
+                  <div>
+                    <strong>Power Apps</strong>
+                    <span>La solicitud se carga una sola vez, ya validada.</span>
                   </div>
-                  <div class="kpi">
-                    <span class="kpi-label">Resueltas en 24 h</span>
-                    <strong class="kpi-value">31</strong>
+                </li>
+                <li class="flow-step">
+                  <span class="flow-badge" aria-hidden="true">02</span>
+                  <div>
+                    <strong>Power Automate</strong>
+                    <span>Se deriva a quien aprueba y avisa si se demora.</span>
                   </div>
-                  <div class="kpi">
-                    <span class="kpi-label">Monto aprobado</span>
-                    <strong class="kpi-value">$2,4 M</strong>
+                </li>
+                <li class="flow-step">
+                  <span class="flow-badge" aria-hidden="true">03</span>
+                  <div>
+                    <strong>Power BI</strong>
+                    <span>Queda en el tablero, actualizado solo.</span>
                   </div>
-                </div>
-
-                <figure class="board-chart">
-                  <figcaption>Aprobadas por mes</figcaption>
-                  <div
-                    class="chart"
-                    role="img"
-                    aria-label="Solicitudes aprobadas por mes: febrero 18, marzo 22, abril 19, mayo 27, junio 24, julio 34."
-                  >
-                    <div class="chart-col"><span class="chart-bar" style="height: 53%"></span><span class="chart-tick">Feb</span></div>
-                    <div class="chart-col"><span class="chart-bar" style="height: 65%"></span><span class="chart-tick">Mar</span></div>
-                    <div class="chart-col"><span class="chart-bar" style="height: 56%"></span><span class="chart-tick">Abr</span></div>
-                    <div class="chart-col"><span class="chart-bar" style="height: 79%"></span><span class="chart-tick">May</span></div>
-                    <div class="chart-col"><span class="chart-bar" style="height: 71%"></span><span class="chart-tick">Jun</span></div>
-                    <div class="chart-col is-now">
-                      <span class="chart-value">34</span>
-                      <span class="chart-bar" style="height: 100%"></span>
-                      <span class="chart-tick">Jul</span>
-                    </div>
-                  </div>
-                </figure>
-
-                <table class="board-table">
-                  <caption>Últimas solicitudes</caption>
-                  <tbody>
-                    <tr>
-                      <th scope="row">Compra de insumos</th>
-                      <td class="num">$180.000</td>
-                      <td><span class="pill new">Nuevo</span></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Vacaciones · L. Giménez</th>
-                      <td class="num">12 al 23/8</td>
-                      <td><span class="pill ok">Aprobado</span></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Anticipo a proveedor</th>
-                      <td class="num">$95.000</td>
-                      <td><span class="pill wait">Demorado</span></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+                </li>
+              </ol>
+              <p class="flow-foot">Todo sobre la plataforma que tu empresa ya tiene.</p>
+            </figure>
           </div>
 
           <div class="reveal">
