@@ -332,14 +332,14 @@ test('closes with the configured FormSubmit contact form', () => {
   );
 });
 
-test('uses Instrument Serif for display typography and Inter for body copy', () => {
+test('uses Newsreader for display typography and Inter for body copy', () => {
   assert.match(
     html,
-    /family=Instrument\+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap/i,
+    /family=Newsreader:opsz,wght@6\.\.72,400;6\.\.72,500&family=Inter:wght@400;500;600&display=swap/i,
   );
   assert.match(
     html,
-    /--font-display:\s*"Instrument Serif", "Iowan Old Style", "Palatino Linotype", Georgia, serif;/i,
+    /--font-display:\s*"Newsreader", "Iowan Old Style", "Palatino Linotype", Georgia, serif;/i,
   );
   assert.match(
     html,
