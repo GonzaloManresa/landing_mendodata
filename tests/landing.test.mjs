@@ -16,7 +16,7 @@ const visibleText = html
 test('renders the current landing sections', () => {
   const requiredSnippets = [
     'Digitalización de procesos con Microsoft',
-    'Tu empresa ya tiene Microsoft. Nosotros lo convertimos en tu <em>sistema de trabajo</em>.',
+    'Tu empresa ya tiene <span class="hl">Microsoft</span>. Nosotros lo convertimos en tu <em>sistema de trabajo</em>.',
     'Aprobaciones internas: de la cadena de mails a un flujo que se resuelve solo',
     'De la primera charla al proceso funcionando',
     'Un equipo que entiende el proceso antes de escribir código',
@@ -115,7 +115,7 @@ test('uses the approved accessible team photos and face-prioritized crops', () =
 test('guides Instagram visitors from the hero and example to contact', () => {
   assert.match(
     html,
-    /Tu empresa ya tiene Microsoft\. Nosotros lo convertimos en tu <em>sistema de trabajo<\/em>\./i,
+    /Tu empresa ya tiene <span class="hl">Microsoft<\/span>\. Nosotros lo convertimos en tu <em>sistema de trabajo<\/em>\./i,
   );
   assert.match(
     html,
