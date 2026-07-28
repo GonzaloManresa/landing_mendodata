@@ -332,21 +332,22 @@ test('closes with the configured FormSubmit contact form', () => {
   );
 });
 
-test('uses Newsreader for display typography and Inter for body copy', () => {
+test('uses Inter throughout with a heavy tight display weight', () => {
   assert.match(
     html,
-    /family=Newsreader:opsz,wght@6\.\.72,400;6\.\.72,500&family=Inter:wght@400;500;600&display=swap/i,
+    /family=Inter:wght@400;500;600;700;800&display=swap/i,
   );
   assert.match(
     html,
-    /--font-display:\s*"Newsreader", "Iowan Old Style", "Palatino Linotype", Georgia, serif;/i,
+    /--font-display:\s*"Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;/i,
   );
   assert.match(
     html,
     /--font-body:\s*"Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;/i,
   );
-  assert.match(html, /h1\s*\{[^}]*font-weight:\s*400;/i);
-  assert.match(html, /h2\s*\{[^}]*font-weight:\s*400;/i);
+  assert.match(html, /h1\s*\{[^}]*font-weight:\s*800;[^}]*letter-spacing:\s*-0\.038em;/i);
+  assert.match(html, /h2\s*\{[^}]*font-weight:\s*800;/i);
+  assert.doesNotMatch(html, /Newsreader|Instrument\+Serif/i);
   assert.match(html, /h3\s*\{[^}]*font-weight:\s*600;/i);
   assert.match(html, /\.team-name\s*\{[^}]*font-family:\s*var\(--font-display\);/i);
   assert.match(html, /\.process-num\s*\{[^}]*font-family:\s*var\(--font-display\);/i);
