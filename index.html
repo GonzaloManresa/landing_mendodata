@@ -370,7 +370,7 @@
         position: relative;
         z-index: 1;
         max-width: var(--max);
-        margin: clamp(40px, 5vw, 68px) auto 0;
+        margin: clamp(40px, 5vw, 68px) auto -1px;
       }
 
       .tabs {
@@ -425,8 +425,7 @@
         background: var(--surface);
         box-shadow:
           0 2px 4px rgba(20, 41, 61, 0.05),
-          0 -2px 60px rgba(20, 41, 61, 0.16),
-          0 40px 90px rgba(20, 41, 61, 0.24);
+          0 -8px 60px rgba(20, 41, 61, 0.18);
         text-align: left;
       }
 
@@ -865,16 +864,15 @@
 
       /* Franja "Así te ayudamos" ---------------------------------------- */
       .helps {
-        padding-block: clamp(48px, 6vw, 72px);
-        background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
+        padding-block: clamp(56px, 7vw, 88px);
+        background: var(--surface);
       }
 
       .help-card {
         padding: clamp(24px, 3vw, 36px);
         border: 1px solid var(--line);
         border-radius: var(--radius-card);
-        background: var(--surface);
-        box-shadow: var(--shadow-soft);
+        background: var(--bg);
       }
 
       .help-list {
