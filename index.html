@@ -218,7 +218,7 @@
 
       h1 {
         margin: 0 0 22px;
-        font-size: clamp(2.75rem, 6.4vw, 4.5rem);
+        font-size: clamp(2.15rem, 6.4vw, 4.5rem);
         font-weight: 400;
         line-height: 1.02;
         letter-spacing: -0.02em;
@@ -291,7 +291,6 @@
         text-align: center;
         background:
           radial-gradient(70% 46% at 50% 8%, rgba(255, 255, 255, 0.95), transparent 66%),
-          radial-gradient(96% 66% at 50% 104%, rgba(22, 104, 176, 0.24), transparent 68%),
           linear-gradient(180deg, var(--bg) 0%, #EDE6DA 100%);
       }
 
@@ -303,12 +302,12 @@
         right: 0;
         bottom: 0;
         left: 0;
-        height: 78%;
+        height: 56%;
         background-image: url("assets/hero.jpg");
         background-size: cover;
-        background-position: 50% 42%;
-        -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 34%, #000 100%);
-        mask-image: linear-gradient(180deg, transparent 0%, #000 34%, #000 100%);
+        background-position: 50% 34%;
+        -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.55) 30%, #000 52%);
+        mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.55) 30%, #000 52%);
         pointer-events: none;
       }
 
@@ -331,22 +330,38 @@
       .hero h1 {
         max-width: 18ch;
         margin: 4px auto 20px;
-        font-size: clamp(2.9rem, 6.6vw, 4.9rem);
+        font-size: clamp(2.15rem, 6.6vw, 4.9rem);
         color: var(--ink);
       }
 
       .hero-lead {
         max-width: 56ch;
-        margin: 0 auto 32px;
+        margin: 0 auto 26px;
         color: var(--ink-soft);
         font-size: 1.18rem;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .hero-actions .button.ghost {
+        border-color: rgba(255, 255, 255, 0.75);
+        background: rgba(255, 255, 255, 0.82);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 24px rgba(20, 41, 61, 0.18);
+      }
+
+      .hero-actions .button.ghost:hover {
+        background: #ffffff;
+        color: var(--ink);
       }
 
       .hooks {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        margin: 30px 0 0;
+        margin: 0 0 30px;
         padding: 0;
         list-style: none;
       }
@@ -355,12 +370,13 @@
         color: var(--ink-soft);
         font-size: 0.92rem;
         font-weight: 500;
+        text-shadow: 0 1px 10px rgba(247, 243, 236, 0.9);
       }
 
       .hooks li + li {
         margin-left: 22px;
         padding-left: 22px;
-        border-left: 1px solid rgba(20, 41, 61, 0.18);
+        border-left: 1px solid var(--line);
       }
 
       .hero-actions {
@@ -1221,15 +1237,15 @@
             <p class="eyebrow greet">Digitalización de procesos con Microsoft</p>
             <h1 id="hero-title">Tu empresa ya tiene Microsoft. Nosotros lo convertimos en tu sistema de trabajo.</h1>
             <p class="hero-lead">Relevamos los procesos que hoy funcionan a fuerza de planillas y mails, y los pasamos a Power Apps, Power Automate y Power BI.</p>
-            <div class="hero-actions">
-              <a class="button accent big" href="#contacto">Contanos tu proceso</a>
-              <a class="button ghost" href="#ejemplo">Ver un ejemplo</a>
-            </div>
             <ul class="hooks" aria-label="Objetivos con los que podés identificarte">
               <li>Menos planillas y mails sueltos</li>
               <li>Procesos que no dependen de una persona</li>
               <li>Información al día sin cargarla a mano</li>
             </ul>
+            <div class="hero-actions">
+              <a class="button accent big" href="#contacto">Contanos tu proceso</a>
+              <a class="button ghost" href="#ejemplo">Ver un ejemplo</a>
+            </div>
           </div>
 
           <aside class="help-card" aria-label="Así te ayudamos">
