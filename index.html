@@ -288,8 +288,7 @@
       .hero {
         position: relative;
         overflow: hidden;
-        padding: clamp(40px, 6vw, 84px) 22px 0;
-        text-align: center;
+        padding: clamp(40px, 6vw, 84px) 22px clamp(72px, 9vw, 120px);
         background:
           radial-gradient(70% 46% at 50% 8%, rgba(255, 255, 255, 0.95), transparent 66%),
           linear-gradient(180deg, var(--bg) 0%, #EDE6DA 100%);
@@ -317,33 +316,24 @@
         z-index: 1;
         max-width: var(--max);
         margin: 0 auto;
-      }
-
-      .hero-copy {
-        max-width: 1080px;
-        margin: 0 auto;
-      }
-
-      .hero .eyebrow {
-        justify-content: center;
+        display: grid;
+        grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.78fr);
+        gap: clamp(36px, 5vw, 72px);
+        align-items: center;
       }
 
       .hero h1 {
-        max-width: 27ch;
-        margin: 4px auto 20px;
-        font-size: clamp(2.05rem, 5.6vw, 4.3rem);
+        max-width: 15ch;
+        margin: 4px 0 20px;
+        font-size: clamp(2.05rem, 4.6vw, 3.9rem);
         color: var(--ink);
       }
 
       .hero-lead {
-        max-width: 56ch;
-        margin: 0 auto 26px;
+        max-width: 48ch;
+        margin: 0 0 26px;
         color: var(--ink-soft);
-        font-size: 1.18rem;
-      }
-
-      .hero-actions {
-        justify-content: center;
+        font-size: 1.15rem;
       }
 
       .hero-actions .button.ghost {
@@ -359,25 +349,31 @@
       }
 
       .hooks {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        display: grid;
+        gap: 9px;
         margin: 0 0 30px;
         padding: 0;
         list-style: none;
       }
 
       .hooks li {
+        position: relative;
+        padding-left: 24px;
         color: var(--ink-soft);
-        font-size: 0.92rem;
+        font-size: 0.95rem;
         font-weight: 500;
         text-shadow: 0 1px 10px rgba(247, 243, 236, 0.9);
       }
 
-      .hooks li + li {
-        margin-left: 22px;
-        padding-left: 22px;
-        border-left: 1px solid var(--line);
+      .hooks li::before {
+        content: "";
+        position: absolute;
+        top: 0.62em;
+        left: 4px;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--accent);
       }
 
       .hero-actions {
@@ -445,19 +441,100 @@
         border-color: #ffffff;
       }
 
-      /* "Así te ayudamos" card ----------------------------------------- */
-      .help-card {
-        position: relative;
-        z-index: 2;
-        max-width: 1000px;
-        margin: clamp(56px, 7vw, 96px) auto -72px;
-        padding: clamp(22px, 2.6vw, 32px);
-        border: 1px solid rgba(255, 255, 255, 0.85);
-        border-radius: 24px;
-        background: rgba(255, 255, 255, 0.74);
+      /* Diagrama del flujo, en el hero ---------------------------------- */
+      .flow {
+        margin: 0;
+        padding: clamp(24px, 2.6vw, 32px);
+        border: 1px solid rgba(255, 255, 255, 0.9);
+        border-radius: var(--radius-card);
+        background: rgba(255, 255, 255, 0.78);
         backdrop-filter: blur(18px);
         box-shadow: 0 30px 70px rgba(20, 41, 61, 0.18);
-        text-align: left;
+      }
+
+      .flow-head {
+        margin-bottom: 20px;
+        font-weight: 700;
+        font-size: 0.74rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      .flow-steps {
+        position: relative;
+        display: grid;
+        gap: 22px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .flow-step {
+        position: relative;
+        display: grid;
+        grid-template-columns: 42px minmax(0, 1fr);
+        gap: 16px;
+        align-items: start;
+      }
+
+      /* línea que conecta un paso con el siguiente */
+      .flow-step:not(:last-child)::before {
+        content: "";
+        position: absolute;
+        top: 46px;
+        left: 20px;
+        width: 2px;
+        height: calc(100% - 24px);
+        background: linear-gradient(180deg, var(--accent), rgba(22, 104, 176, 0.15));
+      }
+
+      .flow-badge {
+        display: grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: var(--accent);
+        color: #ffffff;
+        font-weight: 800;
+        font-size: 0.9rem;
+        letter-spacing: -0.02em;
+      }
+
+      .flow-step strong {
+        display: block;
+        margin-bottom: 2px;
+        font-size: 1.04rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+
+      .flow-step span {
+        color: var(--ink-soft);
+        font-size: 0.95rem;
+      }
+
+      .flow-foot {
+        margin: 22px 0 0;
+        padding-top: 16px;
+        border-top: 1px solid var(--line);
+        color: var(--ink-mute);
+        font-size: 0.9rem;
+      }
+
+      /* Franja "Así te ayudamos" ---------------------------------------- */
+      .helps {
+        padding-block: clamp(48px, 6vw, 72px);
+        background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
+      }
+
+      .help-card {
+        padding: clamp(24px, 3vw, 36px);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-card);
+        background: var(--surface);
+        box-shadow: var(--shadow-soft);
       }
 
       .help-list {
@@ -501,7 +578,6 @@
 
       /* Ejemplo (antes / después) --------------------------------------- */
       .example {
-        padding-top: clamp(108px, 12vw, 160px);
         background: var(--surface);
       }
 
@@ -1099,8 +1175,13 @@
 
       /* Responsive ------------------------------------------------------ */
       @media (max-width: 940px) {
+        .hero-grid,
         .example-grid {
           grid-template-columns: 1fr;
+        }
+
+        .flow {
+          max-width: 520px;
         }
 
         .example-grid .phone {
@@ -1200,16 +1281,6 @@
           grid-template-columns: 1fr;
         }
 
-        .hooks {
-          flex-direction: column;
-        }
-
-        .hooks li + li {
-          margin: 10px 0 0;
-          padding: 10px 0 0;
-          border-left: 0;
-          border-top: 1px solid var(--line);
-        }
 
         .lead {
           font-size: 1.06rem;
@@ -1296,7 +1367,40 @@
             </div>
           </div>
 
-          <aside class="help-card" aria-label="Así te ayudamos">
+          <figure class="flow" aria-label="Cómo se integra el proceso sobre Microsoft">
+            <figcaption class="flow-head">Un proceso, tres piezas</figcaption>
+            <ol class="flow-steps">
+              <li class="flow-step">
+                <span class="flow-badge" aria-hidden="true">01</span>
+                <div>
+                  <strong>Power Apps</strong>
+                  <span>La solicitud se carga una sola vez, ya validada.</span>
+                </div>
+              </li>
+              <li class="flow-step">
+                <span class="flow-badge" aria-hidden="true">02</span>
+                <div>
+                  <strong>Power Automate</strong>
+                  <span>Se deriva a quien aprueba y avisa si se demora.</span>
+                </div>
+              </li>
+              <li class="flow-step">
+                <span class="flow-badge" aria-hidden="true">03</span>
+                <div>
+                  <strong>Power BI</strong>
+                  <span>Queda en el tablero, actualizado solo.</span>
+                </div>
+              </li>
+            </ol>
+            <p class="flow-foot">Todo sobre la plataforma que tu empresa ya tiene.</p>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ASÍ TE AYUDAMOS: franja de tres beneficios -->
+      <section class="section helps" aria-label="Así te ayudamos">
+        <div class="wrap">
+          <div class="help-card">
             <p class="help-kicker">Así te ayudamos</p>
             <ul class="help-list">
               <li>
@@ -1313,7 +1417,7 @@
               </li>
             </ul>
             <p class="help-foot">Y los datos para decidir salen del proceso, no de armarlos a mano.</p>
-          </aside>
+          </div>
         </div>
       </section>
 

@@ -354,14 +354,21 @@ test('uses Inter throughout with a heavy tight display weight', () => {
   assert.doesNotMatch(html, /Manrope/i);
 });
 
-test('centers the hero over a scenic backdrop', () => {
-  assert.match(
-    html,
-    /\.hero\s*\{[^}]*padding:\s*clamp\(40px, 6vw, 84px\) 22px 0;[^}]*text-align:\s*center;/i,
-  );
+test('splits the hero between copy and the integration flow', () => {
   assert.match(
     html,
     /\.hero::before\s*\{[^}]*background-image:\s*url\("assets\/hero\.jpg"\);/i,
   );
-  assert.match(html, /\.help-card\s*\{[^}]*backdrop-filter:\s*blur\(18px\);/i);
+  assert.match(
+    html,
+    /\.hero-grid\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1\.08fr\) minmax\(320px, 0\.78fr\);/i,
+  );
+  assert.match(html, /\.flow\s*\{[^}]*backdrop-filter:\s*blur\(18px\);/i);
+
+  const flow = html.match(/<figure[^>]+class="flow"[\s\S]*?<\/figure>/i)?.[0];
+  assert.ok(flow, 'el diagrama del flujo debe existir en el hero');
+  for (const tool of ['Power Apps', 'Power Automate', 'Power BI']) {
+    assert.match(flow, new RegExp(tool, 'i'));
+  }
+  assert.match(flow, /Todo sobre la plataforma que tu empresa ya tiene\./i);
 });
