@@ -583,7 +583,7 @@
 
       .example-grid {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+        grid-template-columns: minmax(0, 1fr) minmax(360px, 470px);
         gap: clamp(32px, 6vw, 72px);
         align-items: center;
       }
@@ -636,202 +636,205 @@
         color: var(--accent);
       }
 
-      /* Phone ----------------------------------------------------------- */
-      .phone {
-        justify-self: center;
-        position: relative;
-        width: min(100%, 320px);
-        padding: 10px;
-        border-radius: 40px;
-        background: var(--ink);
-        box-shadow:
-          0 2px 4px rgba(20, 41, 61, 0.1),
-          0 34px 80px rgba(20, 41, 61, 0.26);
-      }
-
-      .phone-modern {
-        aspect-ratio: 9 / 19;
-      }
-
-      .phone-screen {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        border-radius: 28px;
+      /* Tablero de aprobaciones ----------------------------------------- */
+      .board {
+        --series: #1668B0;
+        --series-mute: #C3DAEE;
+        --good: #0CA30C;
+        --warn: #B57400;
         overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-card);
+        background: var(--surface);
+        box-shadow:
+          0 2px 4px rgba(20, 41, 61, 0.05),
+          0 30px 70px rgba(20, 41, 61, 0.16);
+      }
+
+      .board-chrome {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--line);
         background: var(--bg);
       }
 
-      .phone-notch {
-        position: absolute;
-        top: 11px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 90px;
-        height: 24px;
-        border-radius: 999px;
-        background: var(--ink);
-        z-index: 6;
+      .board-dots {
+        display: flex;
+        gap: 6px;
       }
 
-      .phone-status {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 14px 24px 8px;
-        color: var(--ink);
-        font-size: 0.8rem;
+      .board-dots i {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--line);
+      }
+
+      .board-name {
+        color: var(--ink-mute);
+        font-size: 0.78rem;
         font-weight: 600;
+      }
+
+      .board-body {
+        display: grid;
+        gap: 22px;
+        padding: 20px;
+      }
+
+      .board-kpis {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .kpi-label {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--ink-mute);
+        font-size: 0.72rem;
+        font-weight: 500;
+      }
+
+      .kpi-value {
+        display: block;
+        font-size: 1.6rem;
+        font-weight: 800;
+        letter-spacing: -0.035em;
         font-variant-numeric: tabular-nums;
       }
 
-      .phone-status svg {
-        display: block;
-        opacity: 0.75;
+      .board-chart {
+        margin: 0;
       }
 
-      .chat-header {
-        display: flex;
-        align-items: center;
-        gap: 11px;
-        padding: 6px 18px 12px;
-        border-bottom: 1px solid var(--line);
+      .board-chart figcaption {
+        margin-bottom: 12px;
+        color: var(--ink-mute);
+        font-size: 0.72rem;
+        font-weight: 500;
       }
 
-      .chat-avatar {
-        width: 40px;
-        height: 40px;
-        flex: 0 0 auto;
+      .chart {
         display: grid;
-        place-items: center;
-        border-radius: 50%;
-        background: var(--accent);
-        color: #ffffff;
-        font-family: var(--font-display);
-        font-size: 1.2rem;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 10px;
+        align-items: end;
+        height: 108px;
+        /* grilla recesiva: hairline sólida, un paso por encima de la superficie */
+        background: repeating-linear-gradient(
+          to top,
+          var(--line-soft) 0 1px,
+          transparent 1px 27px
+        );
       }
 
-      .chat-title strong {
-        display: block;
-        font-weight: 600;
-        font-size: 0.98rem;
-        color: var(--ink);
-      }
-
-      .chat-sub {
+      .chart-col {
+        position: relative;
         display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        height: 100%;
+        padding-top: 18px;
+      }
+
+      .chart-bar {
+        width: 100%;
+        max-width: 24px;
+        border-radius: 4px 4px 0 0;
+        background: var(--series-mute);
+      }
+
+      .chart-col.is-now .chart-bar {
+        background: var(--series);
+      }
+
+      /* fuera del flujo, para que no le reste altura a su propia barra */
+      .chart-value {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        color: var(--ink);
+        font-size: 0.76rem;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .chart-tick {
+        margin-top: 7px;
+        color: var(--ink-mute);
+        font-size: 0.68rem;
+      }
+
+      .board-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.84rem;
+      }
+
+      .board-table caption {
+        margin-bottom: 10px;
+        color: var(--ink-mute);
+        font-size: 0.72rem;
+        font-weight: 500;
+        text-align: left;
+      }
+
+      .board-table tr + tr th,
+      .board-table tr + tr td {
+        border-top: 1px solid var(--line-soft);
+      }
+
+      .board-table th {
+        padding: 9px 0;
+        color: var(--ink);
+        font-weight: 600;
+        text-align: left;
+      }
+
+      .board-table td {
+        padding: 9px 0;
+        color: var(--ink-soft);
+        text-align: right;
+      }
+
+      .board-table .num {
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* el color de estado nunca va solo: siempre punto + etiqueta */
+      .pill {
+        display: inline-flex;
         align-items: center;
         gap: 6px;
-        color: var(--ink-mute);
+        color: var(--ink-soft);
         font-size: 0.76rem;
+        font-weight: 600;
+        white-space: nowrap;
       }
 
-      .online-dot {
+      .pill::before {
+        content: "";
         width: 7px;
         height: 7px;
         border-radius: 50%;
-        background: var(--ok);
+        background: currentColor;
       }
 
-      .chat-body {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        padding: 16px 15px 6px;
-        overflow: hidden;
+      .pill.ok {
+        color: var(--good);
       }
 
-      .bubble {
-        position: relative;
-        align-self: flex-start;
-        max-width: 90%;
-        padding: 10px 13px;
-        border: 1px solid var(--line);
-        border-radius: 10px 10px 10px 3px;
-        background: var(--surface);
-        color: var(--ink-soft);
-        font-size: 0.88rem;
-        line-height: 1.4;
-        animation: bubble-in 0.5s ease both;
+      .pill.wait {
+        color: var(--warn);
       }
 
-      .bubble:nth-child(2) {
-        animation-delay: 0.12s;
-      }
-      .bubble:nth-child(3) {
-        animation-delay: 0.24s;
-      }
-      .bubble:nth-child(4) {
-        animation-delay: 0.36s;
-      }
-
-      @keyframes bubble-in {
-        from {
-          opacity: 0;
-          transform: translateY(8px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .bubble-day {
-        display: block;
-        margin-bottom: 3px;
-        color: var(--ink);
-        font-weight: 600;
-        font-size: 0.8rem;
-      }
-
-      .bubble-time {
-        display: block;
-        margin-top: 4px;
-        text-align: right;
-        color: var(--ink-mute);
-        font-size: 0.64rem;
-      }
-
-      .bubble.ok {
-        background: var(--ok-soft);
-        border-color: rgba(47, 125, 92, 0.28);
-      }
-
-      .bubble.ok .bubble-day {
-        color: var(--ok);
-      }
-
-      .bubble.summary {
-        align-self: stretch;
-        max-width: 100%;
-        margin-top: 2px;
-        border-radius: 10px;
-        border-color: var(--ink);
-        background: var(--ink);
-        color: rgba(251, 250, 248, 0.85);
-      }
-
-      .bubble.summary .bubble-day {
-        color: #A8BFF5;
-      }
-
-      .phone-home {
-        flex: 0 0 auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 24px;
-      }
-
-      .phone-home::after {
-        content: "";
-        width: 120px;
-        height: 5px;
-        border-radius: 999px;
-        background: var(--ink);
-        opacity: 0.8;
+      .pill.new {
+        color: var(--series);
       }
 
       /* Servicios: filas numeradas -------------------------------------- */
@@ -1184,10 +1187,6 @@
           max-width: 520px;
         }
 
-        .example-grid .phone {
-          order: -1;
-        }
-
         #servicios .process-grid,
         .example .process-grid,
         .process-grid {
@@ -1449,52 +1448,68 @@
               </div>
             </div>
 
-            <div class="phone phone-modern reveal" aria-label="Ejemplo de solicitudes de aprobación">
-              <div class="phone-notch" aria-hidden="true"></div>
-              <div class="phone-screen">
-                <div class="phone-status" aria-hidden="true">
-                  <span>8:41</span>
-                  <svg width="52" height="14" viewBox="0 0 52 14" fill="currentColor">
-                    <rect x="0" y="8" width="3" height="6" rx="1"></rect>
-                    <rect x="5" y="5" width="3" height="9" rx="1"></rect>
-                    <rect x="10" y="2" width="3" height="12" rx="1"></rect>
-                    <rect x="15" y="0" width="3" height="14" rx="1" opacity="0.35"></rect>
-                    <path d="M27 4c3 0 5.5 1.2 7 3-1.5 1.8-4 3-7 3s-5.5-1.2-7-3c1.5-1.8 4-3 7-3z" opacity="0"></path>
-                    <path d="M22.5 3.3a7 7 0 0 1 9 0l-1.3 1.5a5 5 0 0 0-6.4 0zM24.6 5.6a4 4 0 0 1 4.8 0L27 8z"></path>
-                    <rect x="36" y="2" width="13" height="9" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.4"></rect>
-                    <rect x="37.5" y="3.6" width="8.5" height="5.8" rx="1" ></rect>
-                    <rect x="50" y="4.5" width="1.6" height="4" rx="0.8"></rect>
-                  </svg>
-                </div>
-                <div class="chat-header">
-                  <span class="chat-avatar" aria-hidden="true">M</span>
-                  <div class="chat-title">
-                    <strong>Solicitudes</strong>
-                    <span class="chat-sub"><i class="online-dot"></i>pendientes de tu aprobación</span>
+            <div class="board reveal" aria-label="Ejemplo de solicitudes de aprobación">
+              <div class="board-chrome" aria-hidden="true">
+                <span class="board-dots"><i></i><i></i><i></i></span>
+                <span class="board-name">Aprobaciones · Julio</span>
+              </div>
+
+              <div class="board-body">
+                <div class="board-kpis">
+                  <div class="kpi">
+                    <span class="kpi-label">Solicitudes</span>
+                    <strong class="kpi-value">34</strong>
+                  </div>
+                  <div class="kpi">
+                    <span class="kpi-label">Resueltas en 24 h</span>
+                    <strong class="kpi-value">31</strong>
+                  </div>
+                  <div class="kpi">
+                    <span class="kpi-label">Monto aprobado</span>
+                    <strong class="kpi-value">$2,4 M</strong>
                   </div>
                 </div>
-                <div class="chat-body">
-                  <div class="bubble">
-                    <span class="bubble-day">Nuevo</span>
-                    Compra de insumos · $180.000. Aprobar o rechazar.
-                    <span class="bubble-time">09:12</span>
+
+                <figure class="board-chart">
+                  <figcaption>Aprobadas por mes</figcaption>
+                  <div
+                    class="chart"
+                    role="img"
+                    aria-label="Solicitudes aprobadas por mes: febrero 18, marzo 22, abril 19, mayo 27, junio 24, julio 34."
+                  >
+                    <div class="chart-col"><span class="chart-bar" style="height: 53%"></span><span class="chart-tick">Feb</span></div>
+                    <div class="chart-col"><span class="chart-bar" style="height: 65%"></span><span class="chart-tick">Mar</span></div>
+                    <div class="chart-col"><span class="chart-bar" style="height: 56%"></span><span class="chart-tick">Abr</span></div>
+                    <div class="chart-col"><span class="chart-bar" style="height: 79%"></span><span class="chart-tick">May</span></div>
+                    <div class="chart-col"><span class="chart-bar" style="height: 71%"></span><span class="chart-tick">Jun</span></div>
+                    <div class="chart-col is-now">
+                      <span class="chart-value">34</span>
+                      <span class="chart-bar" style="height: 100%"></span>
+                      <span class="chart-tick">Jul</span>
+                    </div>
                   </div>
-                  <div class="bubble ok">
-                    <span class="bubble-day">Aprobado</span>
-                    Vacaciones · Laura Giménez, 12 al 23 de agosto.
-                    <span class="bubble-time">11:40</span>
-                  </div>
-                  <div class="bubble">
-                    <span class="bubble-day">Demorado</span>
-                    Anticipo a proveedor · $95.000. Recordatorio enviado.
-                    <span class="bubble-time">16:05</span>
-                  </div>
-                  <div class="bubble summary">
-                    <span class="bubble-day">Este mes</span>
-                    34 solicitudes, 31 resueltas en menos de 24 horas.
-                  </div>
-                </div>
-                <div class="phone-home" aria-hidden="true"></div>
+                </figure>
+
+                <table class="board-table">
+                  <caption>Últimas solicitudes</caption>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Compra de insumos</th>
+                      <td class="num">$180.000</td>
+                      <td><span class="pill new">Nuevo</span></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Vacaciones · L. Giménez</th>
+                      <td class="num">12 al 23/8</td>
+                      <td><span class="pill ok">Aprobado</span></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Anticipo a proveedor</th>
+                      <td class="num">$95.000</td>
+                      <td><span class="pill wait">Demorado</span></td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>

@@ -288,7 +288,7 @@ test('includes baseline accessibility and usability hooks', () => {
   assert.match(html, /href="#nosotros"/i);
   assert.match(html, /href="#servicios"/i);
   assert.match(html, /prefers-reduced-motion/i);
-  assert.match(html, /class="[^"]*phone-modern/i);
+  assert.match(html, /class="board reveal"/i);
   assert.match(html, /#contacto\s*\{[^}]*scroll-margin-top:/i);
   assert.match(
     html,
