@@ -32,11 +32,11 @@
         --ok-soft: rgba(47, 125, 92, 0.1);
         --line: #E4DCD0;
         --line-soft: #EFE9E0;
-        --radius: 6px;
-        --radius-card: 14px;
+        --radius: 8px;
+        --radius-card: 22px;
         --shadow-soft:
-          0 1px 2px rgba(14, 17, 22, 0.04),
-          0 10px 30px rgba(14, 17, 22, 0.06);
+          0 1px 2px rgba(20, 41, 61, 0.04),
+          0 14px 40px rgba(20, 41, 61, 0.07);
         --max: 1120px;
         --font-display: "Instrument Serif", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
         --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
@@ -388,16 +388,28 @@
 
       /* Conversion CTA (bloque oscuro) ---------------------------------- */
       .conversion-cta {
-        padding: clamp(56px, 7vw, 88px) 22px;
-        background: var(--ink);
+        padding: clamp(64px, 8vw, 104px) 22px;
+        background:
+          radial-gradient(80% 120% at 50% 0%, #1D3A54, transparent 70%),
+          var(--ink);
         color: var(--bg);
+        text-align: center;
       }
 
       .conversion-cta .wrap {
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: space-between;
-        gap: 28px;
+        gap: 26px;
+        max-width: 720px;
+      }
+
+      .conversion-cta .kicker {
+        justify-content: center;
+      }
+
+      .conversion-cta .kicker::before {
+        background: rgba(251, 250, 248, 0.5);
       }
 
       .conversion-cta .kicker {
@@ -406,8 +418,10 @@
 
       .conversion-cta h2 {
         margin-bottom: 8px;
+        max-width: 18ch;
+        margin-inline: auto;
         color: var(--bg);
-        font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+        font-size: clamp(1.9rem, 3.8vw, 3rem);
       }
 
       .conversion-cta p:last-child {
@@ -488,7 +502,6 @@
       .example {
         padding-top: clamp(108px, 12vw, 160px);
         background: var(--surface);
-        border-bottom: 1px solid var(--line);
       }
 
       .example-grid {
@@ -531,7 +544,6 @@
         counter-increment: paso;
         padding: clamp(24px, 3vw, 30px);
         border: 1px solid var(--line);
-        border-top: 2px solid var(--accent);
         border-radius: var(--radius-card);
         background: var(--bg);
         box-shadow: var(--shadow-soft);
@@ -553,11 +565,11 @@
         position: relative;
         width: min(100%, 320px);
         padding: 10px;
-        border-radius: 36px;
+        border-radius: 40px;
         background: var(--ink);
         box-shadow:
-          0 2px 4px rgba(14, 17, 22, 0.1),
-          0 30px 70px rgba(14, 17, 22, 0.28);
+          0 2px 4px rgba(20, 41, 61, 0.1),
+          0 34px 80px rgba(20, 41, 61, 0.26);
       }
 
       .phone-modern {
@@ -747,8 +759,7 @@
 
       /* Servicios: filas numeradas -------------------------------------- */
       #servicios {
-        background: var(--surface);
-        border-top: 1px solid var(--line);
+        background: linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%);
       }
 
       #servicios .process-grid {
@@ -761,7 +772,6 @@
         counter-increment: svc;
         padding: clamp(26px, 3vw, 34px);
         border: 1px solid var(--line);
-        border-top: 2px solid var(--accent);
         border-radius: var(--radius-card);
         background: var(--bg);
         box-shadow: var(--shadow-soft);
@@ -787,8 +797,28 @@
       }
 
       /* Process (Cómo trabajamos) --------------------------------------- */
-      .process-head {
-        max-width: 48ch;
+      .process-head,
+      .about-head {
+        max-width: 56ch;
+        margin-inline: auto;
+        text-align: center;
+      }
+
+      .process-head .kicker,
+      .about-head .kicker,
+      .contact .kicker {
+        justify-content: center;
+      }
+
+      .process-head h2,
+      .about-head h2 {
+        max-width: 20ch;
+        margin-inline: auto;
+      }
+
+      .process-head .lead,
+      .about-head .lead {
+        margin-inline: auto;
       }
 
       .process-grid {
@@ -801,7 +831,6 @@
       .process-step {
         padding: clamp(26px, 3vw, 34px);
         border: 1px solid var(--line);
-        border-top: 2px solid var(--accent);
         border-radius: var(--radius-card);
         background: var(--surface);
         box-shadow: var(--shadow-soft);
@@ -836,12 +865,9 @@
 
       /* Quiénes somos (equipo) ------------------------------------------ */
       #nosotros {
-        border-top: 1px solid var(--line);
+        background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
       }
 
-      .about-head {
-        max-width: 62ch;
-      }
 
       .team {
         display: grid;
@@ -908,37 +934,41 @@
       }
 
       .team-note {
-        margin: clamp(28px, 4vw, 40px) 0 0;
-        padding-top: 18px;
-        border-top: 1px solid var(--line);
-        max-width: 58ch;
+        margin: clamp(30px, 4vw, 44px) auto 0;
+        max-width: 62ch;
         color: var(--ink-mute);
         font-size: 0.98rem;
+        text-align: center;
       }
 
       /* Contact / mail -------------------------------------------------- */
       .contact {
         background: var(--surface);
-        border-top: 1px solid var(--line);
       }
 
       .contact .wrap {
         max-width: 720px;
+        text-align: center;
       }
 
       .contact h2 {
-        max-width: 22ch;
+        max-width: 20ch;
+        margin-inline: auto;
       }
 
       .contact .lead {
-        margin: 0 0 14px;
+        margin: 0 auto 14px;
       }
 
       .contact-note {
         max-width: 52ch;
-        margin: 0 0 38px;
+        margin: 0 auto 38px;
         color: var(--ink-mute);
         font-size: 0.98rem;
+      }
+
+      .contact-form {
+        text-align: left;
       }
 
       .contact-form {
@@ -1071,11 +1101,23 @@
           order: -1;
         }
 
-        .help-list,
         #servicios .process-grid,
         .example .process-grid,
         .process-grid {
           grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .help-list {
+          grid-template-columns: 1fr;
+        }
+
+        .help-list li {
+          padding: 14px 0;
+        }
+
+        .help-list li + li {
+          border-left: 0;
+          border-top: 1px solid var(--line);
         }
       }
 
