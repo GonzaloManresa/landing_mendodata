@@ -4,3 +4,6 @@
 # Original logo upload (clean copies live in assets/)
 Adobe Express*
 .worktrees/
+node_modules/
+dist/
+.astro/
