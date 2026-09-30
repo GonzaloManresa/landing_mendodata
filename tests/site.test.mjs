@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readPage } from './helpers.mjs';
+import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { join } from 'node:path';
+import { readPage, projectRoot } from './helpers.mjs';
 
 const header = (html) => html.match(/<header[\s\S]*?<\/header>/i)?.[0] ?? '';
 const hrefs = (fragment) => [...fragment.matchAll(/href="([^"]*)"/g)].map((m) => m[1]);
@@ -81,4 +83,28 @@ test('footer has no placeholder or out-of-scope links', () => {
   assert.doesNotMatch(f, /href="\/contacto"/);
   assert.doesNotMatch(f, /Configurar cookies|Términos/i);
   assert.doesNotMatch(f, /<form\b/i);
+});
+
+test('floating WhatsApp button uses the global config', () => {
+  const html = readPage('index.html');
+  assert.match(
+    html,
+    /<a[^>]+class="whatsapp-float"[^>]+href="https:\/\/wa\.me\/5492615974103"[^>]+aria-label="Contactar a MendoData por WhatsApp"/,
+  );
+});
+
+test('the WhatsApp number lives only in site.ts', () => {
+  const files = [];
+  const walk = (dir) => {
+    for (const name of readdirSync(dir)) {
+      const path = join(dir, name);
+      if (statSync(path).isDirectory()) walk(path);
+      else files.push(path);
+    }
+  };
+  walk(join(projectRoot, 'src'));
+  const withNumber = files
+    .filter((file) => readFileSync(file, 'utf8').includes('5492615974103'))
+    .map((file) => file.slice(projectRoot.length));
+  assert.deepEqual(withNumber, ['src/config/site.ts']);
 });
