@@ -1,27 +1,247 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import '../styles/page-intro.css';
 import { seo } from '../config/site';
+import { legal, type LegalBlock } from '../data/legal';
+
+// Los pendientes se ven solo en desarrollo; nunca en el sitio publicado
+const showPending = import.meta.env.DEV;
+
+const sections: { id: string; title: string; blocks: LegalBlock[] }[] = [
+  { id: 'privacidad', title: 'Privacidad', blocks: legal.privacy },
+  { id: 'cookies', title: 'Cookies', blocks: legal.cookies },
+];
+
+const updated = new Date(`${legal.updatedAt}T12:00:00`).toLocaleDateString('es-AR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
 ---
 <BaseLayout title={seo.legal.title} description={seo.legal.description} path={seo.legal.path}>
-  <section class="page-intro" aria-labelledby="legal-title">
-    <div class="wrap">
-      <p class="kicker">LEGAL</p>
+  <div class="legal">
+    <header class="legal-head">
+      <p class="legal-kicker">LEGAL</p>
       <h1 id="legal-title">Privacidad y cookies</h1>
-      <p class="lead">Información sobre el tratamiento de datos y el uso de cookies en el sitio de MendoData.</p>
-    </div>
-  </section>
+      <p class="legal-lead">Información sobre el tratamiento de datos y el uso de cookies en el sitio de MendoData.</p>
+    </header>
 
-  <!-- Contenido pendiente: se completa con el blueprint 05 y datos reales -->
-  <section class="section legal-section" id="privacidad" aria-labelledby="privacidad-title">
-    <div class="wrap">
-      <h2 id="privacidad-title">Privacidad</h2>
-    </div>
-  </section>
+    <div class="legal-body">
+      <nav class="legal-nav" aria-label="En esta página">
+        <ul>
+          {sections.map((s) => <li><a href={`#${s.id}`}>{s.title}</a></li>)}
+        </ul>
+      </nav>
 
-  <section class="section legal-section" id="cookies" aria-labelledby="cookies-title">
-    <div class="wrap">
-      <h2 id="cookies-title">Cookies</h2>
+      <div class="legal-content">
+        {showPending && (
+          <aside class="pending-box" data-pending>
+            <strong>Pendientes antes de publicar (solo visible en desarrollo)</strong>
+            <ul>{legal.pending.map((item) => <li>{item}</li>)}</ul>
+          </aside>
+        )}
+
+        {sections.map((s) => (
+          <section class="legal-section" id={s.id} aria-labelledby={`${s.id}-title`}>
+            <h2 id={`${s.id}-title`}>{s.title}</h2>
+            {s.blocks.map((block) => (
+              <div class="legal-block">
+                <h3>{block.title}</h3>
+                {block.paragraphs?.map((p) => <p>{p}</p>)}
+                {block.list && <ul>{block.list.map((item) => <li>{item}</li>)}</ul>}
+                {block.afterList?.map((p) => <p>{p}</p>)}
+                {showPending && block.pending && <p class="pending" data-pending>Pendiente: {block.pending}</p>}
+              </div>
+            ))}
+          </section>
+        ))}
+
+        <p class="legal-updated">Última actualización: {updated}</p>
+      </div>
     </div>
-  </section>
+  </div>
 </BaseLayout>
+
+<style>
+  .legal {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: clamp(40px, 6vw, 80px) 22px clamp(72px, 8vw, 104px);
+  }
+
+  .legal-head {
+    max-width: 720px;
+    margin-bottom: clamp(32px, 4vw, 48px);
+  }
+
+  .legal-kicker {
+    display: inline-block;
+    margin: 0 0 16px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: #EEF5FF;
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+  }
+
+  h1 {
+    margin: 0 0 16px;
+    color: var(--ink);
+    font-size: clamp(2.2rem, 4.6vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.06;
+    letter-spacing: -0.045em;
+  }
+
+  .legal-lead {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: clamp(1.04rem, 1.4vw, 1.2rem);
+    line-height: 1.6;
+  }
+
+  .legal-body {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: start;
+  }
+
+  .legal-nav {
+    position: sticky;
+    top: 112px;
+  }
+
+  .legal-nav ul {
+    display: grid;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .legal-nav a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 16px;
+    border-radius: 12px;
+    color: var(--ink-soft);
+    font-weight: 600;
+  }
+
+  .legal-nav a:hover {
+    background: #EEF5FF;
+    color: var(--accent);
+  }
+
+  .legal-content {
+    max-width: 72ch;
+  }
+
+  .legal-section + .legal-section {
+    margin-top: clamp(40px, 5vw, 64px);
+    padding-top: clamp(32px, 4vw, 48px);
+    border-top: 1px solid var(--line);
+  }
+
+  h2 {
+    max-width: none;
+    margin: 0 0 20px;
+    color: var(--ink);
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  .legal-block + .legal-block {
+    margin-top: 28px;
+  }
+
+  h3 {
+    margin: 0 0 10px;
+    color: var(--ink);
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+
+  .legal-block p,
+  .legal-block li {
+    color: var(--ink-soft);
+    font-size: 1.02rem;
+    line-height: 1.7;
+  }
+
+  .legal-block p {
+    margin: 0 0 10px;
+  }
+
+  .legal-block ul {
+    margin: 0 0 10px;
+    padding-left: 22px;
+  }
+
+  .legal-block li + li {
+    margin-top: 6px;
+  }
+
+  .legal-updated {
+    margin: clamp(40px, 5vw, 56px) 0 0;
+    color: var(--ink-mute);
+    font-size: 0.95rem;
+  }
+
+  /* Solo desarrollo */
+  .pending-box,
+  .pending {
+    border: 1px dashed #D98300;
+    border-radius: 12px;
+    background: #FFF7E6;
+    color: #7A4A00;
+  }
+
+  .pending-box {
+    margin-bottom: 32px;
+    padding: 16px 20px;
+  }
+
+  .pending-box ul {
+    margin: 8px 0 0;
+    padding-left: 20px;
+  }
+
+  .legal-block .pending {
+    padding: 8px 12px;
+    color: #7A4A00;
+    font-size: 0.92rem;
+  }
+
+  @media (max-width: 760px) {
+    .legal-body {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .legal-nav {
+      position: static;
+    }
+
+    .legal-nav ul {
+      display: flex;
+      gap: 10px;
+    }
+
+    .legal-nav a {
+      border: 1px solid #CFE0FB;
+      border-radius: 999px;
+      background: #FFFFFF;
+      color: var(--accent);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .legal {
+      padding: 32px 16px 88px;
+    }
+  }
+</style>
