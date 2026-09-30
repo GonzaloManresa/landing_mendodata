@@ -10,6 +10,9 @@ services:
       - type: redirect
         source: /contacto
         destination: /#contacto
+      - type: redirect
+        source: /contacto/
+        destination: /#contacto
     headers:
       - path: /*
         name: Cache-Control

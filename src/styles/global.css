@@ -27,6 +27,11 @@
 }
 
 html {
+  scroll-behavior: auto;
+}
+
+/* Solo los clicks en enlaces animan el desplazamiento; al cargar /#seccion salta directo */
+html:focus-within {
   scroll-behavior: smooth;
 }
 
@@ -270,7 +275,8 @@ p {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
+  html,
+  html:focus-within {
     scroll-behavior: auto;
   }
 

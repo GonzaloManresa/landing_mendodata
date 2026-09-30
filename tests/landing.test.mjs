@@ -214,7 +214,13 @@ test('includes baseline accessibility and usability hooks', () => {
   assert.match(html, /href="\/#soluciones"/i);
   assert.match(html, /prefers-reduced-motion/i);
   assert.match(html, /<div class="showcase"/i);
-  assert.match(html, /#contacto\s*\{[^}]*scroll-margin-top:/i);
+  assert.match(html, /section\[id\]\s*\{[^}]*scroll-margin-top:\s*96px/i);
+});
+
+test('only animates scroll on in-page interaction, not on anchor page loads', () => {
+  assert.match(html, /html:focus-within\s*\{[^}]*scroll-behavior:\s*smooth/i);
+  const bare = html.match(/(?:^|[}\s])html\s*\{[^}]*scroll-behavior:\s*smooth[^}]*\}/gi);
+  assert.equal(bare, null);
 });
 
 test('closes with the configured FormSubmit contact form', () => {
