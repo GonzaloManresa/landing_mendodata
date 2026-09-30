@@ -12,7 +12,10 @@ const text = (fragment) => fragment
 const heading = (fragment) => fragment.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
 
 test('project data keeps the blueprint copy in one reusable place', () => {
-  assert.deepEqual(featuredProject, {
+  // `detail` (versión ampliada para /proyectos) se verifica en proyectos-page.test.mjs
+  const { detail, ...homeFields } = featuredProject;
+  assert.ok(detail);
+  assert.deepEqual(homeFields, {
     slug: 'control-inventario-sucursales',
     status: 'Proyecto real anonimizado',
     name: 'Control de inventario y sucursales',

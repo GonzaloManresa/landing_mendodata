@@ -27,6 +27,32 @@ export function collectUtm(search: string): Record<string, string> {
   return utm;
 }
 
+type StorageLike = Pick<Storage, 'getItem' | 'setItem'>;
+
+const UTM_STORAGE_KEY = 'mendodata:utm';
+
+// Guarda la atribución de la visita para que llegue al formulario aunque la
+// persona entre por /proyectos y después vaya a /#contacto. Una visita sin UTM
+// no pisa lo guardado. Si el almacenamiento está bloqueado, no pasa nada.
+export function rememberUtm(search: string, storage: StorageLike): void {
+  const utm = collectUtm(search);
+  if (Object.keys(utm).length === 0) return;
+  try {
+    storage.setItem(UTM_STORAGE_KEY, JSON.stringify(utm));
+  } catch {
+    // sin almacenamiento disponible: se usa solo la URL actual
+  }
+}
+
+export function recallUtm(storage: StorageLike): Record<string, string> {
+  try {
+    const saved = JSON.parse(storage.getItem(UTM_STORAGE_KEY) ?? '{}');
+    return collectUtm(new URLSearchParams(saved).toString());
+  } catch {
+    return {};
+  }
+}
+
 export async function submitContact(
   endpoint: string,
   data: Record<string, string>,

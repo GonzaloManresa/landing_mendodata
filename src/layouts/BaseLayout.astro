@@ -52,6 +52,16 @@ const canonical = path ? new URL(path, site.url).href : undefined;
     <WhatsAppButton />
 
     <script>
+      import { rememberUtm } from '../scripts/contact-form';
+
+      try {
+        rememberUtm(window.location.search, window.sessionStorage);
+      } catch {
+        // sessionStorage inaccesible (modo privado estricto): no se guarda atribución
+      }
+    </script>
+
+    <script>
       const reveals = document.querySelectorAll('.reveal');
 
       if ('IntersectionObserver' in window) {

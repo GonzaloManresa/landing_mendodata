@@ -1,0 +1,107 @@
+---
+import { featuredProject } from '../../data/projects';
+---
+<section class="projects-hero" id="proyectos-hero" aria-labelledby="proyectos-title">
+  <div class="projects-hero-inner">
+    <p class="projects-kicker">PROYECTOS</p>
+    <h1 id="proyectos-title">Soluciones construidas alrededor de problemas reales.</h1>
+    <p class="projects-lead">Mostramos cómo convertimos necesidades operativas en sistemas, automatizaciones y soluciones de datos adaptadas a cada empresa.</p>
+    <p class="projects-flow">Problema → solución → implementación → resultado.</p>
+    <a class="projects-link" href={`#${featuredProject.slug}`}>
+      Ver proyecto
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 5v14M6 13l6 6 6-6" />
+      </svg>
+    </a>
+  </div>
+</section>
+
+<style>
+  /* Hero compacto y centrado: la evidencia empieza enseguida, sin visual propio */
+  .projects-hero {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(48px, 7vw, 96px) 22px clamp(40px, 5vw, 64px);
+    background: var(--bg);
+    text-align: center;
+  }
+
+  .projects-hero::before {
+    content: "";
+    position: absolute;
+    top: -60%;
+    right: -18%;
+    width: 50%;
+    height: 140%;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(10, 108, 245, 0.12), transparent);
+    pointer-events: none;
+  }
+
+  .projects-hero-inner {
+    position: relative;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .projects-kicker {
+    display: inline-block;
+    margin: 0 0 18px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: #EEF5FF;
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+  }
+
+  h1 {
+    max-width: 21ch;
+    margin: 0 auto 20px;
+    color: var(--ink);
+    font-size: clamp(2.2rem, 4.8vw, 3.9rem);
+    font-weight: 800;
+    line-height: 1.06;
+    letter-spacing: -0.045em;
+  }
+
+  .projects-lead {
+    max-width: 58ch;
+    margin: 0 auto 14px;
+    color: var(--ink-soft);
+    font-size: clamp(1.04rem, 1.5vw, 1.22rem);
+    line-height: 1.6;
+  }
+
+  .projects-flow {
+    margin: 0 0 26px;
+    color: var(--ink-mute);
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .projects-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 0 22px;
+    border: 1px solid #CFE0FB;
+    border-radius: 999px;
+    background: #FFFFFF;
+    color: var(--accent);
+    font-weight: 700;
+    transition: background 160ms ease;
+  }
+
+  .projects-link:hover {
+    background: #EEF5FF;
+  }
+
+  @media (max-width: 640px) {
+    .projects-hero {
+      padding: 36px 16px 40px;
+    }
+  }
+</style>

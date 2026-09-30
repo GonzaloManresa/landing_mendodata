@@ -37,3 +37,21 @@ test('submitContact reports errors without throwing', async () => {
   assert.equal(await submitContact('u', {}, async () => ({ ok: true, json: async () => ({ success: 'false' }) })), 'error');
   assert.equal(await submitContact('u', {}, async () => { throw new Error('offline'); }), 'error');
 });
+
+test('UTM parameters are remembered across pages for the contact form', async () => {
+  const { rememberUtm, recallUtm } = await import('../src/scripts/contact-form.ts');
+  const store = new Map();
+  const storage = { getItem: (k) => store.get(k) ?? null, setItem: (k, v) => store.set(k, v) };
+
+  rememberUtm('?utm_source=instagram&utm_campaign=otono', storage);
+  assert.deepEqual(recallUtm(storage), { utm_source: 'instagram', utm_campaign: 'otono' });
+
+  // una visita sin UTM no borra la atribución guardada
+  rememberUtm('', storage);
+  assert.deepEqual(recallUtm(storage), { utm_source: 'instagram', utm_campaign: 'otono' });
+
+  // almacenamiento bloqueado: no rompe
+  const broken = { getItem: () => { throw new Error('blocked'); }, setItem: () => { throw new Error('blocked'); } };
+  assert.doesNotThrow(() => rememberUtm('?utm_source=x', broken));
+  assert.deepEqual(recallUtm(broken), {});
+});

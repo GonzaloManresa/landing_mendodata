@@ -7,9 +7,10 @@ import LaptopFrame from '../LaptopFrame.astro';
 
 interface Props {
   label: string;
+  id?: string;
 }
 
-const { label } = Astro.props;
+const { label, id = 'project-featured-visual' } = Astro.props;
 
 const menu = ['Inicio', 'Inventario', 'Movimientos', 'Productos', 'Sucursales', 'Diferencias', 'Aprobaciones', 'Reportes'];
 
@@ -41,7 +42,7 @@ const products = [
   { name: 'Componente C-045', code: '779 1234 56025', branch: 'Sur', stock: '890', status: 'Con diferencia', tone: 'red' },
 ];
 ---
-<div class="project-visual" id="project-featured-visual" role="img" aria-label={label}>
+<div class="project-visual" id={id} role="img" aria-label={label}>
   <div class="stage">
     <div class="device">
       <LaptopFrame>
@@ -169,7 +170,7 @@ const products = [
   .screen {
     display: grid;
     grid-template-columns: 11em minmax(0, 1fr);
-    height: 44em;
+    height: 39.5em;
     overflow: hidden;
     border-radius: 0.5em;
     background: #F4F7FC;

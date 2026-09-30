@@ -90,7 +90,7 @@ const whatsappHref = whatsappUrl();
 </section>
 
 <script>
-  import { ajaxEndpoint, collectUtm, submitContact } from '../../scripts/contact-form';
+  import { ajaxEndpoint, collectUtm, recallUtm, submitContact } from '../../scripts/contact-form';
 
   const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
   const status = document.querySelector<HTMLElement>('[data-form-status]');
@@ -111,7 +111,13 @@ const whatsappHref = whatsappUrl();
       new FormData(form).forEach((value, key) => {
         data[key] = String(value);
       });
-      Object.assign(data, collectUtm(window.location.search));
+      let stored: Record<string, string> = {};
+      try {
+        stored = recallUtm(window.sessionStorage);
+      } catch {
+        // sessionStorage inaccesible: se usan solo los UTM de la URL
+      }
+      Object.assign(data, stored, collectUtm(window.location.search));
 
       button.disabled = true;
       label.textContent = 'Enviando…';

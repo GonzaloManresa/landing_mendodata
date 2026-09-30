@@ -15,6 +15,16 @@ export type Project = {
   visualAlt: string;
   visualNote: string;
   privacyNote: string;
+  // Versión ampliada para /proyectos (copy del blueprint de /proyectos, Sección 2)
+  detail: {
+    context: string;
+    summary: string;
+    problem: string;
+    features: string[];
+    result: string;
+    resultPoints: string[];
+    visualId: string;
+  };
 };
 
 export const featuredProject: Project = {
@@ -34,4 +44,18 @@ export const featuredProject: Project = {
   visualAlt: 'Interfaz de un sistema de gestión de inventarios y movimientos entre sucursales.',
   visualNote: 'Representación ilustrativa basada en un proyecto real',
   privacyNote: 'Información anonimizada para preservar la confidencialidad del cliente.',
+  detail: {
+    context: 'Proyecto desarrollado para una empresa chilena vinculada al mantenimiento y reparación de vehículos utilizados en minería.',
+    summary: 'Una solución desarrollada para mejorar el control de inventarios, movimientos entre sucursales y aprobaciones operativas.',
+    problem: 'La empresa tenía dificultades para controlar inventarios, movimientos entre sucursales, diferencias de stock y aprobaciones.',
+    features: [
+      'Gestión de inventario con códigos de barras.',
+      'Movimientos entre sucursales.',
+      'Control de diferencias de stock.',
+      'Aprobaciones digitales.',
+    ],
+    result: 'Mayor control, trazabilidad y capacidad para detectar inconsistencias.',
+    resultPoints: ['Mayor control', 'Trazabilidad', 'Detección de inconsistencias'],
+    visualId: 'inventory-project-main-visual',
+  },
 };
