@@ -46,7 +46,7 @@ docs/MendoData-Blueprint-Maestro.md
 docs/mockups/*.png
 astro.config.mjs            site: https://mendodata.online, integración sitemap
 package.json                scripts: dev, build, preview, test
-public/                     favicons, robots.txt
+public/                     favicons, robots.txt, assets/ (imágenes actuales, mismas rutas /assets/...)
 src/
   config/site.ts            única fuente: nav, WhatsApp, redes, legal, SEO por página
   styles/global.css         tokens :root + estilos globales extraídos de index.html
@@ -56,7 +56,6 @@ src/
     Header.astro
     Footer.astro
     WhatsAppButton.astro
-  assets/                   imágenes del sitio (logo, hero, equipo)
   pages/
     index.astro             Home actual
     proyectos.astro         esqueleto
@@ -66,8 +65,10 @@ tests/                      node:test sobre dist/
 render.yaml
 ```
 
-Se elimina `index.html` de la raíz y la carpeta `assets/` (su contenido pasa a
-`public/` o `src/assets/`).
+Se elimina `index.html` de la raíz y la carpeta `assets/` pasa a `public/assets/`.
+Las imágenes se sirven sin procesar; su optimización queda para las secciones.
+La minificación de CSS se desactiva para que los tests de estilos sigan leyendo
+el CSS tal como está escrito.
 
 ## `src/config/site.ts`
 
