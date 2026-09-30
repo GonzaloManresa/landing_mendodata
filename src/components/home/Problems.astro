@@ -1,0 +1,274 @@
+---
+// Copy exacto del blueprint (Home / Sección 2)
+const problems = [
+  {
+    icon: 'doc',
+    title: 'Procesos manuales y repetitivos',
+    text: 'Tareas que consumen tiempo y podrían resolverse de una forma más simple y ordenada.',
+  },
+  {
+    icon: 'data',
+    title: 'Información dispersa',
+    text: 'Datos repartidos entre planillas, mails y sistemas que no se conectan entre sí.',
+  },
+  {
+    icon: 'eye',
+    title: 'Falta de visibilidad y control',
+    text: 'Dificultad para saber qué está ocurriendo, qué está pendiente y dónde intervenir.',
+  },
+  {
+    icon: 'redo',
+    title: 'Errores y retrabajo',
+    text: 'Cargas duplicadas, información desactualizada o tareas que deben hacerse nuevamente.',
+  },
+  {
+    icon: 'people',
+    title: 'Dependencia de personas específicas',
+    text: 'Procesos que dependen demasiado del conocimiento o la disponibilidad de alguien específico.',
+  },
+];
+---
+<section class="problems" id="problemas-operativos" aria-labelledby="problemas-title">
+  <div class="problems-inner">
+    <header class="problems-head">
+      <p class="problems-kicker">Qué resolvemos</p>
+      <h2 id="problemas-title">Problemas operativos que <span class="hl">podemos ayudar a ordenar</span></h2>
+      <p class="problems-lead">
+        Cada empresa tiene una realidad distinta. Pero cuando los procesos crecen sin las herramientas adecuadas, aparecen situaciones que consumen tiempo, generan errores y dificultan el control de la operación.
+      </p>
+    </header>
+
+    <ul class="problem-grid">
+      {problems.map((problem) => (
+        <li class="problem-card">
+          <span class="problem-icon">
+            <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              {problem.icon === 'doc' && (
+                <Fragment>
+                  <path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z" />
+                  <path d="M14 2.5V8h5.5M8.5 13h7M8.5 17h7M8.5 9h2.5" />
+                </Fragment>
+              )}
+              {problem.icon === 'data' && (
+                <Fragment>
+                  <ellipse cx="12" cy="5.5" rx="7.5" ry="3" />
+                  <path d="M4.5 5.5v13c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3v-13" />
+                  <path d="M4.5 12c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3" />
+                </Fragment>
+              )}
+              {problem.icon === 'eye' && (
+                <Fragment>
+                  <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z" />
+                  <circle cx="12" cy="12" r="3" />
+                </Fragment>
+              )}
+              {problem.icon === 'redo' && (
+                <Fragment>
+                  <path d="M20 11a8 8 0 0 0-14.3-4.9L4 8" />
+                  <path d="M4 3.5V8h4.5" />
+                  <path d="M4 13a8 8 0 0 0 14.3 4.9L20 16" />
+                  <path d="M20 20.5V16h-4.5" />
+                </Fragment>
+              )}
+              {problem.icon === 'people' && (
+                <Fragment>
+                  <circle cx="9" cy="8" r="3.5" />
+                  <path d="M2.5 20.5v-1.5a4.5 4.5 0 0 1 4.5-4.5h4a4.5 4.5 0 0 1 4.5 4.5v1.5" />
+                  <path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18.5 14.7a4.5 4.5 0 0 1 3 4.3v1.5" />
+                </Fragment>
+              )}
+            </svg>
+          </span>
+          <h3>{problem.title}</h3>
+          <p>{problem.text}</p>
+        </li>
+      ))}
+    </ul>
+
+    <p class="problems-close">Entender el problema es el primer paso para definir qué solución conviene.</p>
+  </div>
+</section>
+
+<style>
+  .problems {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(72px, 9vw, 120px) 22px;
+    background: var(--surface);
+  }
+
+  /* Arcos celestes suaves a los costados, como en el mockup */
+  .problems::before,
+  .problems::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    width: 46%;
+    height: 90%;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .problems::before {
+    top: -30%;
+    right: -22%;
+    background: radial-gradient(closest-side, rgba(10, 108, 245, 0.12), transparent);
+  }
+
+  .problems::after {
+    bottom: -34%;
+    left: -24%;
+    background: radial-gradient(closest-side, rgba(10, 108, 245, 0.1), transparent);
+  }
+
+  .problems-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1340px;
+    margin: 0 auto;
+  }
+
+  .problems-head {
+    max-width: 900px;
+    margin: 0 auto clamp(40px, 5vw, 56px);
+    text-align: center;
+  }
+
+  .problems-kicker {
+    margin: 0 0 18px;
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    max-width: 18ch;
+    margin: 0 auto 22px;
+    color: var(--ink);
+    font-size: clamp(2.1rem, 4.2vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+  }
+
+  .hl {
+    color: var(--accent);
+  }
+
+  .problems-lead {
+    max-width: 62ch;
+    margin: 0 auto;
+    color: var(--ink-soft);
+    font-size: clamp(1.02rem, 1.4vw, 1.2rem);
+    line-height: 1.6;
+  }
+
+  /* 3 + 2: seis columnas, cada tarjeta ocupa dos; la segunda fila arranca corrida */
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-auto-rows: 1fr;
+    gap: 20px;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+  }
+
+  .problem-card {
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
+    padding: 32px 34px 34px;
+    border: 1px solid #EAEFF6;
+    border-radius: 22px;
+    background: #FFFFFF;
+    box-shadow: 0 14px 40px rgba(11, 27, 63, 0.06);
+  }
+
+  .problem-card:nth-child(4) {
+    grid-column: 2 / span 2;
+  }
+
+  .problem-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 76px;
+    height: 76px;
+    margin-bottom: 22px;
+    border-radius: 50%;
+    background: #EAF3FE;
+    color: var(--accent);
+  }
+
+  h3 {
+    margin: 0 0 10px;
+    color: var(--ink);
+    font-size: 1.28rem;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+
+  .problem-card p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 1.02rem;
+    line-height: 1.6;
+  }
+
+  .problems-close {
+    max-width: 36ch;
+    margin: clamp(40px, 5vw, 56px) auto 0;
+    color: var(--ink);
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+    font-weight: 600;
+    line-height: 1.45;
+    text-align: center;
+  }
+
+  /* Tablet: 2 + 2 + 1 centrada */
+  @media (max-width: 980px) {
+    .problem-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .problem-card:nth-child(4) {
+      grid-column: span 2;
+    }
+
+    .problem-card:nth-child(5) {
+      grid-column: 2 / span 2;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .problems {
+      padding: 64px 16px;
+    }
+
+    .problem-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .problem-card,
+    .problem-card:nth-child(4),
+    .problem-card:nth-child(5) {
+      grid-column: auto;
+    }
+
+    .problem-card {
+      padding: 26px 24px 28px;
+    }
+
+    .problem-icon {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 18px;
+    }
+  }
+</style>

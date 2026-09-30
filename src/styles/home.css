@@ -138,55 +138,6 @@
   font-size: 0.9rem;
 }
 
-/* Franja "Así te ayudamos" ---------------------------------------- */
-.helps {
-  padding-block: clamp(56px, 7vw, 88px);
-  background: var(--surface);
-}
-
-.help-card {
-  padding: clamp(24px, 3vw, 36px);
-}
-
-.help-list {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.help-list li {
-  padding: 4px clamp(16px, 2vw, 26px);
-}
-
-.help-list li + li {
-  border-left: 1px solid var(--line);
-}
-
-.help-list strong {
-  display: block;
-  margin-bottom: 6px;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: -0.02em;
-}
-
-.help-list span {
-  color: var(--ink-soft);
-  font-size: 0.97rem;
-}
-
-.help-foot {
-  margin: 20px 0 0;
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
-  color: var(--ink-mute);
-  font-size: 0.93rem;
-}
-
 /* Ejemplo (antes / después) --------------------------------------- */
 .example {
   background: var(--surface);
@@ -246,7 +197,6 @@
 
 /* Vidrio: translúcido, con luz desde arriba y filo brillante en el borde.
    Necesita variación de color detrás para que el desenfoque se note. */
-.help-card,
 .process-step,
 .team-member,
 .example .process-grid .timeline-item {
@@ -378,7 +328,6 @@
     radial-gradient(52% 44% at 18% 22%, rgba(22, 104, 176, 0.13), transparent 62%),
     linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
 }
-
 
 .team {
   display: grid;
@@ -564,8 +513,6 @@
     grid-template-columns: 1fr;
   }
 
-
-
   .flow {
     max-width: 520px;
   }
@@ -576,23 +523,9 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .help-list {
-    grid-template-columns: 1fr;
-  }
-
-  .help-list li {
-    padding: 14px 0;
-  }
-
-  .help-list li + li {
-    border-left: 0;
-    border-top: 1px solid var(--line);
-  }
 }
 
 @media (max-width: 640px) {
-
-
 
   .conversion-cta {
     padding: 48px 16px;
@@ -607,23 +540,7 @@
     width: 100%;
   }
 
-  .help-card {
-    margin-bottom: -56px;
-  }
-
-  .help-list li {
-    padding: 14px 0;
-  }
-
-  .help-list li + li {
-    border-left: 0;
-    border-top: 1px solid var(--line);
-  }
-
-
-
   .team,
-  .help-list,
   .process-grid,
   #soluciones .process-grid,
   .example .process-grid {

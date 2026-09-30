@@ -1,35 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/home/Hero.astro';
+import Problems from '../components/home/Problems.astro';
 import '../styles/home.css';
 import { seo } from '../config/site';
 ---
 <BaseLayout title={seo.home.title} description={seo.home.description} path={seo.home.path}>
       <Hero />
 
-      <!-- ASÍ TE AYUDAMOS: franja de tres beneficios -->
-      <section class="section helps" aria-label="Así te ayudamos">
-        <div class="wrap">
-          <div class="help-card">
-            <p class="help-kicker">Así te ayudamos</p>
-            <ul class="help-list">
-              <li>
-                <strong>Menos trabajo manual</strong>
-                <span>El equipo deja de copiar datos entre planillas, mails y formularios en papel.</span>
-              </li>
-              <li>
-                <strong>Procesos que no se frenan</strong>
-                <span>Cada solicitud sigue su curso aunque la persona que aprueba esté de viaje.</span>
-              </li>
-              <li>
-                <strong>Todo queda registrado</strong>
-                <span>Quién pidió qué, quién aprobó y cuándo. Sin buscar en la casilla de mail.</span>
-              </li>
-            </ul>
-            <p class="help-foot">Y los datos para decidir salen del proceso, no de armarlos a mano.</p>
-          </div>
-        </div>
-      </section>
+      <Problems />
 
       <!-- EJEMPLO CONCRETO: un proceso antes y despues -->
       <section class="section example" id="ejemplo" aria-labelledby="example-title">
