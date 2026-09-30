@@ -1,0 +1,12 @@
+---
+// Ícono de WhatsApp (burbuja + teléfono), compartido por todos los enlaces de WhatsApp.
+interface Props {
+  size?: number;
+}
+
+const { size = 24 } = Astro.props;
+---
+<svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <path d="M3.5 20.5l1.3-4.2A8.6 8.6 0 1 1 8 19.4z" />
+  <path d="M9.2 8.6c.2-.4.5-.4.8-.4h.4c.2 0 .4 0 .5.4l.6 1.4c.1.2 0 .4-.1.6l-.5.6c-.1.1-.1.3 0 .5.7 1.2 1.6 2 2.8 2.6.2.1.4.1.5-.1l.6-.7c.2-.2.4-.2.6-.1l1.4.7c.2.1.3.3.3.5 0 .6-.3 1.3-.9 1.6-.6.3-1.3.4-2 .2-1.9-.6-3.5-1.9-4.6-3.6-.6-.9-.9-1.9-.7-2.9.1-.5.3-.9.7-1.3z" fill="currentColor" stroke="none" />
+</svg>

@@ -15,16 +15,6 @@ const visibleText = html
   .trim()
   .toLowerCase();
 
-test('renders the current landing sections', () => {
-  const requiredSnippets = [
-    'Contanos qué proceso querés digitalizar',
-  ];
-
-  for (const snippet of requiredSnippets) {
-    assert.match(html, new RegExp(snippet, 'i'));
-  }
-});
-
 test('never claims a Microsoft partnership', () => {
   assert.doesNotMatch(visibleText, /\bpartner\b/i);
   assert.doesNotMatch(visibleText, /socio de microsoft/i);

@@ -7,7 +7,7 @@ import FeaturedProject from '../components/home/FeaturedProject.astro';
 import Operations from '../components/home/Operations.astro';
 import HowWeWork from '../components/home/HowWeWork.astro';
 import Team from '../components/home/Team.astro';
-import '../styles/home.css';
+import Contact from '../components/home/Contact.astro';
 import { seo } from '../config/site';
 ---
 <BaseLayout title={seo.home.title} description={seo.home.description} path={seo.home.path}>
@@ -25,60 +25,5 @@ import { seo } from '../config/site';
 
       <Team />
 
-      <!-- CIERRE: contacto por mail -->
-      <section class="section contact" id="contacto" aria-labelledby="contact-title">
-        <div class="wrap reveal">
-          <p class="kicker">Contacto</p>
-          <h2 id="contact-title">Contanos qué proceso querés digitalizar</h2>
-          <p class="lead">
-            Escribinos y coordinamos una conversación para ver cómo funciona tu
-            proceso hoy y qué conviene automatizar primero.
-          </p>
-          <p class="contact-note">
-            Trabajamos con empresas que quieren más orden y control en su operación
-            diaria.
-          </p>
-          <!-- FormSubmit envía las consultas a mendodata@gmail.com -->
-          <!-- El primer envío requiere confirmar la dirección desde el correo de activación -->
-          <form
-            class="contact-form reveal"
-            action="https://formsubmit.co/mendodata@gmail.com"
-            method="POST"
-          >
-            <input type="hidden" name="_subject" value="Nueva consulta desde la web">
-            <input type="hidden" name="_template" value="table">
-            <input
-              type="text"
-              name="_honey"
-              tabindex="-1"
-              autocomplete="off"
-              aria-hidden="true"
-              style="display: none"
-            >
-
-            <div class="field">
-              <label for="cf-nombre">Nombre</label>
-              <input id="cf-nombre" name="nombre" type="text" autocomplete="name" required placeholder="Tu nombre">
-            </div>
-
-            <div class="field">
-              <label for="cf-email">Email</label>
-              <input id="cf-email" name="email" type="email" autocomplete="email" required placeholder="tucorreo@ejemplo.com">
-            </div>
-
-            <div class="field">
-              <label for="cf-negocio">Empresa y rubro <span class="field-opt">(opcional)</span></label>
-              <input id="cf-negocio" name="negocio" type="text" placeholder="Empresa y rubro">
-            </div>
-
-            <div class="field">
-              <label for="cf-mensaje">Mensaje</label>
-              <textarea id="cf-mensaje" name="mensaje" required placeholder="Contanos brevemente qué proceso te gustaría ordenar."></textarea>
-            </div>
-
-            <button type="submit" class="button accent big">Enviar consulta</button>
-            <p class="form-hint">Respondemos todas las consultas a la brevedad.</p>
-          </form>
-        </div>
-      </section>
+      <Contact />
 </BaseLayout>

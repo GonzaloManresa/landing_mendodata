@@ -1,0 +1,436 @@
+---
+import WhatsAppIcon from '../WhatsAppIcon.astro';
+import { whatsappUrl } from '../../config/site';
+
+const whatsappHref = whatsappUrl();
+---
+<section class="contact-section" id="contacto" aria-labelledby="contacto-title">
+  <div class="contact-inner">
+    <div class="contact-copy">
+      <p class="contact-kicker">Contacto</p>
+      <h2 id="contacto-title">Contanos qué <br>necesitás <span class="hl">resolver</span></h2>
+      <p class="contact-lead">Contanos brevemente qué proceso querés mejorar o qué situación está dificultando la operación de tu empresa.</p>
+
+      <aside class="next-step">
+        <span class="next-step-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18h6M10 21h4" />
+            <path d="M12 6a5 5 0 0 0-3 9c.6.5 1 1.2 1 2h4c0-.8.4-1.5 1-2a5 5 0 0 0-3-9z" />
+            <path d="M12 2v1.2M4.2 5.2l.9.9M19.8 5.2l-.9.9M2.5 12h1.2M20.3 12h1.2" />
+          </svg>
+        </span>
+        <div>
+          <h3>Qué pasa después</h3>
+          <p>Después de recibir tu consulta, nos ponemos en contacto para entender mejor la necesidad. Si tiene sentido avanzar, coordinamos una primera conversación.</p>
+        </div>
+      </aside>
+    </div>
+
+    <div class="form-card">
+      <!-- FormSubmit envía las consultas a mendodata@gmail.com -->
+      <!-- El primer envío requiere confirmar la dirección desde el correo de activación -->
+      <form
+        class="contact-form"
+        action="https://formsubmit.co/mendodata@gmail.com"
+        method="POST"
+        data-contact-form
+      >
+        <input type="hidden" name="_subject" value="Nueva consulta desde la web">
+        <input type="hidden" name="_template" value="table">
+        <input
+          type="text"
+          name="_honey"
+          tabindex="-1"
+          autocomplete="off"
+          aria-hidden="true"
+          style="display: none"
+        >
+
+        <div class="field">
+          <label for="cf-nombre">Nombre</label>
+          <input id="cf-nombre" name="nombre" type="text" autocomplete="name" required placeholder="Tu nombre">
+        </div>
+
+        <div class="field">
+          <label for="cf-email">Email</label>
+          <input id="cf-email" name="email" type="email" autocomplete="email" required placeholder="tucorreo@ejemplo.com">
+        </div>
+
+        <div class="field">
+          <label for="cf-negocio">Empresa o rubro <span class="field-opt">(opcional)</span></label>
+          <input id="cf-negocio" name="negocio" type="text" autocomplete="organization" placeholder="Empresa o rubro">
+        </div>
+
+        <div class="field">
+          <label for="cf-mensaje">Mensaje</label>
+          <textarea id="cf-mensaje" name="mensaje" rows="4" required placeholder="Contanos brevemente qué proceso te gustaría ordenar."></textarea>
+        </div>
+
+        <button type="submit" class="submit">
+          <span class="submit-label">Enviar consulta</span>
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </button>
+
+        <p class="form-status" role="status" aria-live="polite" data-form-status></p>
+      </form>
+
+      {whatsappHref && (
+        <div class="whatsapp-alt">
+          <p>¿Preferís hablar directamente? Escribinos por WhatsApp.</p>
+          <a class="whatsapp-btn" href={whatsappHref} target="_blank" rel="noopener">
+    <WhatsAppIcon size={24} />
+            Hablar por WhatsApp
+          </a>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<script>
+  import { ajaxEndpoint, collectUtm, submitContact } from '../../scripts/contact-form';
+
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  const status = document.querySelector<HTMLElement>('[data-form-status]');
+  const button = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+  const label = button?.querySelector<HTMLElement>('.submit-label');
+
+  if (form && status && button && label) {
+    const setStatus = (message: string, tone: 'info' | 'success' | 'error') => {
+      status.textContent = message;
+      status.dataset.tone = tone;
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (button.disabled) return;
+
+      const data: Record<string, string> = {};
+      new FormData(form).forEach((value, key) => {
+        data[key] = String(value);
+      });
+      Object.assign(data, collectUtm(window.location.search));
+
+      button.disabled = true;
+      label.textContent = 'Enviando…';
+      setStatus('Enviando tu consulta…', 'info');
+
+      const result = await submitContact(ajaxEndpoint(form.action), data);
+
+      button.disabled = false;
+      label.textContent = 'Enviar consulta';
+
+      if (result === 'success') {
+        form.reset();
+        setStatus('Gracias por escribirnos. Recibimos tu consulta.', 'success');
+      } else {
+        // Los datos quedan en el formulario para volver a intentar
+        setStatus('No pudimos enviar tu consulta. Revisá tu conexión e intentá de nuevo, o escribinos por WhatsApp.', 'error');
+      }
+    });
+  }
+</script>
+
+<style>
+  .contact-section {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(72px, 9vw, 120px) 22px;
+    background: var(--surface);
+  }
+
+  .contact-section::before,
+  .contact-section::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    width: 46%;
+    height: 80%;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .contact-section::before {
+    top: -34%;
+    left: -20%;
+    background: radial-gradient(closest-side, rgba(10, 108, 245, 0.12), transparent);
+  }
+
+  .contact-section::after {
+    right: -22%;
+    bottom: -36%;
+    background: radial-gradient(closest-side, rgba(10, 108, 245, 0.1), transparent);
+  }
+
+  .contact-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1340px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 46fr) minmax(0, 54fr);
+    gap: clamp(32px, 5vw, 72px);
+    align-items: center;
+  }
+
+  .contact-kicker {
+    margin: 0 0 18px;
+    color: var(--accent);
+    font-size: 0.86rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    margin: 0 0 22px;
+    color: var(--ink);
+    font-size: clamp(2.3rem, 4.2vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.04;
+    letter-spacing: -0.045em;
+  }
+
+  .hl {
+    color: var(--accent);
+  }
+
+  .contact-lead {
+    max-width: 38ch;
+    margin: 0 0 36px;
+    color: var(--ink-soft);
+    font-size: clamp(1.06rem, 1.5vw, 1.25rem);
+    line-height: 1.55;
+  }
+
+  .next-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 26px 28px;
+    border-radius: 22px;
+    background: #EEF5FF;
+  }
+
+  .next-step-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #E0ECFD;
+    color: var(--accent);
+  }
+
+  h3 {
+    margin: 4px 0 8px;
+    color: var(--ink);
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .next-step p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .form-card {
+    padding: clamp(24px, 3.4vw, 46px);
+    border: 1px solid #E6EDF7;
+    border-radius: 28px;
+    background: #FFFFFF;
+    box-shadow: 0 20px 56px rgba(11, 27, 63, 0.08);
+  }
+
+  .contact-form {
+    display: grid;
+    gap: 18px;
+  }
+
+  .field {
+    display: grid;
+    gap: 8px;
+  }
+
+  label {
+    color: var(--ink);
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .field-opt {
+    color: var(--ink-mute);
+    font-weight: 400;
+  }
+
+  /* 16px o más: evita el zoom automático en iOS */
+  input,
+  textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #D6DEEA;
+    border-radius: 12px;
+    background: #FFFFFF;
+    color: var(--ink);
+    font: 400 1rem/1.4 var(--font-body);
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #7E8BA0;
+  }
+
+  input:focus,
+  textarea:focus {
+    border-color: var(--accent);
+    outline: none;
+    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+
+  input:user-invalid,
+  textarea:user-invalid {
+    border-color: #C52A2A;
+  }
+
+  textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  .submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    min-height: 60px;
+    margin-top: 4px;
+    border: 0;
+    border-radius: 14px;
+    background: var(--accent);
+    color: #FFFFFF;
+    font: 700 1.12rem var(--font-body);
+    cursor: pointer;
+    transition: background 160ms ease, transform 160ms ease;
+  }
+
+  .submit:hover {
+    background: var(--accent-strong);
+  }
+
+  .submit:active {
+    transform: translateY(1px);
+  }
+
+  .submit:disabled {
+    background: #6D9EEA;
+    cursor: progress;
+  }
+
+  .form-status {
+    margin: 0;
+    font-size: 0.98rem;
+    line-height: 1.5;
+  }
+
+  .form-status:empty {
+    display: none;
+  }
+
+  .form-status[data-tone="info"] {
+    color: var(--ink-soft);
+  }
+
+  .form-status[data-tone="success"] {
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: #E3F5EA;
+    color: #17633A;
+    font-weight: 600;
+  }
+
+  .form-status[data-tone="error"] {
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: #FDE8E8;
+    color: #9B1C1C;
+    font-weight: 600;
+  }
+
+  .whatsapp-alt {
+    margin-top: 26px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+
+  .whatsapp-alt p {
+    margin: 0 0 16px;
+    color: var(--ink-soft);
+    font-size: 1rem;
+  }
+
+  .whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    min-height: 54px;
+    border: 2px solid var(--accent);
+    border-radius: 14px;
+    background: #FFFFFF;
+    color: var(--accent);
+    font-size: 1.04rem;
+    font-weight: 700;
+    transition: background 160ms ease;
+  }
+
+  .whatsapp-btn:hover {
+    background: #EEF5FF;
+  }
+
+  @media (max-width: 1000px) {
+    .contact-inner {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .contact-lead {
+      max-width: 52ch;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .contact-section {
+      padding: 64px 16px 96px;
+    }
+
+    .contact-section::before,
+    .contact-section::after {
+      display: none;
+    }
+
+    .next-step {
+      gap: 14px;
+      padding: 20px;
+    }
+
+    .next-step-icon {
+      width: 48px;
+      height: 48px;
+    }
+
+    .form-card {
+      padding: 22px 18px;
+      border-radius: 22px;
+    }
+  }
+</style>
