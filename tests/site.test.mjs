@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
-import { readPage, projectRoot } from './helpers.mjs';
+import { readPage, projectRoot, readCss } from './helpers.mjs';
 
 const header = (html) => html.match(/<header[\s\S]*?<\/header>/i)?.[0] ?? '';
 const hrefs = (fragment) => [...fragment.matchAll(/href="([^"]*)"/g)].map((m) => m[1]);
@@ -91,6 +91,9 @@ test('floating WhatsApp button uses the global config', () => {
     html,
     /<a[^>]+class="whatsapp-float"[^>]+href="https:\/\/wa\.me\/5492615974103"[^>]+aria-label="Contactar a MendoData por WhatsApp"/,
   );
+  const css = readCss();
+  assert.match(css, /\.whatsapp-float[^{]*\{\s*[^}]*width:\s*56px/);
+  assert.doesNotMatch(css, /width:\s*52px/);
 });
 
 test('the WhatsApp number lives only in site.ts', () => {
