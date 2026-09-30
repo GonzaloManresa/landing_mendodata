@@ -1,10 +1,16 @@
 import { existsSync, readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { runInNewContext } from 'node:vm';
+import { pageSource, projectRoot } from './helpers.mjs';
 
-const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+const html = pageSource('index.html');
+
+// Astro emite los scripts como <script type="module"> inline (y minificados)
+function readBehaviorScript() {
+  const scripts = [...html.matchAll(/<script type="module">([\s\S]*?)<\/script>/gi)];
+  return scripts.find((match) => match[1].includes('mobile-contact-cta'))[1];
+}
 const visibleText = html
   .replace(/<script[\s\S]*?<\/script>/gi, '')
   .replace(/<style[\s\S]*?<\/style>/gi, '')
@@ -100,11 +106,10 @@ test('presents the approved MendoData team profiles', () => {
   assert.doesNotMatch(html, /<span class="team-name">Nombre Apellido<\/span>/i);
 });
 test('uses the approved accessible team photos and face-prioritized crops', () => {
-  const projectRoot = fileURLToPath(new URL('..', import.meta.url));
-  assert.equal(existsSync(`${projectRoot}/assets/team-gonzalo.jpeg`), true);
-  assert.equal(existsSync(`${projectRoot}/assets/team-juan-diego.png`), true);
-  assert.match(html, /<img class="team-photo team-photo-juan" src="assets\/team-juan-diego\.png" alt="Juan Diego Caballero">/i);
-  assert.match(html, /<img class="team-photo team-photo-gonzalo" src="assets\/team-gonzalo\.jpeg" alt="Gonzalo Manresa">/i);
+  assert.equal(existsSync(`${projectRoot}/public/assets/team-gonzalo.jpeg`), true);
+  assert.equal(existsSync(`${projectRoot}/public/assets/team-juan-diego.png`), true);
+  assert.match(html, /<img class="team-photo team-photo-juan" src="\/assets\/team-juan-diego\.png" alt="Juan Diego Caballero">/i);
+  assert.match(html, /<img class="team-photo team-photo-gonzalo" src="\/assets\/team-gonzalo\.jpeg" alt="Gonzalo Manresa">/i);
   assert.match(html, /\.team-photo-gonzalo\s*\{[^}]*object-position:\s*50%\s+24%;/i);
   assert.match(html, /\.team-photo-juan\s*\{[^}]*object-position:\s*50%\s+38%;/i);
   assert.doesNotMatch(html, /<span class="team-photo" aria-hidden="true">(?:JD|GM)<\/span>/i);
@@ -132,6 +137,8 @@ test('guides Instagram visitors from the hero and example to contact', () => {
 });
 
 test('keeps a progressively enhanced contact CTA available on mobile', () => {
+  // el script se empaqueta minificado: sus aserciones de fuente leen el .astro
+  const pageScriptSource = readFileSync(new URL('../src/pages/index.astro', import.meta.url), 'utf8');
   assert.match(
     html,
     /<a[^>]+class="[^"]*mobile-contact-cta[^"]*"[^>]+href="#contacto"[^>]*>\s*Contanos tu caso\s*<\/a>/i,
@@ -148,11 +155,11 @@ test('keeps a progressively enhanced contact CTA available on mobile', () => {
     html,
     /\.mobile-contact-cta\.is-hidden\s*\{[^}]*pointer-events:\s*none;/i,
   );
-  assert.match(html, /const contactSection = document\.querySelector\('#contacto'\)/i);
-  assert.match(html, /const contactObserver = new IntersectionObserver/i);
-  assert.match(html, /contactObserver\.observe\(contactSection\)/i);
+  assert.match(pageScriptSource, /const contactSection = document\.querySelector\('#contacto'\)/i);
+  assert.match(pageScriptSource, /const contactObserver = new IntersectionObserver/i);
+  assert.match(pageScriptSource, /contactObserver\.observe\(contactSection\)/i);
   assert.match(
-    html,
+    pageScriptSource,
     /mobileContactCta\.classList\.toggle\('is-hidden',\s*entry\.isIntersecting\)/i,
   );
   assert.doesNotMatch(html, /addEventListener\(['"]submit/i);
@@ -176,8 +183,7 @@ test('keeps reveal content visible until JavaScript opts into animation', () => 
 });
 
 test('toggles the mobile contact CTA as the contact section enters and leaves view', () => {
-  const scripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/gi)];
-  const behaviorScript = scripts.at(-1)[1];
+  const behaviorScript = readBehaviorScript();
   const hiddenClasses = new Set();
   const mobileContactCta = {
     classList: {
@@ -360,7 +366,7 @@ test('uses Inter throughout with a heavy tight display weight', () => {
 test('leads with a tabbed product panel over the scenic backdrop', () => {
   assert.match(
     html,
-    /\.hero::before\s*\{[^}]*background-image:\s*url\("assets\/hero\.jpg"\);/i,
+    /\.hero::before\s*\{[^}]*background-image:\s*url\("\/assets\/hero\.jpg"\);/i,
   );
 
   const showcase = html.match(/<div class="showcase"[\s\S]*?<\/section>/i)?.[0];

@@ -1,0 +1,509 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/home.css';
+import { seo } from '../config/site';
+---
+<BaseLayout title={seo.home.title} description={seo.home.description} path={seo.home.path}>
+      <!-- HERO: promesa emocional corta + foto real de quien está detrás -->
+      <section class="hero" id="inicio" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow greet">Digitalización de procesos con Microsoft</p>
+          <h1 id="hero-title">Tu empresa ya tiene <span class="hl">Microsoft</span>. Nosotros lo convertimos en tu <em>sistema de trabajo</em>.</h1>
+          <p class="hero-lead">Relevamos los procesos que hoy funcionan a fuerza de planillas y mails, y los pasamos a Power Apps, Power Automate y Power BI.</p>
+          <div class="hero-actions">
+            <a class="button accent big" href="#contacto">Contanos tu proceso</a>
+            <a class="button ghost" href="#ejemplo">Ver un ejemplo</a>
+          </div>
+        </div>
+
+        <!-- Panel de producto. Las pestañas son radios: funcionan sin JavaScript. -->
+        <div class="showcase" aria-label="Ejemplo de solicitudes de aprobación">
+          <input class="tab-input" type="radio" name="vista" id="vista-app" checked>
+          <input class="tab-input" type="radio" name="vista" id="vista-bi">
+          <div class="tabs">
+            <label class="tab" for="vista-app">Solicitudes</label>
+            <label class="tab" for="vista-bi">Tablero</label>
+          </div>
+
+          <div class="board">
+            <div class="board-chrome">
+              <span class="board-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="board-name">Aprobaciones internas</span>
+              <span class="board-menu" aria-hidden="true">Archivo · Editar · Ver</span>
+              <span class="board-search" aria-hidden="true">Buscar</span>
+            </div>
+
+            <!-- Vista 1: la app de solicitudes -->
+            <div class="panel panel-app">
+              <div class="board-toolbar" aria-hidden="true">
+                <span class="chip">Filtro · 3</span>
+                <span class="chip">Orden · Fecha</span>
+                <span class="chip ghost">Buscar en la lista</span>
+                <span class="chip solid">Exportar</span>
+              </div>
+              <table class="board-table wide">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Solicitud</th>
+                    <th scope="col" class="num">Monto</th>
+                    <th scope="col">Área</th>
+                    <th scope="col">Aprueba</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Creada</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="num muted">01</td>
+                    <th scope="row">Compra de insumos</th>
+                    <td class="num">$180.000</td>
+                    <td>Operaciones</td>
+                    <td>M. Torres</td>
+                    <td><span class="pill new">Nuevo</span></td>
+                    <td class="muted">27 jul</td>
+                  </tr>
+                  <tr>
+                    <td class="num muted">02</td>
+                    <th scope="row">Vacaciones · L. Giménez</th>
+                    <td class="num">12 al 23/8</td>
+                    <td>Administración</td>
+                    <td>R. Paz</td>
+                    <td><span class="pill ok">Aprobado</span></td>
+                    <td class="muted">24 jul</td>
+                  </tr>
+                  <tr>
+                    <td class="num muted">03</td>
+                    <th scope="row">Anticipo a proveedor</th>
+                    <td class="num">$95.000</td>
+                    <td>Compras</td>
+                    <td>M. Torres</td>
+                    <td><span class="pill wait">Demorado</span></td>
+                    <td class="muted">22 jul</td>
+                  </tr>
+                  <tr>
+                    <td class="num muted">04</td>
+                    <th scope="row">Reintegro de viáticos</th>
+                    <td class="num">$46.500</td>
+                    <td>Comercial</td>
+                    <td>S. Ledesma</td>
+                    <td><span class="pill ok">Aprobado</span></td>
+                    <td class="muted">21 jul</td>
+                  </tr>
+                  <tr>
+                    <td class="num muted">05</td>
+                    <th scope="row">Alta de proveedor</th>
+                    <td class="num">—</td>
+                    <td>Compras</td>
+                    <td>R. Paz</td>
+                    <td><span class="pill ok">Aprobado</span></td>
+                    <td class="muted">19 jul</td>
+                  </tr>
+                  <tr>
+                    <td class="num muted">06</td>
+                    <th scope="row">Licencia por estudio</th>
+                    <td class="num">3 días</td>
+                    <td>Administración</td>
+                    <td>S. Ledesma</td>
+                    <td><span class="pill new">Nuevo</span></td>
+                    <td class="muted">18 jul</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Vista 2: el tablero -->
+            <div class="panel panel-bi">
+              <div class="board-kpis">
+                <div class="kpi">
+                  <span class="kpi-label">Solicitudes</span>
+                  <strong class="kpi-value">34</strong>
+                </div>
+                <div class="kpi">
+                  <span class="kpi-label">Resueltas en 24 h</span>
+                  <strong class="kpi-value">31</strong>
+                </div>
+                <div class="kpi">
+                  <span class="kpi-label">Monto aprobado</span>
+                  <strong class="kpi-value">$2,4 M</strong>
+                </div>
+                <div class="kpi">
+                  <span class="kpi-label">Demora promedio</span>
+                  <strong class="kpi-value">6 h</strong>
+                </div>
+              </div>
+
+              <div class="bi-grid">
+                <figure class="board-chart">
+                  <figcaption>Aprobadas por mes</figcaption>
+                  <div
+                    class="chart"
+                    role="img"
+                    aria-label="Solicitudes aprobadas por mes: febrero 18, marzo 22, abril 19, mayo 27, junio 24, julio 34."
+                  >
+                    <div class="chart-col"><span class="chart-bar" style="height: 53%"></span><span class="chart-tick">Feb</span></div>
+                    <div class="chart-col"><span class="chart-bar" style="height: 65%"></span><span class="chart-tick">Mar</span></div>
+                    <div class="chart-col"><span class="chart-bar" style="height: 56%"></span><span class="chart-tick">Abr</span></div>
+                    <div class="chart-col"><span class="chart-bar" style="height: 79%"></span><span class="chart-tick">May</span></div>
+                    <div class="chart-col"><span class="chart-bar" style="height: 71%"></span><span class="chart-tick">Jun</span></div>
+                    <div class="chart-col is-now">
+                      <span class="chart-value">34</span>
+                      <span class="chart-bar" style="height: 100%"></span>
+                      <span class="chart-tick">Jul</span>
+                    </div>
+                  </div>
+                </figure>
+
+                <figure class="board-split">
+                  <figcaption>Por área</figcaption>
+                  <ul class="split-list">
+                    <li>
+                      <span class="split-name">Compras</span>
+                      <span class="split-track"><span class="split-fill" style="width: 100%"></span></span>
+                      <span class="split-num">14</span>
+                    </li>
+                    <li>
+                      <span class="split-name">Operaciones</span>
+                      <span class="split-track"><span class="split-fill" style="width: 64%"></span></span>
+                      <span class="split-num">9</span>
+                    </li>
+                    <li>
+                      <span class="split-name">Administración</span>
+                      <span class="split-track"><span class="split-fill" style="width: 50%"></span></span>
+                      <span class="split-num">7</span>
+                    </li>
+                    <li>
+                      <span class="split-name">Comercial</span>
+                      <span class="split-track"><span class="split-fill" style="width: 29%"></span></span>
+                      <span class="split-num">4</span>
+                    </li>
+                  </ul>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ASÍ TE AYUDAMOS: franja de tres beneficios -->
+      <section class="section helps" aria-label="Así te ayudamos">
+        <div class="wrap">
+          <div class="help-card">
+            <p class="help-kicker">Así te ayudamos</p>
+            <ul class="help-list">
+              <li>
+                <strong>Menos trabajo manual</strong>
+                <span>El equipo deja de copiar datos entre planillas, mails y formularios en papel.</span>
+              </li>
+              <li>
+                <strong>Procesos que no se frenan</strong>
+                <span>Cada solicitud sigue su curso aunque la persona que aprueba esté de viaje.</span>
+              </li>
+              <li>
+                <strong>Todo queda registrado</strong>
+                <span>Quién pidió qué, quién aprobó y cuándo. Sin buscar en la casilla de mail.</span>
+              </li>
+            </ul>
+            <p class="help-foot">Y los datos para decidir salen del proceso, no de armarlos a mano.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- EJEMPLO CONCRETO: un proceso antes y despues -->
+      <section class="section example" id="ejemplo" aria-labelledby="example-title">
+        <div class="wrap">
+          <div class="example-grid">
+            <div class="reveal">
+              <p class="kicker">Un caso concreto</p>
+              <h2 id="example-title">Aprobaciones internas: de la cadena de mails a un flujo que se resuelve solo</h2>
+              <p class="lead">
+                Gastos, vacaciones, permisos, compras. Todos los meses la misma
+                escena: alguien pregunta por dónde va la solicitud y nadie sabe.
+              </p>
+              <p class="kicker">Cómo funciona hoy</p>
+              <div class="timeline">
+                <article class="timeline-item">
+                  <h3>La solicitud arranca en un mail</h3>
+                  <p>O en un WhatsApp, o en un formulario impreso. Cada uno lo pide como puede.</p>
+                </article>
+                <article class="timeline-item">
+                  <h3>La aprobación depende de encontrar a la persona</h3>
+                  <p>Si quien firma está de viaje, la solicitud queda frenada sin que nadie se entere.</p>
+                </article>
+                <article class="timeline-item">
+                  <h3>El registro se arma después</h3>
+                  <p>Alguien carga todo a una planilla a fin de mes, cuando ya nadie recuerda los detalles.</p>
+                </article>
+              </div>
+            </div>
+
+            <figure class="flow reveal" aria-label="Cómo se integra el proceso sobre Microsoft">
+              <figcaption class="flow-head">Cómo queda, en tres piezas</figcaption>
+              <ol class="flow-steps">
+                <li class="flow-step">
+                  <span class="flow-badge" aria-hidden="true">01</span>
+                  <div>
+                    <strong>Power Apps</strong>
+                    <span>La solicitud se carga una sola vez, ya validada.</span>
+                  </div>
+                </li>
+                <li class="flow-step">
+                  <span class="flow-badge" aria-hidden="true">02</span>
+                  <div>
+                    <strong>Power Automate</strong>
+                    <span>Se deriva a quien aprueba y avisa si se demora.</span>
+                  </div>
+                </li>
+                <li class="flow-step">
+                  <span class="flow-badge" aria-hidden="true">03</span>
+                  <div>
+                    <strong>Power BI</strong>
+                    <span>Queda en el tablero, actualizado solo.</span>
+                  </div>
+                </li>
+              </ol>
+              <p class="flow-foot">Todo sobre la plataforma que tu empresa ya tiene.</p>
+            </figure>
+          </div>
+
+          <div class="reveal">
+            <p class="kicker">Cómo queda</p>
+            <div class="process-grid">
+              <article class="timeline-item">
+                <h3>Se pide desde una app</h3>
+                <p>Un formulario único en Power Apps, desde la computadora o el celular. Siempre los mismos datos.</p>
+              </article>
+              <article class="timeline-item">
+                <h3>La aprobación llega sola</h3>
+                <p>Power Automate la deriva a quien corresponde según el monto y avisa por Teams si se demora.</p>
+              </article>
+              <article class="timeline-item">
+                <h3>El tablero se actualiza solo</h3>
+                <p>En Power BI ves qué se aprobó, cuánto se gastó y dónde se traba el proceso.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SERVICIOS: las tres herramientas -->
+      <section class="section" id="servicios" aria-labelledby="services-title">
+        <div class="wrap">
+          <div class="reveal process-head">
+            <p class="kicker">Qué hacemos</p>
+            <h2 id="services-title">Tres herramientas, un proceso que funciona solo</h2>
+            <p class="lead">
+              No vendemos licencias ni un producto cerrado. Construimos sobre la
+              plataforma que tu empresa ya tiene.
+            </p>
+          </div>
+
+          <div class="process-grid reveal">
+            <article class="process-step">
+              <h3>Power Apps · Aplicaciones internas a medida</h3>
+              <p>
+                Reemplazamos las planillas compartidas y los formularios en papel
+                por una app simple, con los datos validados desde el momento de la
+                carga.
+              </p>
+            </article>
+
+            <article class="process-step">
+              <h3>Power Automate · Flujos y aprobaciones automáticas</h3>
+              <p>
+                Cada solicitud sigue su recorrido sola: notifica, escala cuando se
+                demora y deja registro de cada paso.
+              </p>
+            </article>
+
+            <article class="process-step">
+              <h3>Power BI · Tableros para decidir</h3>
+              <p>
+                Los datos del proceso se convierten en indicadores actualizados, sin
+                que nadie arme el informe a mano.
+              </p>
+            </article>
+          </div>
+
+          <p class="team-note reveal">
+            También trabajamos con SharePoint, Teams y Listas de Microsoft 365,
+            integraciones sobre Azure y automatizaciones con Dynamics 365 y Copilot.
+          </p>
+        </div>
+      </section>
+
+      <section class="conversion-cta" aria-labelledby="conversion-title">
+        <div class="wrap reveal">
+          <div>
+            <p class="kicker">Hablemos de tu empresa</p>
+            <h2 id="conversion-title">¿Qué proceso te está consumiendo más tiempo?</h2>
+            <p>Contanos cómo funciona hoy y te decimos si conviene digitalizarlo.</p>
+          </div>
+          <a class="button accent" href="#contacto">Contanos tu caso</a>
+        </div>
+      </section>
+
+      <!-- CÓMO TRABAJAMOS: 3 pasos del proceso -->
+      <section class="section process" id="proceso" aria-labelledby="process-title">
+        <div class="wrap">
+          <div class="reveal process-head">
+            <p class="kicker">Cómo trabajamos</p>
+            <h2 id="process-title">De la primera charla al proceso funcionando</h2>
+            <p class="lead">
+              Empezamos por un proceso concreto, el que más duele. Cuando funciona,
+              seguimos con el siguiente.
+            </p>
+          </div>
+
+          <div class="process-grid reveal">
+            <article class="process-step">
+              <span class="process-num" aria-hidden="true">1</span>
+              <h3>Relevamos el proceso</h3>
+              <p>
+                Nos sentamos con quienes lo ejecutan todos los días y mapeamos cómo
+                funciona hoy, con sus excepciones y sus atajos. Primera reunión sin
+                compromiso.
+              </p>
+            </article>
+
+            <article class="process-step">
+              <span class="process-num" aria-hidden="true">2</span>
+              <h3>Lo construimos sobre Microsoft</h3>
+              <p>
+                Armamos la app, los flujos y el tablero sobre las herramientas que tu
+                empresa ya tiene. Te mostramos avances mientras lo hacemos, no al
+                final.
+              </p>
+            </article>
+
+            <article class="process-step">
+              <span class="process-num" aria-hidden="true">3</span>
+              <h3>Implementamos y acompañamos</h3>
+              <p>
+                Capacitamos al equipo, ajustamos lo que aparece en el uso real y
+                quedamos disponibles para lo que siga.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- QUIÉNES SOMOS: las personas de confianza detrás -->
+      <!-- REEMPLAZAR: nombres, roles, "de qué se encarga" y fotos reales del equipo -->
+      <section class="section" id="nosotros" aria-labelledby="about-title">
+        <div class="wrap">
+          <div class="reveal about-head">
+            <p class="kicker">Quiénes somos</p>
+            <h2 id="about-title">Un equipo que entiende el proceso antes de escribir código</h2>
+            <p class="lead">
+              Somos un equipo de Mendoza especializado en digitalización de procesos
+              sobre el entorno Microsoft. Nos complementamos para que no tengas que
+              traducir entre lo operativo y lo técnico: uno entiende cómo trabaja tu
+              empresa, el otro lo construye.
+            </p>
+          </div>
+
+          <div class="team reveal">
+            <article class="team-member">
+              <div class="team-head">
+                <img class="team-photo team-photo-juan" src="/assets/team-juan-diego.png" alt="Juan Diego Caballero">
+                <div>
+                  <span class="team-name">Juan Diego Caballero</span>
+                  <span class="team-role">Ingeniero en Sistemas</span>
+                </div>
+              </div>
+              <p class="team-do">Construye las apps, los flujos y las integraciones sobre Power Platform para que el proceso corra solo.</p>
+            </article>
+
+            <article class="team-member">
+              <div class="team-head">
+                <img class="team-photo team-photo-gonzalo" src="/assets/team-gonzalo.jpeg" alt="Gonzalo Manresa">
+                <div>
+                  <span class="team-name">Gonzalo Manresa</span>
+                  <span class="team-role">Analista de Negocios</span>
+                </div>
+              </div>
+              <p class="team-do">Releva cómo trabaja tu empresa hoy y define qué conviene digitalizar primero para que el cambio se note rápido.</p>
+            </article>
+          </div>
+
+          <p class="team-note reveal">
+            Trabajamos con empresas que ya usan Microsoft 365 y quieren dejar atrás
+            las planillas compartidas. Sabemos qué conviene digitalizar primero y qué
+            puede esperar.
+          </p>
+        </div>
+      </section>
+
+      <!-- CIERRE: contacto por mail -->
+      <section class="section contact" id="contacto" aria-labelledby="contact-title">
+        <div class="wrap reveal">
+          <p class="kicker">Contacto</p>
+          <h2 id="contact-title">Contanos qué proceso querés digitalizar</h2>
+          <p class="lead">
+            Escribinos y coordinamos una conversación para ver cómo funciona tu
+            proceso hoy y qué conviene automatizar primero.
+          </p>
+          <p class="contact-note">
+            Trabajamos con empresas que quieren más orden y control en su operación
+            diaria.
+          </p>
+          <!-- FormSubmit envía las consultas a mendodata@gmail.com -->
+          <!-- El primer envío requiere confirmar la dirección desde el correo de activación -->
+          <form
+            class="contact-form reveal"
+            action="https://formsubmit.co/mendodata@gmail.com"
+            method="POST"
+          >
+            <input type="hidden" name="_subject" value="Nueva consulta desde la web">
+            <input type="hidden" name="_template" value="table">
+            <input
+              type="text"
+              name="_honey"
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+              style="display: none"
+            >
+
+            <div class="field">
+              <label for="cf-nombre">Nombre</label>
+              <input id="cf-nombre" name="nombre" type="text" autocomplete="name" required placeholder="Tu nombre">
+            </div>
+
+            <div class="field">
+              <label for="cf-email">Email</label>
+              <input id="cf-email" name="email" type="email" autocomplete="email" required placeholder="tucorreo@ejemplo.com">
+            </div>
+
+            <div class="field">
+              <label for="cf-negocio">Empresa y rubro <span class="field-opt">(opcional)</span></label>
+              <input id="cf-negocio" name="negocio" type="text" placeholder="Empresa y rubro">
+            </div>
+
+            <div class="field">
+              <label for="cf-mensaje">Mensaje</label>
+              <textarea id="cf-mensaje" name="mensaje" required placeholder="Contanos brevemente qué proceso te gustaría ordenar."></textarea>
+            </div>
+
+            <button type="submit" class="button accent big">Enviar consulta</button>
+            <p class="form-hint">Respondemos todas las consultas a la brevedad.</p>
+          </form>
+        </div>
+      </section>
+  <a class="mobile-contact-cta button accent" href="#contacto">Contanos tu caso</a>
+  <script>
+    const mobileContactCta = document.querySelector('.mobile-contact-cta');
+    const contactSection = document.querySelector('#contacto');
+
+    if (mobileContactCta && contactSection && 'IntersectionObserver' in window) {
+      const contactObserver = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          mobileContactCta.classList.toggle('is-hidden', entry.isIntersecting);
+        }
+      }, { threshold: 0.05 });
+
+      contactObserver.observe(contactSection);
+    }
+  </script>
+</BaseLayout>
