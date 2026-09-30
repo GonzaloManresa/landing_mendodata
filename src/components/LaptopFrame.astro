@@ -1,0 +1,37 @@
+---
+// Marco de laptop (tapa + base) para visuales dibujados en HTML/CSS.
+// Se mide en `em`: toma el tamaño de letra del contenedor que lo escala.
+// La posición y la sombra las define quien lo usa, envolviéndolo.
+---
+<div class="laptop-frame" aria-hidden="true">
+  <div class="laptop-lid"><slot /></div>
+  <div class="laptop-base"></div>
+</div>
+
+<style>
+  .laptop-lid {
+    padding: 1.3em 1.3em 1.6em;
+    border-radius: 2.2em 2.2em 0.6em 0.6em;
+    background: #16181D;
+  }
+
+  .laptop-base {
+    position: relative;
+    height: 1.7em;
+    margin: 0 -3em;
+    border-radius: 0.2em 0.2em 1.6em 1.6em;
+    background: linear-gradient(180deg, #D9DDE4 0%, #B9BFC9 55%, #8E95A1 100%);
+  }
+
+  .laptop-base::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 10em;
+    height: 0.7em;
+    border-radius: 0 0 0.8em 0.8em;
+    background: #A3A9B4;
+    transform: translateX(-50%);
+  }
+</style>

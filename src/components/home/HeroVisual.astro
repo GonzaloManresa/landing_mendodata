@@ -1,4 +1,6 @@
 ---
+import LaptopFrame from '../LaptopFrame.astro';
+
 // Visual del Hero: laptop + celular dibujados en HTML/CSS.
 // Es una demostración conceptual (datos de ejemplo), no un proyecto real.
 // Todo se mide en `em`; el tamaño base sale del ancho del contenedor,
@@ -41,8 +43,8 @@ const rows = [
 
   <div class="stage" role="img" aria-label="Interfaz digital para organizar procesos operativos, información y datos empresariales.">
     <!-- Laptop -->
-    <div class="laptop" aria-hidden="true">
-      <div class="laptop-lid">
+    <div class="laptop">
+      <LaptopFrame>
         <div class="screen app">
           <aside class="app-side">
             <div class="app-brand">
@@ -120,8 +122,7 @@ const rows = [
             </div>
           </div>
         </div>
-      </div>
-      <div class="laptop-base"></div>
+      </LaptopFrame>
     </div>
 
     <!-- Celular -->
@@ -218,33 +219,6 @@ const rows = [
     right: 0;
     width: 62em;
     filter: drop-shadow(0 2.4em 3em rgba(11, 27, 63, 0.16));
-  }
-
-  .laptop-lid {
-    padding: 1.3em 1.3em 1.6em;
-    border-radius: 2.2em 2.2em 0.6em 0.6em;
-    background: #16181D;
-  }
-
-  .laptop-base {
-    position: relative;
-    left: -3em;
-    width: 68em;
-    height: 1.7em;
-    border-radius: 0.2em 0.2em 1.6em 1.6em;
-    background: linear-gradient(180deg, #D9DDE4 0%, #B9BFC9 55%, #8E95A1 100%);
-  }
-
-  .laptop-base::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 10em;
-    height: 0.7em;
-    border-radius: 0 0 0.8em 0.8em;
-    background: #A3A9B4;
-    transform: translateX(-50%);
   }
 
   .screen {

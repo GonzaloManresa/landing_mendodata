@@ -56,150 +56,10 @@
   border-color: #ffffff;
 }
 
-/* Diagrama del flujo, en el hero ---------------------------------- */
-.flow {
-  margin: 0;
-  padding: clamp(24px, 2.6vw, 32px);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  border-radius: var(--radius-card);
-  background: rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(18px);
-  box-shadow: 0 30px 70px rgba(20, 41, 61, 0.18);
-}
-
-.flow-head {
-  margin-bottom: 20px;
-  font-weight: 700;
-  font-size: 0.74rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-
-.flow-steps {
-  position: relative;
-  display: grid;
-  gap: 22px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.flow-step {
-  position: relative;
-  display: grid;
-  grid-template-columns: 42px minmax(0, 1fr);
-  gap: 16px;
-  align-items: start;
-}
-
-/* línea que conecta un paso con el siguiente */
-.flow-step:not(:last-child)::before {
-  content: "";
-  position: absolute;
-  top: 46px;
-  left: 20px;
-  width: 2px;
-  height: calc(100% - 24px);
-  background: linear-gradient(180deg, var(--accent), rgba(22, 104, 176, 0.15));
-}
-
-.flow-badge {
-  display: grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  background: var(--accent);
-  color: #ffffff;
-  font-weight: 800;
-  font-size: 0.9rem;
-  letter-spacing: -0.02em;
-}
-
-.flow-step strong {
-  display: block;
-  margin-bottom: 2px;
-  font-size: 1.04rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-.flow-step div span {
-  color: var(--ink-soft);
-  font-size: 0.95rem;
-}
-
-.flow-foot {
-  margin: 22px 0 0;
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
-  color: var(--ink-mute);
-  font-size: 0.9rem;
-}
-
-/* Ejemplo (antes / después) --------------------------------------- */
-.example {
-  background: var(--surface);
-}
-
-.example-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(360px, 470px);
-  gap: clamp(32px, 6vw, 72px);
-  align-items: center;
-}
-
-.timeline {
-  display: grid;
-  gap: 0;
-  margin-top: 24px;
-  border-top: 1px solid var(--line);
-}
-
-.timeline-item {
-  padding: 18px 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.timeline-item h3 {
-  margin: 0 0 4px;
-  font-size: 1.02rem;
-}
-
-.timeline-item p {
-  margin: 0;
-  color: var(--ink-soft);
-}
-
-/* "Cómo queda": filas numeradas via counters */
-.example .process-grid {
-  counter-reset: paso;
-  margin-top: 20px;
-  gap: 20px;
-}
-
-.example .process-grid .timeline-item {
-  counter-increment: paso;
-  padding: clamp(24px, 3vw, 30px);
-  border-bottom: 0;
-}
-
-.example .process-grid .timeline-item::before {
-  content: "0" counter(paso);
-  display: block;
-  margin-bottom: 12px;
-  font-family: var(--font-display);
-  font-size: 2.2rem;
-  line-height: 1;
-  color: var(--accent);
-}
-
 /* Vidrio: translúcido, con luz desde arriba y filo brillante en el borde.
    Necesita variación de color detrás para que el desenfoque se note. */
 .process-step,
-.team-member,
-.example .process-grid .timeline-item {
+.team-member {
   border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: var(--radius-card);
   background:
@@ -469,15 +329,6 @@
 }
 
 @media (max-width: 940px) {
-  .example-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .flow {
-    max-width: 520px;
-  }
-
-  .example .process-grid,
   .process-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -500,8 +351,7 @@
   }
 
   .team,
-  .process-grid,
-  .example .process-grid {
+  .process-grid {
     grid-template-columns: 1fr;
   }
 

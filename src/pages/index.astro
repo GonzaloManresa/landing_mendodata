@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/home/Hero.astro';
 import Problems from '../components/home/Problems.astro';
 import Solutions from '../components/home/Solutions.astro';
+import FeaturedProject from '../components/home/FeaturedProject.astro';
 import '../styles/home.css';
 import { seo } from '../config/site';
 ---
@@ -13,82 +14,7 @@ import { seo } from '../config/site';
 
       <Solutions />
 
-      <!-- EJEMPLO CONCRETO: un proceso antes y despues -->
-      <section class="section example" id="ejemplo" aria-labelledby="example-title">
-        <div class="wrap">
-          <div class="example-grid">
-            <div class="reveal">
-              <p class="kicker">Un caso concreto</p>
-              <h2 id="example-title">Aprobaciones internas: de la cadena de mails a un flujo que se resuelve solo</h2>
-              <p class="lead">
-                Gastos, vacaciones, permisos, compras. Todos los meses la misma
-                escena: alguien pregunta por dónde va la solicitud y nadie sabe.
-              </p>
-              <p class="kicker">Cómo funciona hoy</p>
-              <div class="timeline">
-                <article class="timeline-item">
-                  <h3>La solicitud arranca en un mail</h3>
-                  <p>O en un WhatsApp, o en un formulario impreso. Cada uno lo pide como puede.</p>
-                </article>
-                <article class="timeline-item">
-                  <h3>La aprobación depende de encontrar a la persona</h3>
-                  <p>Si quien firma está de viaje, la solicitud queda frenada sin que nadie se entere.</p>
-                </article>
-                <article class="timeline-item">
-                  <h3>El registro se arma después</h3>
-                  <p>Alguien carga todo a una planilla a fin de mes, cuando ya nadie recuerda los detalles.</p>
-                </article>
-              </div>
-            </div>
-
-            <figure class="flow reveal" aria-label="Cómo se integra el proceso sobre Microsoft">
-              <figcaption class="flow-head">Cómo queda, en tres piezas</figcaption>
-              <ol class="flow-steps">
-                <li class="flow-step">
-                  <span class="flow-badge" aria-hidden="true">01</span>
-                  <div>
-                    <strong>Power Apps</strong>
-                    <span>La solicitud se carga una sola vez, ya validada.</span>
-                  </div>
-                </li>
-                <li class="flow-step">
-                  <span class="flow-badge" aria-hidden="true">02</span>
-                  <div>
-                    <strong>Power Automate</strong>
-                    <span>Se deriva a quien aprueba y avisa si se demora.</span>
-                  </div>
-                </li>
-                <li class="flow-step">
-                  <span class="flow-badge" aria-hidden="true">03</span>
-                  <div>
-                    <strong>Power BI</strong>
-                    <span>Queda en el tablero, actualizado solo.</span>
-                  </div>
-                </li>
-              </ol>
-              <p class="flow-foot">Todo sobre la plataforma que tu empresa ya tiene.</p>
-            </figure>
-          </div>
-
-          <div class="reveal">
-            <p class="kicker">Cómo queda</p>
-            <div class="process-grid">
-              <article class="timeline-item">
-                <h3>Se pide desde una app</h3>
-                <p>Un formulario único en Power Apps, desde la computadora o el celular. Siempre los mismos datos.</p>
-              </article>
-              <article class="timeline-item">
-                <h3>La aprobación llega sola</h3>
-                <p>Power Automate la deriva a quien corresponde según el monto y avisa por Teams si se demora.</p>
-              </article>
-              <article class="timeline-item">
-                <h3>El tablero se actualiza solo</h3>
-                <p>En Power BI ves qué se aprobó, cuánto se gastó y dónde se traba el proceso.</p>
-              </article>
-            </div>
-          </div>
-        </div>
-      </section>
+      <FeaturedProject />
 
       <section class="conversion-cta" aria-labelledby="conversion-title">
         <div class="wrap reveal">

@@ -1,0 +1,512 @@
+---
+import LaptopFrame from '../LaptopFrame.astro';
+
+// Representación ilustrativa del sistema de inventario y sucursales.
+// No es una captura del cliente: los datos son de ejemplo y no hay nombres reales.
+// Se reemplaza por una captura anonimizada cuando exista, sin tocar el layout.
+
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+
+const menu = ['Inicio', 'Inventario', 'Movimientos', 'Productos', 'Sucursales', 'Diferencias', 'Aprobaciones', 'Reportes'];
+
+const kpis = [
+  { label: 'Productos', value: '1.248', icon: 'box' },
+  { label: 'Movimientos hoy', value: '32', icon: 'swap' },
+  { label: 'Diferencias a revisar', value: '5', icon: 'alert' },
+  { label: 'Aprobaciones pendientes', value: '3', icon: 'check' },
+];
+
+const branches = [
+  { name: 'Centro', a: 62, b: 18, c: 8 },
+  { name: 'Norte', a: 44, b: 14, c: 12 },
+  { name: 'Sur', a: 52, b: 10, c: 6 },
+  { name: 'Oeste', a: 34, b: 12, c: 10 },
+];
+
+const movements = [
+  { date: '10/06', type: 'Transferencia', tone: 'blue', code: 'MP-001', route: 'Centro → Norte', qty: '50' },
+  { date: '09/06', type: 'Entrada', tone: 'green', code: 'PT-002', route: 'Centro', qty: '+120' },
+  { date: '08/06', type: 'Ajuste', tone: 'amber', code: 'INS-004', route: 'Sur', qty: '-3' },
+  { date: '07/06', type: 'Transferencia', tone: 'blue', code: 'MP-003', route: 'Norte → Sur', qty: '25' },
+  { date: '06/06', type: 'Salida', tone: 'red', code: 'PT-001', route: 'Oeste', qty: '-15' },
+];
+
+const products = [
+  { name: 'Insumo A-320', code: '779 1234 56001', branch: 'Centro', stock: '1.240', status: 'En stock', tone: 'green' },
+  { name: 'Repuesto B-112', code: '779 1234 56018', branch: 'Norte', stock: '32', status: 'Stock bajo', tone: 'amber' },
+  { name: 'Componente C-045', code: '779 1234 56025', branch: 'Sur', stock: '890', status: 'Con diferencia', tone: 'red' },
+];
+---
+<div class="project-visual" id="project-featured-visual" role="img" aria-label={label}>
+  <div class="stage">
+    <div class="device">
+      <LaptopFrame>
+        <div class="screen">
+          <aside class="side">
+            <div class="brand">
+              <img src="/assets/mendodata-symbol.png" alt="" width="583" height="186">
+              <span>MendoData</span>
+            </div>
+            <ul>
+              {menu.map((item, i) => <li class={i === 1 ? 'is-active' : undefined}><i></i>{item}</li>)}
+            </ul>
+          </aside>
+
+          <div class="main">
+            <div class="top">
+              <strong>Inventario y movimientos</strong>
+              <span class="select">Todas las sucursales</span>
+              <span class="bell"></span>
+              <span class="avatar"></span>
+            </div>
+
+            <div class="kpis">
+              {kpis.map((kpi) => (
+                <div class="card kpi">
+                  <span class={`kpi-icon ${kpi.icon}`}></span>
+                  <b>{kpi.value}</b>
+                  <span>{kpi.label}</span>
+                </div>
+              ))}
+            </div>
+
+            <div class="middle">
+              <div class="card stock">
+                <span class="card-title">Stock por sucursal</span>
+                <div class="stock-body">
+                  <div class="stacks">
+                    {branches.map((b) => (
+                      <div class="stack-col">
+                        <div class="stack">
+                          <i class="s3" style={`height:${b.c}%`}></i>
+                          <i class="s2" style={`height:${b.b}%`}></i>
+                          <i class="s1" style={`height:${b.a}%`}></i>
+                        </div>
+                        <span>{b.name}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <ul class="legend">
+                    <li><i class="s1"></i>Disponible</li>
+                    <li><i class="s2"></i>Reservado</li>
+                    <li><i class="s3"></i>En tránsito</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="card moves">
+                <div class="card-head"><span class="card-title">Movimientos recientes</span><span class="link">Ver todos →</span></div>
+                <div class="table">
+                  <div class="tr th"><span>Fecha</span><span>Tipo</span><span>Producto</span><span>Sucursal</span><span>Cant.</span></div>
+                  {movements.map((m) => (
+                    <div class="tr">
+                      <span>{m.date}</span>
+                      <span><em class={`tag ${m.tone}`}>{m.type}</em></span>
+                      <span>{m.code}</span>
+                      <span>{m.route}</span>
+                      <span class={m.qty.startsWith('-') ? 'neg' : m.qty.startsWith('+') ? 'pos' : undefined}>{m.qty}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div class="card products">
+              <div class="card-head">
+                <span class="card-title">Productos</span>
+                <span class="search"><i class="barcode"></i>Buscar o escanear código…</span>
+                <span class="select">Todas las sucursales</span>
+                <span class="btn">Escanear código</span>
+              </div>
+              <div class="table">
+                <div class="tr th"><span>Producto</span><span>Código</span><span>Sucursal</span><span>Stock</span><span>Estado</span></div>
+                {products.map((p) => (
+                  <div class="tr">
+                    <span>{p.name}</span>
+                    <span class="mono">{p.code}</span>
+                    <span>{p.branch}</span>
+                    <span>{p.stock}</span>
+                    <span><em class={`tag ${p.tone}`}>{p.status}</em></span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </LaptopFrame>
+    </div>
+  </div>
+</div>
+
+<style>
+  .project-visual {
+    container-type: inline-size;
+    width: 100%;
+  }
+
+  /* 1em = 1/72 del ancho disponible; la laptop mide 66em */
+  .stage {
+    padding: 0 3em 1em;
+    font-size: calc(100cqw / 72);
+    color: #3D4B66;
+    line-height: 1.25;
+  }
+
+  .device {
+    filter: drop-shadow(0 2.4em 3em rgba(11, 27, 63, 0.16));
+  }
+
+  .stage ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .screen {
+    display: grid;
+    grid-template-columns: 11em minmax(0, 1fr);
+    height: 44em;
+    overflow: hidden;
+    border-radius: 0.5em;
+    background: #F4F7FC;
+  }
+
+  .side {
+    padding: 1.4em 0.9em;
+    border-right: 1px solid #E6ECF5;
+    background: #FFFFFF;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.45em;
+    margin-bottom: 1.6em;
+    color: var(--ink);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .brand img {
+    width: 2.3em;
+    height: auto;
+  }
+
+  .side li {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    padding: 0.6em 0.7em;
+    border-radius: 0.5em;
+    color: #54627C;
+    font-size: 0.82em;
+  }
+
+  .side li i {
+    width: 0.9em;
+    height: 0.9em;
+    border: 0.14em solid currentColor;
+    border-radius: 0.25em;
+  }
+
+  .side li.is-active {
+    background: #E8F1FE;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    min-width: 0;
+    padding: 1.4em 1.5em;
+  }
+
+  .top {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+  }
+
+  .top strong {
+    margin-right: auto;
+    color: var(--ink);
+    font-size: 1.4em;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .select {
+    padding: 0.4em 0.8em;
+    border: 1px solid #E1E7F0;
+    border-radius: 0.5em;
+    background: #FFFFFF;
+    color: #54627C;
+    font-size: 0.72em;
+    white-space: nowrap;
+  }
+
+  .bell {
+    width: 1em;
+    height: 1.1em;
+    border: 0.14em solid #54627C;
+    border-radius: 0.5em 0.5em 0.15em 0.15em;
+  }
+
+  .avatar {
+    width: 2.2em;
+    height: 2.2em;
+    border-radius: 50%;
+    background: #BFD8FC;
+  }
+
+  .card {
+    padding: 0.9em 1em;
+    border: 1px solid #E6ECF5;
+    border-radius: 0.8em;
+    background: #FFFFFF;
+  }
+
+  .card-title {
+    color: var(--ink);
+    font-size: 0.84em;
+    font-weight: 700;
+  }
+
+  .card-head {
+    display: flex;
+    align-items: center;
+    gap: 0.7em;
+    margin-bottom: 0.6em;
+  }
+
+  .card-head .card-title {
+    margin-right: auto;
+  }
+
+  .link {
+    color: var(--accent);
+    font-size: 0.68em;
+    font-weight: 600;
+  }
+
+  .kpis {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.8em;
+  }
+
+  .kpi {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 0.7em;
+    align-items: center;
+  }
+
+  .kpi b {
+    color: var(--ink);
+    font-size: 1.5em;
+    font-weight: 800;
+  }
+
+  .kpi span:last-child {
+    grid-column: 2;
+    color: #6B7A93;
+    font-size: 0.66em;
+  }
+
+  .kpi-icon {
+    grid-row: span 2;
+    width: 2.4em;
+    height: 2.4em;
+    border-radius: 0.7em;
+    background: #E8F1FE;
+    box-shadow: inset 0 0 0 0.7em #E8F1FE, inset 0 0 0 0.85em var(--accent);
+  }
+
+  .kpi-icon.alert {
+    background: #FFF1DC;
+    box-shadow: inset 0 0 0 0.7em #FFF1DC, inset 0 0 0 0.85em #D98300;
+  }
+
+  .kpi-icon.check {
+    background: #E3F5EA;
+    box-shadow: inset 0 0 0 0.7em #E3F5EA, inset 0 0 0 0.85em #2E9A5B;
+  }
+
+  .middle {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 0.8em;
+  }
+
+  .stock-body {
+    display: flex;
+    align-items: flex-end;
+    gap: 1em;
+    margin-top: 0.8em;
+  }
+
+  .stacks {
+    display: flex;
+    flex: 1;
+    align-items: flex-end;
+    gap: 0.9em;
+    height: 11em;
+  }
+
+  .stack-col {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35em;
+    height: 100%;
+  }
+
+  .stack-col > span {
+    color: #8A97AD;
+    font-size: 0.6em;
+  }
+
+  .stack {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 1.5em;
+    overflow: hidden;
+    border-radius: 0.3em 0.3em 0 0;
+  }
+
+  .s1 { background: var(--accent); }
+  .s2 { background: #6FA8F9; }
+  .s3 { background: #BFD8FC; }
+
+  .legend {
+    display: grid;
+    gap: 0.5em;
+  }
+
+  .legend li {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    color: #54627C;
+    font-size: 0.62em;
+    white-space: nowrap;
+  }
+
+  .legend i {
+    width: 0.8em;
+    height: 0.8em;
+    border-radius: 50%;
+  }
+
+  .tr {
+    display: grid;
+    grid-template-columns: 0.8fr 1.3fr 0.9fr 1.3fr 0.6fr;
+    align-items: center;
+    padding: 0.45em 0.5em;
+    border-top: 1px solid #EEF2F8;
+    font-size: 0.64em;
+  }
+
+  .products .tr {
+    grid-template-columns: 1.4fr 1.4fr 0.9fr 0.7fr 1.1fr;
+  }
+
+  .th {
+    border-top: 0;
+    border-radius: 0.4em;
+    background: #F4F7FC;
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .mono {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+  }
+
+  .pos { color: #1E7A45; font-weight: 700; }
+  .neg { color: #B42323; font-weight: 700; }
+
+  .tag {
+    display: inline-block;
+    padding: 0.2em 0.6em;
+    border-radius: 0.4em;
+    font-style: normal;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .tag.blue { background: #E8F1FE; color: #0757C9; }
+  .tag.green { background: #E3F5EA; color: #1E7A45; }
+  .tag.amber { background: #FFF1DC; color: #A15C00; }
+  .tag.red { background: #FDE8E8; color: #B42323; }
+
+  .search {
+    display: flex;
+    flex: 0 1 17em;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.4em 0.7em;
+    border: 1px solid #E1E7F0;
+    border-radius: 0.5em;
+    color: #8A97AD;
+    font-size: 0.68em;
+    white-space: nowrap;
+  }
+
+  .barcode {
+    width: 1.3em;
+    height: 0.9em;
+    background: repeating-linear-gradient(90deg, #54627C 0 0.1em, transparent 0.1em 0.22em);
+  }
+
+  .btn {
+    padding: 0.45em 0.9em;
+    border-radius: 0.5em;
+    background: var(--accent);
+    color: #FFFFFF;
+    font-size: 0.68em;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* En pantallas angostas: solo lo principal, con letra legible */
+  @container (max-width: 560px) {
+    .stage {
+      padding: 0 1.4em 0.6em;
+      font-size: calc(100cqw / 40);
+    }
+
+    .screen {
+      grid-template-columns: minmax(0, 1fr);
+      height: auto;
+    }
+
+    .side,
+    .products,
+    .stock,
+    .select,
+    .bell {
+      display: none;
+    }
+
+    .kpis {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .middle {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

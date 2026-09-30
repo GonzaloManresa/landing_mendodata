@@ -17,7 +17,6 @@ const visibleText = html
 
 test('renders the current landing sections', () => {
   const requiredSnippets = [
-    'Aprobaciones internas: de la cadena de mails a un flujo que se resuelve solo',
     'De la primera charla al proceso funcionando',
     'Un equipo que entiende el proceso antes de escribir código',
     'Contanos qué proceso querés digitalizar',
@@ -26,34 +25,6 @@ test('renders the current landing sections', () => {
   for (const snippet of requiredSnippets) {
     assert.match(html, new RegExp(snippet, 'i'));
   }
-});
-
-test('contrasts the manual approval process against the digitized one', () => {
-  const example = html.match(
-    /<section[^>]+id="ejemplo"[\s\S]*?<\/section>/i,
-  )?.[0];
-  assert.ok(example, 'la sección #ejemplo debe existir');
-
-  const beforeSteps = [
-    'La solicitud arranca en un mail',
-    'La aprobación depende de encontrar a la persona',
-    'El registro se arma después',
-  ];
-  const afterSteps = [
-    'Se pide desde una app',
-    'La aprobación llega sola',
-    'El tablero se actualiza solo',
-  ];
-
-  for (const step of [...beforeSteps, ...afterSteps]) {
-    assert.match(example, new RegExp(step, 'i'));
-  }
-
-  assert.match(example, /Cómo funciona hoy/i);
-  assert.match(example, /Cómo queda/i);
-  assert.match(example, /aria-label="Cómo se integra el proceso sobre Microsoft"/i);
-  assert.doesNotMatch(example, /resumen del fin de semana/i);
-  assert.doesNotMatch(example, /caja floja/i);
 });
 
 test('never claims a Microsoft partnership', () => {
@@ -98,7 +69,6 @@ test('uses the approved accessible team photos and face-prioritized crops', () =
   assert.doesNotMatch(html, /<span class="team-photo" aria-hidden="true">(?:JD|GM)<\/span>/i);
   assert.match(html, /\.team-photo\s*\{[^}]*width:\s*96px;[^}]*height:\s*96px;[^}]*object-fit:\s*cover;/i);
 });
-
 
 test('guides visitors from the conversion band to contact', () => {
   assert.match(
@@ -246,15 +216,6 @@ test('uses Inter throughout with a heavy tight display weight', () => {
   assert.match(html, /\.team-name\s*\{[^}]*font-family:\s*var\(--font-display\);/i);
   assert.match(html, /\.process-num\s*\{[^}]*font-family:\s*var\(--font-display\);/i);
   assert.doesNotMatch(html, /Manrope/i);
-});
-
-test('shows the process flow diagram in the example section', () => {
-  // el diagrama del flujo se mudó a la sección del ejemplo
-  const flow = html.match(/<figure class="flow reveal"[\s\S]*?<\/figure>/i)?.[0];
-  assert.ok(flow, 'el diagrama del flujo debe existir en el ejemplo');
-  for (const tool of ['Power Apps', 'Power Automate', 'Power BI']) {
-    assert.match(flow, new RegExp(tool, 'i'));
-  }
 });
 
 test('emits balanced braces in every generated stylesheet', () => {
