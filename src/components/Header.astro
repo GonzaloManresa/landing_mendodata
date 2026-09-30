@@ -32,7 +32,12 @@ const { current } = Astro.props;
           <a class="nav-link" href={contactHref}>Contacto</a>
         </li>
       </ul>
-      <a class="button accent nav-cta" href={contactHref}>{headerCta}</a>
+      <a class="button accent nav-cta" href={contactHref}>
+        {headerCta}
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </a>
     </div>
   </nav>
 </header>
@@ -85,40 +90,46 @@ const { current } = Astro.props;
 
   .nav {
     position: relative;
-    max-width: 980px;
+    max-width: 1340px;
     margin: 0 auto;
-    min-height: 60px;
-    padding: 8px 8px 8px 20px;
+    min-height: 72px;
+    padding: 10px 12px 10px 28px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 18px;
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(16px);
-    box-shadow: 0 10px 34px rgba(20, 41, 61, 0.12);
+    box-shadow: 0 12px 36px rgba(11, 27, 63, 0.08);
   }
 
   .nav-menu {
     display: flex;
     align-items: center;
-    gap: 26px;
+    gap: clamp(26px, 4vw, 56px);
   }
 
   .nav-list {
     display: flex;
     align-items: center;
-    gap: 26px;
+    gap: clamp(22px, 3vw, 44px);
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
   .nav-link {
-    color: var(--ink-soft);
+    color: var(--ink);
     font-weight: 500;
-    font-size: 0.94rem;
+    font-size: 0.98rem;
+  }
+
+  .nav-cta {
+    min-height: 50px;
+    padding: 0 22px 0 26px;
+    gap: 12px;
   }
 
   .nav-link:hover,

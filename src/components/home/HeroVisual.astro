@@ -1,0 +1,771 @@
+---
+// Visual del Hero: laptop + celular dibujados en HTML/CSS.
+// Es una demostración conceptual (datos de ejemplo), no un proyecto real.
+// Todo se mide en `em`; el tamaño base sale del ancho del contenedor,
+// así la composición escala entera sin deformarse.
+
+const sidebar = ['Inicio', 'Procesos', 'Inventario', 'Compras', 'Ventas', 'Reportes'];
+
+const kpis = [
+  { label: 'Pedidos procesados', value: '2.847', delta: '+12%', up: true, icon: 'box' },
+  { label: 'Tareas automatizadas', value: '436', delta: '+8%', up: true, icon: 'bolt' },
+  { label: 'Pendientes de aprobación', value: '24', delta: '-20%', up: false, icon: 'doc' },
+];
+
+const bars = [
+  { month: 'Ene', a: 18, b: 26 },
+  { month: 'Feb', a: 24, b: 34 },
+  { month: 'Mar', a: 30, b: 44 },
+  { month: 'Abr', a: 36, b: 58 },
+  { month: 'May', a: 44, b: 70 },
+  { month: 'Jun', a: 52, b: 88 },
+];
+
+const areas = [
+  { name: 'Compras', pct: 35 },
+  { name: 'Ventas', pct: 28 },
+  { name: 'Inventario', pct: 18 },
+  { name: 'Administración', pct: 12 },
+  { name: 'Otros', pct: 7 },
+];
+
+const rows = [
+  { date: '10/06', item: 'Orden de compra', area: 'Compras', status: 'Completado', ok: true },
+  { date: '09/06', item: 'Pedido de cliente', area: 'Ventas', status: 'Completado', ok: true },
+  { date: '08/06', item: 'Reposición de stock', area: 'Inventario', status: 'En proceso', ok: false },
+  { date: '07/06', item: 'Aprobación de gasto', area: 'Administración', status: 'Completado', ok: true },
+];
+---
+<div class="hero-visual" id="hero-visual">
+  <p class="demo-badge">Demostración ilustrativa</p>
+
+  <div class="stage" role="img" aria-label="Interfaz digital para organizar procesos operativos, información y datos empresariales.">
+    <!-- Laptop -->
+    <div class="laptop" aria-hidden="true">
+      <div class="laptop-lid">
+        <div class="screen app">
+          <aside class="app-side">
+            <div class="app-brand">
+              <img src="/assets/mendodata-symbol.png" alt="" width="583" height="186">
+              <span>MendoData</span>
+            </div>
+            <ul>
+              {sidebar.map((item, i) => <li class={i === 0 ? 'is-active' : undefined}><i></i>{item}</li>)}
+            </ul>
+          </aside>
+
+          <div class="app-main">
+            <div class="app-top">
+              <strong>Panel operativo</strong>
+              <span class="app-select">Últimos 30 días</span>
+              <span class="app-bell"></span>
+              <span class="app-avatar">MD</span>
+            </div>
+
+            <div class="kpis">
+              {kpis.map((kpi) => (
+                <div class="card kpi">
+                  <span class="kpi-label">{kpi.label}</span>
+                  <span class="kpi-value">{kpi.value}</span>
+                  <span class:list={['kpi-delta', { down: !kpi.up }]}>{kpi.up ? '↑' : '↓'} {kpi.delta}</span>
+                  <span class="kpi-icon"></span>
+                </div>
+              ))}
+            </div>
+
+            <div class="charts">
+              <div class="card">
+                <span class="card-title">Actividad mensual</span>
+                <div class="bars">
+                  <div class="bars-axis"><span>200</span><span>150</span><span>100</span><span>50</span><span>0</span></div>
+                  {bars.map((bar) => (
+                    <div class="bar-col">
+                      <div class="bar-pair">
+                        <i style={`height:${bar.a}%`}></i>
+                        <i class="strong" style={`height:${bar.b}%`}></i>
+                      </div>
+                      <span>{bar.month}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div class="card donut-card">
+                <span class="card-title">Registros por área</span>
+                <div class="donut-wrap">
+                  <div class="donut"><span><b>436</b>registros</span></div>
+                  <ul class="legend">
+                    {areas.map((area, i) => <li><i class={`c${i}`}></i>{area.name}<b>{area.pct}%</b></li>)}
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="card table-card">
+              <div class="table-head">
+                <span class="card-title">Últimos registros</span>
+                <span class="link">Ver todos →</span>
+              </div>
+              <div class="table">
+                <div class="tr th"><span>Fecha</span><span>Proceso</span><span>Área</span><span>Estado</span></div>
+                {rows.map((row) => (
+                  <div class="tr">
+                    <span>{row.date}</span>
+                    <span>{row.item}</span>
+                    <span>{row.area}</span>
+                    <span><em class:list={['status', { wait: !row.ok }]}>{row.status}</em></span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="laptop-base"></div>
+    </div>
+
+    <!-- Celular -->
+    <div class="phone" aria-hidden="true">
+      <div class="screen phone-screen">
+        <div class="phone-notch"></div>
+        <div class="phone-top">
+          <div class="app-brand">
+            <img src="/assets/mendodata-symbol.png" alt="" width="583" height="186">
+            <span>MendoData</span>
+          </div>
+          <span class="burger"></span>
+        </div>
+        <div class="phone-title">
+          <strong>Resumen</strong>
+          <span class="app-select">Hoy</span>
+        </div>
+        {kpis.map((kpi) => (
+          <div class="card kpi">
+            <span class="kpi-label">{kpi.label}</span>
+            <span class="kpi-value">{kpi.value}</span>
+            <span class:list={['kpi-delta', { down: !kpi.up }]}>{kpi.up ? '↑' : '↓'} {kpi.delta}</span>
+            <span class="kpi-icon"></span>
+          </div>
+        ))}
+        <div class="card donut-card">
+          <span class="card-title">Registros por área</span>
+          <div class="donut-wrap">
+            <div class="donut small"></div>
+            <ul class="legend">
+              {areas.map((area, i) => <li><i class={`c${i}`}></i>{area.name}<b>{area.pct}%</b></li>)}
+            </ul>
+          </div>
+        </div>
+        <div class="phone-nav">
+          <span class="is-active"><i></i>Inicio</span>
+          <span><i></i>Procesos</span>
+          <span><i></i>Reportes</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .hero-visual {
+    grid-area: visual;
+    position: relative;
+    container-type: inline-size;
+    /* en desktop el visual se asoma un poco fuera del contenedor, como en el mockup */
+    width: calc(100% + clamp(0px, 8vw, 140px));
+    max-width: 820px;
+    margin-right: calc(-1 * clamp(0px, 8vw, 140px));
+    justify-self: end;
+    align-self: start;
+  }
+
+  .demo-badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    margin: 0;
+    padding: 6px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--ink-soft);
+    font-size: 0.74rem;
+    font-weight: 600;
+  }
+
+  /* 1em = 1/72 del ancho: la escena mide 72em × 62em */
+  .stage {
+    position: relative;
+    font-size: calc(100cqw / 72);
+    width: 72em;
+    height: 62em;
+    color: #1B2A4A;
+    font-family: var(--font-body);
+    line-height: 1.25;
+  }
+
+  .stage ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Laptop ----------------------------------------------------------- */
+  .laptop {
+    position: absolute;
+    top: 3.5em;
+    right: 0;
+    width: 62em;
+    filter: drop-shadow(0 2.4em 3em rgba(11, 27, 63, 0.16));
+  }
+
+  .laptop-lid {
+    padding: 1.3em 1.3em 1.6em;
+    border-radius: 2.2em 2.2em 0.6em 0.6em;
+    background: #16181D;
+  }
+
+  .laptop-base {
+    position: relative;
+    left: -3em;
+    width: 68em;
+    height: 1.7em;
+    border-radius: 0.2em 0.2em 1.6em 1.6em;
+    background: linear-gradient(180deg, #D9DDE4 0%, #B9BFC9 55%, #8E95A1 100%);
+  }
+
+  .laptop-base::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 10em;
+    height: 0.7em;
+    border-radius: 0 0 0.8em 0.8em;
+    background: #A3A9B4;
+    transform: translateX(-50%);
+  }
+
+  .screen {
+    overflow: hidden;
+    background: #F4F7FC;
+  }
+
+  .app {
+    display: grid;
+    grid-template-columns: 11em minmax(0, 1fr);
+    height: 37em;
+    border-radius: 0.5em;
+  }
+
+  .app-side {
+    padding: 1.3em 0.9em;
+    background: #FFFFFF;
+    border-right: 1px solid #E6ECF5;
+  }
+
+  .app-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.45em;
+    margin-bottom: 1.6em;
+    font-size: 1em;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .app-brand img {
+    width: 2.2em;
+    height: auto;
+  }
+
+  .app-side li {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    padding: 0.6em 0.7em;
+    border-radius: 0.5em;
+    color: #54627C;
+    font-size: 0.82em;
+  }
+
+  .app-side li i {
+    width: 0.9em;
+    height: 0.9em;
+    border: 0.14em solid currentColor;
+    border-radius: 0.25em;
+  }
+
+  .app-side li.is-active {
+    background: #E8F1FE;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .app-main {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    min-width: 0;
+    padding: 1.3em 1.4em;
+  }
+
+  .app-top {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+  }
+
+  .app-top strong {
+    margin-right: auto;
+    font-size: 1.35em;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .app-select {
+    padding: 0.35em 0.8em;
+    border: 1px solid #E1E7F0;
+    border-radius: 0.5em;
+    background: #FFFFFF;
+    color: #54627C;
+    font-size: 0.72em;
+  }
+
+  .app-bell {
+    width: 1em;
+    height: 1.1em;
+    border: 0.14em solid #54627C;
+    border-radius: 0.5em 0.5em 0.15em 0.15em;
+  }
+
+  .app-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.2em;
+    height: 2.2em;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #FFFFFF;
+    font-size: 0.7em;
+    font-weight: 700;
+  }
+
+  .card {
+    position: relative;
+    padding: 0.9em 1em;
+    border: 1px solid #E6ECF5;
+    border-radius: 0.8em;
+    background: #FFFFFF;
+    box-shadow: 0 0.2em 0.6em rgba(11, 27, 63, 0.04);
+  }
+
+  .card-title {
+    display: block;
+    color: var(--ink);
+    font-size: 0.82em;
+    font-weight: 700;
+  }
+
+  .kpis {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.9em;
+  }
+
+  .kpi {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+  }
+
+  .kpi-label {
+    color: #6B7A93;
+    font-size: 0.68em;
+  }
+
+  .kpi-value {
+    color: var(--ink);
+    font-size: 1.55em;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .kpi-delta {
+    color: #1E8E4E;
+    font-size: 0.66em;
+    font-weight: 700;
+  }
+
+  .kpi-delta.down {
+    color: #D23C3C;
+  }
+
+  .kpi-icon {
+    position: absolute;
+    top: 0.9em;
+    right: 0.9em;
+    width: 2.2em;
+    height: 2.2em;
+    border-radius: 0.6em;
+    background: #E8F1FE;
+  }
+
+  .kpi-icon::after {
+    content: "";
+    position: absolute;
+    inset: 0.62em;
+    border: 0.15em solid var(--accent);
+    border-radius: 0.28em;
+  }
+
+  .charts {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0.9em;
+  }
+
+  .bars {
+    display: grid;
+    grid-template-columns: 2em repeat(6, minmax(0, 1fr));
+    align-items: end;
+    gap: 0.5em;
+    height: 9.5em;
+    margin-top: 0.8em;
+  }
+
+  .bars-axis {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100% - 1.3em);
+    align-self: start;
+    color: #8A97AD;
+    font-size: 0.56em;
+  }
+
+  .bar-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35em;
+    height: 100%;
+  }
+
+  .bar-col > span {
+    color: #8A97AD;
+    font-size: 0.56em;
+  }
+
+  .bar-pair {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.25em;
+    flex: 1;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .bar-pair i {
+    width: 0.8em;
+    border-radius: 0.25em 0.25em 0 0;
+    background: #A9CBFB;
+  }
+
+  .bar-pair i.strong {
+    background: var(--accent);
+  }
+
+  .donut-wrap {
+    display: flex;
+    align-items: center;
+    gap: 1.2em;
+    margin-top: 0.8em;
+  }
+
+  .donut {
+    position: relative;
+    flex: 0 0 auto;
+    width: 8.4em;
+    height: 8.4em;
+    border-radius: 50%;
+    background: conic-gradient(
+      #0A4FB8 0 35%,
+      var(--accent) 35% 63%,
+      #4F9BF8 63% 81%,
+      #8FC0FB 81% 93%,
+      #CFE2FD 93% 100%
+    );
+  }
+
+  .donut::after {
+    content: "";
+    position: absolute;
+    inset: 1.5em;
+    border-radius: 50%;
+    background: #FFFFFF;
+  }
+
+  .donut span {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #6B7A93;
+    font-size: 0.6em;
+  }
+
+  .donut b {
+    color: var(--ink);
+    font-size: 1.9em;
+    font-weight: 800;
+  }
+
+  .donut.small {
+    width: 6em;
+    height: 6em;
+  }
+
+  .donut.small::after {
+    inset: 1.1em;
+  }
+
+  .legend {
+    display: grid;
+    flex: 1;
+    gap: 0.45em;
+    min-width: 0;
+  }
+
+  .legend li {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    color: #54627C;
+    font-size: 0.62em;
+  }
+
+  .legend b {
+    margin-left: auto;
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .legend i {
+    width: 0.75em;
+    height: 0.75em;
+    border-radius: 50%;
+  }
+
+  .legend .c0 { background: #0A4FB8; }
+  .legend .c1 { background: var(--accent); }
+  .legend .c2 { background: #4F9BF8; }
+  .legend .c3 { background: #8FC0FB; }
+  .legend .c4 { background: #CFE2FD; }
+
+  .table-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.6em;
+  }
+
+  .link {
+    color: var(--accent);
+    font-size: 0.66em;
+    font-weight: 600;
+  }
+
+  .tr {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1.6fr 1.4fr;
+    align-items: center;
+    padding: 0.5em 0.6em;
+    border-top: 1px solid #EEF2F8;
+    color: #3D4B66;
+    font-size: 0.64em;
+  }
+
+  .tr.th {
+    border-top: 0;
+    border-radius: 0.4em;
+    background: #F4F7FC;
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .status {
+    display: inline-block;
+    padding: 0.2em 0.7em;
+    border-radius: 0.4em;
+    background: #E3F5EA;
+    color: #1E7A45;
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  .status.wait {
+    background: #FFF1DC;
+    color: #A15C00;
+  }
+
+  /* Celular ---------------------------------------------------------- */
+  .phone {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+    width: 19.5em;
+    padding: 0.8em;
+    border-radius: 3.2em;
+    background: #16181D;
+    box-shadow:
+      0 0 0 0.2em #3A3D45,
+      0 2.4em 3.6em rgba(11, 27, 63, 0.24);
+  }
+
+  .phone-screen {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8em;
+    height: 40em;
+    padding: 2.6em 1.1em 0;
+    border-radius: 2.5em;
+    background: #F7F9FD;
+  }
+
+  .phone-notch {
+    position: absolute;
+    top: 0.7em;
+    left: 50%;
+    width: 6.5em;
+    height: 1.4em;
+    border-radius: 1em;
+    background: #16181D;
+    transform: translateX(-50%);
+  }
+
+  .phone-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .phone-top .app-brand {
+    margin: 0;
+    font-size: 0.9em;
+  }
+
+  .burger {
+    width: 1.2em;
+    height: 0.9em;
+    border-top: 0.15em solid var(--ink);
+    border-bottom: 0.15em solid var(--ink);
+    background: linear-gradient(var(--ink), var(--ink)) center / 100% 0.15em no-repeat;
+  }
+
+  .phone-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.4em;
+  }
+
+  .phone-title strong {
+    color: var(--ink);
+    font-size: 1.15em;
+    font-weight: 700;
+  }
+
+  .phone .kpi {
+    padding: 0.8em 0.9em;
+  }
+
+  .phone .kpi-value {
+    font-size: 1.35em;
+  }
+
+  .phone .donut-wrap {
+    gap: 0.9em;
+    margin-top: 0.6em;
+  }
+
+  .phone-nav {
+    display: flex;
+    justify-content: space-around;
+    margin: auto -1.1em 0;
+    padding: 0.8em 0 1.3em;
+    border-top: 1px solid #E6ECF5;
+    background: #FFFFFF;
+  }
+
+  .phone-nav span {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3em;
+    color: #6B7A93;
+    font-size: 0.56em;
+  }
+
+  .phone-nav i {
+    width: 1.7em;
+    height: 1.7em;
+    border: 0.25em solid currentColor;
+    border-radius: 0.45em;
+  }
+
+  .phone-nav .is-active {
+    color: var(--accent);
+  }
+
+  /* Tablet: el Hero pasa a una columna y el visual va centrado ------- */
+  @media (max-width: 1080px) {
+    .hero-visual {
+      width: 100%;
+      max-width: 720px;
+      margin-right: 0;
+      justify-self: center;
+    }
+  }
+
+  /* Mobile: solo el celular, más grande y legible -------------------- */
+  @media (max-width: 640px) {
+    .hero-visual {
+      justify-self: center;
+      width: 100%;
+      max-width: 320px;
+      margin-right: 0;
+    }
+
+    .demo-badge {
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+    }
+
+    .stage {
+      font-size: calc(100cqw / 21);
+      width: 21em;
+      height: auto;
+      padding-top: 3em;
+    }
+
+    .laptop {
+      display: none;
+    }
+
+    .phone {
+      position: relative;
+      width: 21em;
+    }
+  }
+</style>

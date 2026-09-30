@@ -1,0 +1,285 @@
+---
+import HeroVisual from './HeroVisual.astro';
+
+// Copy exacto del blueprint (Home / Sección 1)
+const trust = [
+  { icon: 'process', text: 'Entendemos el proceso antes de desarrollar.' },
+  { icon: 'tools', text: 'Elegimos la tecnología según tu problema.' },
+  { icon: 'support', text: 'Acompañamos la implementación.' },
+];
+---
+<section class="hero" id="inicio" aria-labelledby="hero-title">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <p class="hero-eyebrow">Sistemas, automatización y datos para ordenar y mejorar procesos operativos.</p>
+      <h1 id="hero-title">
+        Ordenamos y digitalizamos <br class="br-wide">procesos para que tu empresa <br class="br-wide"><span class="hl">gane tiempo, reduzca errores</span> <br class="br-wide">y tenga <span class="hl">más control</span>.
+      </h1>
+      <p class="hero-lead">
+        Cuando la información está dispersa, las tareas son demasiado manuales o los procesos dependen de demasiadas personas, entendemos cómo funciona la operación y construimos e implementamos la solución adecuada.
+      </p>
+      <a class="button accent hero-cta" href="#contacto">
+        Contanos qué necesitás resolver
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </a>
+      <p class="hero-note">Primero entendemos el problema. Después definimos la tecnología adecuada.</p>
+    </div>
+
+    <HeroVisual />
+
+    <ul class="trust" aria-label="Nuestro enfoque">
+      {trust.map((item) => (
+        <li class="trust-item">
+          <span class="trust-icon" aria-hidden="true">
+            {item.icon === 'process' && (
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="6.5" />
+                <path d="M20.5 20.5 16 16M8.5 11h5M11 8.5v5" />
+              </svg>
+            )}
+            {item.icon === 'tools' && (
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 7h10M18 7h2M4 17h2M10 17h10" />
+                <circle cx="16" cy="7" r="2.2" />
+                <circle cx="8" cy="17" r="2.2" />
+              </svg>
+            )}
+            {item.icon === 'support' && (
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3.5 19 6v5.5c0 4.3-2.9 7.6-7 9-4.1-1.4-7-4.7-7-9V6z" />
+                <path d="m9 12 2.2 2.2L15.5 10" />
+              </svg>
+            )}
+          </span>
+          <span class="trust-text">{item.text}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(40px, 6vw, 88px) 22px clamp(56px, 7vw, 96px);
+    background: var(--bg);
+  }
+
+  /* Manchas celestes suaves en los bordes, como en el mockup */
+  .hero::before,
+  .hero::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .hero::before {
+    top: -38%;
+    right: -14%;
+    width: 62%;
+    height: 90%;
+    background: radial-gradient(closest-side, rgba(10, 108, 245, 0.16), transparent);
+  }
+
+  .hero::after {
+    bottom: -40%;
+    left: -18%;
+    width: 60%;
+    height: 80%;
+    background: radial-gradient(closest-side, rgba(10, 108, 245, 0.13), transparent);
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1340px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 52fr) minmax(0, 48fr);
+    grid-template-areas:
+      "copy visual"
+      "trust visual";
+    column-gap: clamp(16px, 2vw, 32px);
+    row-gap: 40px;
+    align-items: center;
+  }
+
+  .hero-copy {
+    grid-area: copy;
+    align-self: end;
+  }
+
+  .hero-eyebrow {
+    max-width: 52ch;
+    margin: 0 0 18px;
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    line-height: 1.6;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 0 0 22px;
+    color: var(--ink);
+    font-size: clamp(2.3rem, 3.4vw, 3.1rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+  }
+
+  .hl {
+    color: var(--accent);
+  }
+
+  /* Cortes del mockup: solo cuando hay ancho para las cuatro líneas */
+  @media (max-width: 1240px) {
+    .br-wide {
+      display: none;
+    }
+  }
+
+  .hero-lead {
+    max-width: 50ch;
+    margin: 0 0 32px;
+    color: var(--ink-soft);
+    font-size: clamp(1.02rem, 1.35vw, 1.2rem);
+    line-height: 1.6;
+  }
+
+  .hero-cta {
+    min-height: 60px;
+    padding: 0 30px 0 34px;
+    gap: 14px;
+    font-size: 1.1rem;
+    box-shadow: 0 12px 28px rgba(10, 108, 245, 0.24);
+    transition:
+      background 160ms ease,
+      border-color 160ms ease,
+      transform 160ms ease,
+      box-shadow 160ms ease;
+  }
+
+  .hero-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 32px rgba(10, 108, 245, 0.3);
+  }
+
+  .hero-cta:active {
+    transform: translateY(0);
+    box-shadow: 0 8px 18px rgba(10, 108, 245, 0.24);
+  }
+
+  .hero-note {
+    margin: 16px 0 0;
+    color: var(--ink-mute);
+    font-size: 0.95rem;
+  }
+
+  .trust {
+    grid-area: trust;
+    align-self: start;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1 1 0;
+    padding: 0 18px;
+    color: var(--ink);
+    font-size: 0.92rem;
+    font-weight: 500;
+    line-height: 1.35;
+  }
+
+  .trust-item:first-child {
+    padding-left: 0;
+  }
+
+  .trust-item + .trust-item {
+    border-left: 1px solid var(--line);
+  }
+
+  .trust-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  @media (max-width: 1080px) {
+    .hero-inner {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        "copy"
+        "visual"
+        "trust";
+      row-gap: 48px;
+    }
+
+    .hero-copy {
+      align-self: start;
+    }
+
+    h1 {
+      max-width: 20ch;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding: 32px 16px 56px;
+    }
+
+    .hero-inner {
+      row-gap: 40px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 8.6vw, 2.5rem);
+    }
+
+    .hero-cta {
+      width: 100%;
+      padding: 0 22px;
+      font-size: 1.02rem;
+    }
+
+    .trust {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .trust-item,
+    .trust-item:first-child {
+      padding: 0;
+    }
+
+    .trust-item + .trust-item {
+      border-left: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-cta:hover,
+    .hero-cta:active {
+      transform: none;
+    }
+  }
+</style>

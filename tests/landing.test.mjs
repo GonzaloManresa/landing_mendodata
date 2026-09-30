@@ -17,8 +17,6 @@ const visibleText = html
 
 test('renders the current landing sections', () => {
   const requiredSnippets = [
-    'Digitalización de procesos con Microsoft',
-    'Tu empresa ya tiene <span class="hl">Microsoft</span>. Nosotros lo convertimos en tu <em>sistema de trabajo</em>.',
     'Aprobaciones internas: de la cadena de mails a un flujo que se resuelve solo',
     'De la primera charla al proceso funcionando',
     'Un equipo que entiende el proceso antes de escribir código',
@@ -113,19 +111,7 @@ test('uses the approved accessible team photos and face-prioritized crops', () =
 });
 
 
-test('guides Instagram visitors from the hero and example to contact', () => {
-  assert.match(
-    html,
-    /Tu empresa ya tiene <span class="hl">Microsoft<\/span>\. Nosotros lo convertimos en tu <em>sistema de trabajo<\/em>\./i,
-  );
-  assert.match(
-    html,
-    /Relevamos los procesos que hoy funcionan a fuerza de planillas y mails, y los pasamos a Power Apps, Power Automate y Power BI\./i,
-  );
-  assert.match(
-    html,
-    /<a[^>]+href="#contacto"[^>]*>\s*Contanos tu proceso\s*<\/a>/i,
-  );
+test('guides visitors from the conversion band to contact', () => {
   assert.match(
     html,
     /<section[^>]+class="[^"]*conversion-cta[^"]*"[\s\S]*¿Qué proceso te está consumiendo más tiempo\?[\s\S]*Contanos cómo funciona hoy y te decimos si conviene digitalizarlo\.[\s\S]*<a[^>]+href="#contacto"[^>]*>\s*Contanos tu caso\s*<\/a>[\s\S]*<\/section>/i,
@@ -163,8 +149,8 @@ test('drops the removed sections', () => {
   }
 });
 
-test('uses the editorial ink and paper palette', () => {
-  const colors = ['#1668B0', '#14293D', '#7A8B9C', '#2F7D5C', '#F7F3EC', '#E4DCD0'];
+test('uses the MendoData blue palette from the approved mockups', () => {
+  const colors = ['#0A6CF5', '#0B1B3F', '#66748A', '#2F7D5C', '#FBFCFE', '#E2E8F2'];
 
   for (const color of colors) {
     assert.match(html, new RegExp(color, 'i'));
@@ -173,6 +159,9 @@ test('uses the editorial ink and paper palette', () => {
 
 test('drops the retired palettes, including the previous blue system', () => {
   const retired = [
+    '#F7F3EC',
+    '#E4DCD0',
+    '#EDE6DA',
     '#A3E635',
     '#F2994A',
     '#C1502E',
@@ -208,12 +197,10 @@ test('includes baseline accessibility and usability hooks', () => {
   assert.match(html, /<main\b/i);
   assert.match(html, /aria-label="Principal"/i);
   assert.match(html, /href="#contacto"/i);
-  assert.match(html, /href="#ejemplo"/i);
   assert.match(html, /href="\/#como-trabajamos"/i);
   assert.match(html, /href="\/#equipo"/i);
   assert.match(html, /href="\/#soluciones"/i);
   assert.match(html, /prefers-reduced-motion/i);
-  assert.match(html, /<div class="showcase"/i);
   assert.match(html, /section\[id\]\s*\{[^}]*scroll-margin-top:\s*96px/i);
 });
 
@@ -266,32 +253,13 @@ test('uses Inter throughout with a heavy tight display weight', () => {
     html,
     /--font-accent:\s*"Newsreader", "Iowan Old Style", Georgia, serif;/i,
   );
-  assert.match(html, /\.hero h1 em\s*\{[^}]*font-style:\s*italic;/i);
   assert.match(html, /h3\s*\{[^}]*font-weight:\s*600;/i);
   assert.match(html, /\.team-name\s*\{[^}]*font-family:\s*var\(--font-display\);/i);
   assert.match(html, /\.process-num\s*\{[^}]*font-family:\s*var\(--font-display\);/i);
   assert.doesNotMatch(html, /Manrope/i);
 });
 
-test('leads with a tabbed product panel over the scenic backdrop', () => {
-  assert.match(
-    html,
-    /\.hero::before\s*\{[^}]*background-image:\s*url\("\/assets\/hero\.jpg"\);/i,
-  );
-
-  const showcase = html.match(/<div class="showcase"[\s\S]*?<\/section>/i)?.[0];
-  assert.ok(showcase, 'el panel de producto debe existir en el hero');
-  assert.match(showcase, /aria-label="Ejemplo de solicitudes de aprobación"/i);
-  assert.match(showcase, /Compra de insumos/i);
-
-  // las pestañas son radios: siguen funcionando sin JavaScript
-  assert.match(showcase, /<input class="tab-input" type="radio" name="vista" id="vista-app" checked>/i);
-  assert.match(showcase, /<input class="tab-input" type="radio" name="vista" id="vista-bi">/i);
-  assert.match(
-    html,
-    /#vista-app:checked ~ \.board \.panel-app,\s*#vista-bi:checked ~ \.board \.panel-bi\s*\{\s*display:\s*block;/i,
-  );
-
+test('shows the process flow diagram in the example section', () => {
   // el diagrama del flujo se mudó a la sección del ejemplo
   const flow = html.match(/<figure class="flow reveal"[\s\S]*?<\/figure>/i)?.[0];
   assert.ok(flow, 'el diagrama del flujo debe existir en el ejemplo');
