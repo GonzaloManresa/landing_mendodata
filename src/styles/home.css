@@ -218,46 +218,6 @@
     0 22px 48px rgba(20, 41, 61, 0.11);
 }
 
-/* Servicios: filas numeradas -------------------------------------- */
-#soluciones {
-  background:
-    radial-gradient(58% 48% at 12% 18%, rgba(22, 104, 176, 0.16), transparent 62%),
-    radial-gradient(52% 46% at 88% 78%, rgba(47, 125, 92, 0.13), transparent 62%),
-    linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%);
-}
-
-#soluciones .process-grid {
-  counter-reset: svc;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
-}
-
-#soluciones .process-step {
-  counter-increment: svc;
-  padding: clamp(26px, 3vw, 34px);
-}
-
-#soluciones .process-step::before {
-  content: "0" counter(svc);
-  display: block;
-  margin-bottom: 16px;
-  font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1;
-  color: var(--accent);
-}
-
-#soluciones .process-step h3 {
-  margin: 0 0 8px;
-  font-size: 1.12rem;
-}
-
-#soluciones .process-step p {
-  margin: 0;
-}
-
 /* Process (Cómo trabajamos) --------------------------------------- */
 .process {
   background:
@@ -517,7 +477,6 @@
     max-width: 520px;
   }
 
-  #soluciones .process-grid,
   .example .process-grid,
   .process-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -542,7 +501,6 @@
 
   .team,
   .process-grid,
-  #soluciones .process-grid,
   .example .process-grid {
     grid-template-columns: 1fr;
   }

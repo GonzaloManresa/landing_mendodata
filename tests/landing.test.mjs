@@ -56,18 +56,7 @@ test('contrasts the manual approval process against the digitized one', () => {
   assert.doesNotMatch(example, /caja floja/i);
 });
 
-test('names the Microsoft tools without claiming a partnership', () => {
-  const services = html.match(
-    /<section[^>]+id="soluciones"[\s\S]*?<\/section>/i,
-  )?.[0];
-  assert.ok(services, 'la sección #soluciones debe existir');
-
-  assert.match(services, /Tres herramientas, un proceso que funciona solo/i);
-  assert.match(services, /Power Apps · Aplicaciones internas a medida/i);
-  assert.match(services, /Power Automate · Flujos y aprobaciones automáticas/i);
-  assert.match(services, /Power BI · Tableros para decidir/i);
-  assert.match(services, /SharePoint, Teams y Listas de Microsoft 365/i);
-
+test('never claims a Microsoft partnership', () => {
   assert.doesNotMatch(visibleText, /\bpartner\b/i);
   assert.doesNotMatch(visibleText, /socio de microsoft/i);
   assert.doesNotMatch(visibleText, /sin pagar licencias/i);

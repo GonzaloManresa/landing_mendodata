@@ -94,7 +94,8 @@ test('floating WhatsApp button uses the global config', () => {
   );
   const css = readCss();
   assert.match(css, /\.whatsapp-float[^{]*\{\s*[^}]*width:\s*56px/);
-  assert.doesNotMatch(css, /width:\s*52px/);
+  const whatsappRules = [...css.matchAll(/\.whatsapp-float[^{]*\{[^}]*\}/g)].map((m) => m[0]).join('\n');
+  assert.doesNotMatch(whatsappRules, /width:\s*52px/);
 });
 
 test('the WhatsApp number lives only in site.ts', () => {

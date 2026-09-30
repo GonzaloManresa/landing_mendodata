@@ -1,0 +1,320 @@
+---
+import SolutionVisual from './SolutionVisual.astro';
+
+// Copy exacto del blueprint (Home / Sección 3)
+const solutions = [
+  {
+    kind: 'systems',
+    icon: 'monitor',
+    visualId: 'solution-custom-systems-visual',
+    visualLabel: 'Interfaz de una aplicación empresarial adaptada a un proceso operativo.',
+    title: 'Sistemas y aplicaciones a medida',
+    description: 'Desarrollamos herramientas adaptadas a la forma en que trabaja cada empresa, sus procesos y sus necesidades específicas.',
+    examples: ['Sistemas internos', 'Aplicaciones de gestión', 'Inventarios', 'Circuitos operativos'],
+    tech: ['Desarrollo a medida', 'Aplicaciones web', 'Integraciones'],
+  },
+  {
+    kind: 'automation',
+    icon: 'flow',
+    visualId: 'solution-automation-visual',
+    visualLabel: 'Flujo digital de tareas y automatizaciones para un proceso empresarial.',
+    title: 'Digitalización y automatización',
+    description: 'Convertimos procesos manuales en flujos digitales más simples, ordenados y fáciles de seguir.',
+    examples: ['Formularios digitales', 'Aprobaciones', 'Avisos automáticos', 'Flujos internos'],
+    tech: ['Power Apps', 'Power Automate', 'Microsoft 365'],
+  },
+  {
+    kind: 'data',
+    icon: 'chart',
+    visualId: 'solution-data-integrations-visual',
+    visualLabel: 'Panel de datos que conecta información operativa de distintas fuentes.',
+    title: 'Datos e integraciones',
+    description: 'Conectamos fuentes, organizamos información y desarrollamos indicadores para mejorar la visibilidad de la operación.',
+    examples: ['Tableros e indicadores', 'Centralización de información', 'Conexión entre sistemas', 'Reportes operativos'],
+    tech: ['Power BI', 'Bases de datos', 'Integraciones'],
+  },
+] as const;
+---
+<section class="solutions" id="soluciones" aria-labelledby="soluciones-title">
+  <div class="solutions-inner">
+    <header class="solutions-head">
+      <p class="solutions-kicker">Nuestras soluciones</p>
+      <h2 id="soluciones-title">Soluciones que <span class="hl">podemos construir</span></h2>
+      <p class="solutions-lead">
+        A partir de cada problema, definimos qué solución puede ayudar mejor: un sistema a medida, un proceso automatizado, una mejor forma de trabajar con los datos o una combinación de varias herramientas.
+      </p>
+    </header>
+
+    <div class="solution-grid">
+      {solutions.map((solution) => (
+        <article class="solution-card">
+          <SolutionVisual kind={solution.kind} id={solution.visualId} label={solution.visualLabel} />
+
+          <div class="solution-body">
+            <span class="solution-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                {solution.icon === 'monitor' && (
+                  <Fragment>
+                    <rect x="2.5" y="3.5" width="19" height="13" rx="2" />
+                    <path d="M8 20.5h8M12 16.5v4" />
+                  </Fragment>
+                )}
+                {solution.icon === 'flow' && (
+                  <Fragment>
+                    <rect x="3" y="3" width="7" height="5" rx="1.5" />
+                    <rect x="14" y="16" width="7" height="5" rx="1.5" />
+                    <path d="M6.5 8v4.5a2 2 0 0 0 2 2h7a2 2 0 0 1 2 2" />
+                  </Fragment>
+                )}
+                {solution.icon === 'chart' && (
+                  <path d="M5 20.5v-6M10 20.5v-10M15 20.5v-13M20 20.5V9" />
+                )}
+              </svg>
+            </span>
+            <div class="solution-text">
+              <h3>{solution.title}</h3>
+              <p class="solution-desc">{solution.description}</p>
+            </div>
+          </div>
+
+          <ul class="solution-examples" aria-label={`Ejemplos de ${solution.title.toLowerCase()}`}>
+            {solution.examples.map((example) => <li class="solution-example">{example}</li>)}
+          </ul>
+
+          <p class="solution-tech"><span>Herramientas</span> {solution.tech.join(' · ')}</p>
+        </article>
+      ))}
+    </div>
+
+    <p class="solutions-close">No partimos de una herramienta. <em>Partimos del problema.</em></p>
+  </div>
+</section>
+
+<style>
+  .solutions {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(72px, 9vw, 120px) 22px;
+    background: var(--bg);
+  }
+
+  .solutions::before,
+  .solutions::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    width: 50%;
+    height: 80%;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .solutions::before {
+    top: -26%;
+    left: -24%;
+    background: radial-gradient(closest-side, rgba(10, 108, 245, 0.1), transparent);
+  }
+
+  .solutions::after {
+    right: -24%;
+    bottom: -30%;
+    background: radial-gradient(closest-side, rgba(10, 108, 245, 0.1), transparent);
+  }
+
+  .solutions-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1340px;
+    margin: 0 auto;
+  }
+
+  .solutions-head {
+    max-width: 1100px;
+    margin: 0 auto clamp(40px, 5vw, 56px);
+    text-align: center;
+  }
+
+  .solutions-kicker {
+    margin: 0 0 18px;
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    max-width: none;
+    margin: 0 auto 20px;
+    color: var(--ink);
+    font-size: clamp(2.1rem, 4.4vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+  }
+
+  .hl {
+    color: var(--accent);
+  }
+
+  .solutions-lead {
+    max-width: 60ch;
+    margin: 0 auto;
+    color: var(--ink-soft);
+    font-size: clamp(1.02rem, 1.4vw, 1.2rem);
+    line-height: 1.6;
+  }
+
+  .solution-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .solution-card {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding: 16px 16px 28px;
+    border: 1px solid #EAEFF6;
+    border-radius: 24px;
+    background: #FFFFFF;
+    box-shadow: 0 16px 44px rgba(11, 27, 63, 0.07);
+  }
+
+  .solution-body {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    padding: 0 12px;
+  }
+
+  .solution-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    background: #EAF3FE;
+    color: var(--accent);
+  }
+
+  h3 {
+    margin: 4px 0 10px;
+    color: var(--ink);
+    font-size: 1.32rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .solution-desc {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .solution-examples {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0 12px;
+    list-style: none;
+  }
+
+  .solution-example {
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: #F1F6FE;
+    color: var(--ink);
+    font-size: 0.86rem;
+    font-weight: 500;
+  }
+
+  .solution-tech {
+    margin: auto 12px 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--line-soft);
+    color: var(--ink-mute);
+    font-size: 0.84rem;
+  }
+
+  .solution-tech span {
+    margin-right: 6px;
+    color: var(--ink-soft);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .solutions-close {
+    width: fit-content;
+    max-width: 100%;
+    margin: clamp(40px, 5vw, 56px) auto 0;
+    padding: 20px 44px;
+    border: 1px solid #E6EDF7;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.85);
+    color: var(--ink);
+    font-size: clamp(1.1rem, 1.7vw, 1.4rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-align: center;
+  }
+
+  .solutions-close em {
+    color: var(--accent);
+  }
+
+  /* Tablet: dos columnas y la tercera centrada */
+  @media (max-width: 1080px) {
+    .solution-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .solution-card {
+      grid-column: span 2;
+    }
+
+    .solution-card:nth-child(3) {
+      grid-column: 2 / span 2;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .solutions {
+      padding: 64px 16px;
+    }
+
+    .solution-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .solution-card,
+    .solution-card:nth-child(3) {
+      grid-column: auto;
+    }
+
+    .solutions-close {
+      padding: 18px 24px;
+      border-radius: 24px;
+    }
+
+    .solution-body {
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .solution-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+    }
+  }
+</style>

@@ -1,0 +1,474 @@
+---
+// Mini interfaces conceptuales para las tarjetas de Soluciones.
+// Placeholders reemplazables: mismo marco y proporción para los tres.
+// Todo se mide en `em`; 1em = 1/40 del ancho del contenedor.
+
+interface Props {
+  kind: 'systems' | 'automation' | 'data';
+  id: string;
+  label: string;
+}
+
+const { kind, id, label } = Astro.props;
+
+const menus = {
+  systems: ['Inicio', 'Operaciones', 'Registros', 'Proyectos', 'Inventario', 'Reportes', 'Configuración'],
+  automation: ['Procesos', 'Automatizaciones', 'Historial', 'Plantillas', 'Configuración'],
+  data: ['Tableros', 'Reportes', 'Fuentes de datos', 'Integraciones', 'Configuración'],
+};
+const active = { systems: 1, automation: 0, data: 0 };
+
+const orders = [
+  { code: 'OT-1042', type: 'Implementación', status: 'En progreso', tone: 'blue', date: '12/04' },
+  { code: 'OT-1041', type: 'Soporte', status: 'Completada', tone: 'green', date: '11/04' },
+  { code: 'OT-1040', type: 'Relevamiento', status: 'En revisión', tone: 'amber', date: '10/04' },
+  { code: 'OT-1039', type: 'Integración', status: 'En progreso', tone: 'blue', date: '09/04' },
+  { code: 'OT-1038', type: 'Consultoría', status: 'Completada', tone: 'green', date: '08/04' },
+  { code: 'OT-1037', type: 'Desarrollo', status: 'Pendiente', tone: 'red', date: '07/04' },
+];
+
+const months = [30, 38, 46, 55, 68, 82];
+---
+<div class="solution-visual" id={id} role="img" aria-label={label}>
+  <div class="ui" aria-hidden="true">
+    <aside class="ui-side">
+      <div class="ui-brand">
+        <img src="/assets/mendodata-symbol.png" alt="" width="583" height="186">
+        <span>MendoData</span>
+      </div>
+      <ul>
+        {menus[kind].map((item, i) => <li class={i === active[kind] ? 'is-active' : undefined}><i></i>{item}</li>)}
+      </ul>
+    </aside>
+
+    <div class="ui-main">
+      {kind === 'systems' && (
+        <Fragment>
+          <div class="ui-top"><strong>Órdenes de trabajo</strong><span class="ui-avatar"></span></div>
+          <div class="ui-tools">
+            <span class="ui-search">Buscar órdenes…</span>
+            <span class="ui-chip">Estado</span>
+            <span class="ui-chip">Fecha</span>
+            <span class="ui-btn">+ Nueva orden</span>
+          </div>
+          <div class="ui-table">
+            <div class="ui-tr ui-th"><span>Orden</span><span>Tipo</span><span>Estado</span><span>Fecha</span></div>
+            {orders.map((row) => (
+              <div class="ui-tr">
+                <span>{row.code}</span>
+                <span>{row.type}</span>
+                <span><em class={`tag ${row.tone}`}>{row.status}</em></span>
+                <span>{row.date}</span>
+              </div>
+            ))}
+          </div>
+        </Fragment>
+      )}
+
+      {kind === 'automation' && (
+        <Fragment>
+          <div class="ui-top">
+            <strong>Editor de flujo</strong>
+            <span class="ui-saved">Guardado</span>
+            <span class="ui-btn">Publicar flujo</span>
+          </div>
+          <div class="flow">
+            <div class="node"><i class="dot green"></i><span><b>Inicio</b>Nueva solicitud</span></div>
+            <span class="line"></span>
+            <div class="node"><i class="dot blue"></i><span><b>Condición</b>¿Requiere aprobación?</span></div>
+            <div class="branch">
+              <span class="pill yes">Sí</span>
+              <span class="pill no">No</span>
+            </div>
+            <div class="split">
+              <div class="node"><i class="dot blue"></i><span><b>Enviar aviso</b>al responsable</span></div>
+              <div class="node"><i class="dot blue"></i><span><b>Crear tarea</b>de seguimiento</span></div>
+            </div>
+            <span class="line"></span>
+            <div class="node"><i class="dot green"></i><span><b>Fin del proceso</b></span></div>
+          </div>
+        </Fragment>
+      )}
+
+      {kind === 'data' && (
+        <Fragment>
+          <div class="ui-top"><strong>Resumen general</strong><span class="ui-chip">Este mes</span></div>
+          <div class="ui-kpis">
+            <div class="ui-card"><span>Registros</span><b>1.284</b></div>
+            <div class="ui-card"><span>Órdenes</span><b>482</b></div>
+            <div class="ui-card"><span>Fuentes conectadas</span><b>6</b></div>
+          </div>
+          <div class="ui-charts">
+            <div class="ui-card">
+              <span>Actividad por mes</span>
+              <div class="bars">
+                {months.map((h) => <i style={`height:${h}%`}></i>)}
+              </div>
+            </div>
+            <div class="ui-card">
+              <span>Distribución por canal</span>
+              <div class="donut"></div>
+              <ul class="legend">
+                <li><i class="c0"></i>Web</li>
+                <li><i class="c1"></i>Integraciones</li>
+                <li><i class="c2"></i>Sucursales</li>
+                <li><i class="c3"></i>Otros</li>
+              </ul>
+            </div>
+          </div>
+        </Fragment>
+      )}
+    </div>
+  </div>
+</div>
+
+<style>
+  .solution-visual {
+    container-type: inline-size;
+    width: 100%;
+  }
+
+  .ui {
+    display: grid;
+    grid-template-columns: 9.5em minmax(0, 1fr);
+    height: 31em;
+    overflow: hidden;
+    font-size: calc(100cqw / 40);
+    border: 1px solid #E6ECF5;
+    border-radius: 1.1em;
+    background: #F7F9FD;
+    color: #3D4B66;
+    line-height: 1.25;
+  }
+
+  .ui ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ui-side {
+    padding: 1.2em 0.8em;
+    border-right: 1px solid #E6ECF5;
+    background: #FFFFFF;
+  }
+
+  .ui-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    margin-bottom: 1.4em;
+    color: var(--ink);
+    font-size: 0.95em;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .ui-brand img {
+    width: 2em;
+    height: auto;
+  }
+
+  .ui-side li {
+    display: flex;
+    align-items: center;
+    gap: 0.55em;
+    padding: 0.55em 0.6em;
+    border-radius: 0.5em;
+    color: #54627C;
+    font-size: 0.74em;
+    white-space: nowrap;
+  }
+
+  .ui-side li i {
+    flex: 0 0 auto;
+    width: 0.9em;
+    height: 0.9em;
+    border: 0.14em solid currentColor;
+    border-radius: 0.25em;
+  }
+
+  .ui-side li.is-active {
+    background: #E8F1FE;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .ui-main {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    min-width: 0;
+    padding: 1.3em 1.2em;
+  }
+
+  .ui-top {
+    display: flex;
+    align-items: center;
+    gap: 0.7em;
+  }
+
+  .ui-top strong {
+    margin-right: auto;
+    color: var(--ink);
+    font-size: 1.05em;
+    font-weight: 700;
+  }
+
+  .ui-avatar {
+    width: 1.8em;
+    height: 1.8em;
+    border-radius: 50%;
+    background: #BFD8FC;
+  }
+
+  .ui-tools {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+  }
+
+  .ui-search {
+    flex: 1;
+    padding: 0.5em 0.7em;
+    border: 1px solid #E1E7F0;
+    border-radius: 0.5em;
+    background: #FFFFFF;
+    color: #8A97AD;
+    font-size: 0.68em;
+  }
+
+  .ui-chip {
+    padding: 0.45em 0.8em;
+    border: 1px solid #E1E7F0;
+    border-radius: 0.5em;
+    background: #FFFFFF;
+    color: #54627C;
+    font-size: 0.66em;
+  }
+
+  .ui-btn {
+    padding: 0.5em 0.9em;
+    border-radius: 0.5em;
+    background: var(--accent);
+    color: #FFFFFF;
+    font-size: 0.66em;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .ui-saved {
+    color: #1E7A45;
+    font-size: 0.66em;
+    font-weight: 600;
+  }
+
+  .ui-saved::before {
+    content: "● ";
+  }
+
+  .ui-table {
+    border: 1px solid #E6ECF5;
+    border-radius: 0.7em;
+    background: #FFFFFF;
+    overflow: hidden;
+  }
+
+  .ui-tr {
+    display: grid;
+    grid-template-columns: 1.1fr 1.4fr 1.3fr 0.7fr;
+    align-items: center;
+    padding: 0.62em 0.8em;
+    border-top: 1px solid #EEF2F8;
+    font-size: 0.64em;
+  }
+
+  .ui-th {
+    border-top: 0;
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 0.2em 0.6em;
+    border-radius: 0.4em;
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  .tag.blue { background: #E8F1FE; color: #0757C9; }
+  .tag.green { background: #E3F5EA; color: #1E7A45; }
+  .tag.amber { background: #FFF1DC; color: #A15C00; }
+  .tag.red { background: #FDE8E8; color: #B42323; }
+
+  /* Flujo --------------------------------------------------------------- */
+  .flow {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.6em 0;
+    border-radius: 0.8em;
+    background-image: radial-gradient(#DCE4F0 0.08em, transparent 0.1em);
+    background-size: 1.2em 1.2em;
+  }
+
+  .node {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    min-width: 13em;
+    padding: 0.6em 0.8em;
+    border: 1px solid #E1E7F0;
+    border-radius: 0.6em;
+    background: #FFFFFF;
+    box-shadow: 0 0.2em 0.6em rgba(11, 27, 63, 0.05);
+    font-size: 0.72em;
+  }
+
+  .node span {
+    display: flex;
+    flex-direction: column;
+    color: #6B7A93;
+  }
+
+  .node b {
+    color: var(--ink);
+  }
+
+  .dot {
+    flex: 0 0 auto;
+    width: 1.7em;
+    height: 1.7em;
+    border-radius: 50%;
+  }
+
+  .dot.green { background: #D7F1E1; box-shadow: inset 0 0 0 0.45em #2E9A5B; }
+  .dot.blue { background: #E8F1FE; box-shadow: inset 0 0 0 0.45em var(--accent); }
+
+  .line {
+    width: 1px;
+    height: 1.3em;
+    background: #B9C6D9;
+  }
+
+  .branch {
+    display: flex;
+    justify-content: space-between;
+    width: 16em;
+    margin: 0.5em 0 0.4em;
+    padding-top: 0.6em;
+    border-top: 1px solid #B9C6D9;
+  }
+
+  .pill {
+    padding: 0.15em 0.6em;
+    border-radius: 0.4em;
+    font-size: 0.62em;
+    font-weight: 700;
+  }
+
+  .pill.yes { background: #E3F5EA; color: #1E7A45; }
+  .pill.no { background: #FDE8E8; color: #B42323; }
+
+  .split {
+    display: flex;
+    gap: 1em;
+  }
+
+  .split .node {
+    min-width: 0;
+  }
+
+  /* Datos --------------------------------------------------------------- */
+  .ui-kpis {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.6em;
+  }
+
+  .ui-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35em;
+    padding: 0.7em 0.8em;
+    border: 1px solid #E6ECF5;
+    border-radius: 0.7em;
+    background: #FFFFFF;
+  }
+
+  .ui-card > span {
+    color: #6B7A93;
+    font-size: 0.62em;
+  }
+
+  .ui-card > b {
+    color: var(--ink);
+    font-size: 1.25em;
+    font-weight: 800;
+  }
+
+  .ui-charts {
+    display: grid;
+    align-items: stretch;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 0.6em;
+  }
+
+  .bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5em;
+    height: 10em;
+    margin-top: auto;
+    padding-top: 0.5em;
+  }
+
+  .bars i {
+    flex: 1;
+    border-radius: 0.25em 0.25em 0 0;
+    background: linear-gradient(180deg, var(--accent), #6FA8F9);
+  }
+
+  .donut {
+    position: relative;
+    width: 6.4em;
+    height: 6.4em;
+    margin: 0.3em auto 0.4em;
+    border-radius: 50%;
+    background: conic-gradient(var(--accent) 0 62%, #6FA8F9 62% 80%, #F2B53A 80% 92%, #CFE2FD 92% 100%);
+  }
+
+  .donut::after {
+    content: "";
+    position: absolute;
+    inset: 1.2em;
+    border-radius: 50%;
+    background: #FFFFFF;
+  }
+
+  .legend {
+    display: grid;
+    gap: 0.35em;
+  }
+
+  .legend li {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    color: #54627C;
+    font-size: 0.6em;
+  }
+
+  .legend i {
+    width: 0.8em;
+    height: 0.8em;
+    border-radius: 50%;
+  }
+
+  .legend .c0 { background: var(--accent); }
+  .legend .c1 { background: #6FA8F9; }
+  .legend .c2 { background: #F2B53A; }
+  .legend .c3 { background: #CFE2FD; }
+</style>
