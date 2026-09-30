@@ -4,6 +4,7 @@ import Hero from '../components/home/Hero.astro';
 import Problems from '../components/home/Problems.astro';
 import Solutions from '../components/home/Solutions.astro';
 import FeaturedProject from '../components/home/FeaturedProject.astro';
+import Operations from '../components/home/Operations.astro';
 import '../styles/home.css';
 import { seo } from '../config/site';
 ---
@@ -16,16 +17,7 @@ import { seo } from '../config/site';
 
       <FeaturedProject />
 
-      <section class="conversion-cta" aria-labelledby="conversion-title">
-        <div class="wrap reveal">
-          <div>
-            <p class="kicker">Hablemos de tu empresa</p>
-            <h2 id="conversion-title">¿Qué proceso te está consumiendo más tiempo?</h2>
-            <p>Contanos cómo funciona hoy y te decimos si conviene digitalizarlo.</p>
-          </div>
-          <a class="button accent" href="#contacto">Contanos tu caso</a>
-        </div>
-      </section>
+      <Operations />
 
       <!-- CÓMO TRABAJAMOS: 3 pasos del proceso -->
       <section class="section process" id="como-trabajamos" aria-labelledby="process-title">

@@ -70,13 +70,6 @@ test('uses the approved accessible team photos and face-prioritized crops', () =
   assert.match(html, /\.team-photo\s*\{[^}]*width:\s*96px;[^}]*height:\s*96px;[^}]*object-fit:\s*cover;/i);
 });
 
-test('guides visitors from the conversion band to contact', () => {
-  assert.match(
-    html,
-    /<section[^>]+class="[^"]*conversion-cta[^"]*"[\s\S]*¿Qué proceso te está consumiendo más tiempo\?[\s\S]*Contanos cómo funciona hoy y te decimos si conviene digitalizarlo\.[\s\S]*<a[^>]+href="#contacto"[^>]*>\s*Contanos tu caso\s*<\/a>[\s\S]*<\/section>/i,
-  );
-});
-
 test('keeps reveal content visible until JavaScript opts into animation', () => {
   assert.match(
     html,

@@ -1,0 +1,236 @@
+---
+import OperationsVisual from './OperationsVisual.astro';
+
+// Copy exacto del blueprint (Home / Sección 5)
+const focus = [
+  { icon: 'box', text: 'Inventarios y stock' },
+  { icon: 'swap', text: 'Movimientos entre sucursales' },
+  { icon: 'route', text: 'Trazabilidad' },
+  { icon: 'truck', text: 'Distribución y seguimiento' },
+  { icon: 'gauge', text: 'Control operativo' },
+];
+---
+<section class="ops" id="operaciones-logistica" aria-labelledby="operaciones-title">
+  <div class="ops-inner">
+    <div class="ops-copy">
+      <p class="ops-kicker">Foco de especialización</p>
+      <h2 id="operaciones-title">Operaciones y <span class="hl">logística</span></h2>
+      <p class="ops-lead">Estamos profundizando nuestro trabajo en procesos de inventario, movimientos, trazabilidad, distribución y control operativo.</p>
+      <p class="ops-note">Trabajamos con empresas de distintos sectores, y este foco crece a partir de necesidades y proyectos reales que requieren más visibilidad, seguimiento y control.</p>
+    </div>
+
+    <div class="ops-visual-wrap">
+      <OperationsVisual />
+    </div>
+
+    <div class="ops-focus">
+      <h3>Procesos donde estamos profundizando</h3>
+      <ul>
+        {focus.map((item) => (
+          <li class="focus-item">
+            <span class="focus-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                {item.icon === 'box' && (
+                  <Fragment>
+                    <path d="M21 8 12 3 3 8v8l9 5 9-5z" />
+                    <path d="m3 8 9 5 9-5M12 13v8" />
+                  </Fragment>
+                )}
+                {item.icon === 'swap' && (
+                  <path d="M4 8h14l-3.5-3.5M20 16H6l3.5 3.5" />
+                )}
+                {item.icon === 'route' && (
+                  <Fragment>
+                    <circle cx="6" cy="18" r="2.5" />
+                    <path d="M18 11.5c-2 0-3.5-2.2-3.5-4.2a3.5 3.5 0 0 1 7 0c0 2-1.5 4.2-3.5 4.2z" />
+                    <circle cx="18" cy="7.3" r="0.6" />
+                    <path d="M8.5 18h5a3 3 0 0 0 0-6h-3" />
+                  </Fragment>
+                )}
+                {item.icon === 'truck' && (
+                  <Fragment>
+                    <path d="M2.5 6.5h11v9h-11zM13.5 10h4l3 3v2.5h-7" />
+                    <circle cx="6.5" cy="17.5" r="1.8" />
+                    <circle cx="17" cy="17.5" r="1.8" />
+                  </Fragment>
+                )}
+                {item.icon === 'gauge' && (
+                  <Fragment>
+                    <path d="M4 19a9 9 0 1 1 16 0" />
+                    <path d="m12 14 4-5" />
+                    <circle cx="12" cy="14" r="1.3" />
+                  </Fragment>
+                )}
+              </svg>
+            </span>
+            {item.text}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Fondo celeste muy suave: marca el cambio de tema respecto de las secciones vecinas */
+  .ops {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(72px, 9vw, 120px) 22px;
+    background: linear-gradient(180deg, #F3F8FF 0%, #EEF5FF 100%);
+  }
+
+  .ops::before {
+    content: "";
+    position: absolute;
+    top: -30%;
+    right: -20%;
+    width: 55%;
+    height: 90%;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(10, 108, 245, 0.12), transparent);
+    pointer-events: none;
+  }
+
+  .ops-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1340px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
+    grid-template-areas:
+      "copy visual"
+      "focus visual";
+    column-gap: clamp(24px, 3vw, 48px);
+    row-gap: 32px;
+    align-items: center;
+  }
+
+  .ops-copy {
+    grid-area: copy;
+    align-self: end;
+  }
+
+  .ops-visual-wrap {
+    grid-area: visual;
+  }
+
+  .ops-focus {
+    grid-area: focus;
+    align-self: start;
+  }
+
+  .ops-kicker {
+    margin: 0 0 16px;
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    max-width: 10ch;
+    margin: 0 0 22px;
+    color: var(--ink);
+    font-size: clamp(2.4rem, 5vw, 4.4rem);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.045em;
+  }
+
+  .hl {
+    color: var(--accent);
+  }
+
+  .ops-lead {
+    margin: 0 0 16px;
+    color: var(--ink-soft);
+    font-size: clamp(1.08rem, 1.5vw, 1.3rem);
+    line-height: 1.5;
+  }
+
+  .ops-note {
+    margin: 0;
+    color: var(--ink-mute);
+    font-size: 1.02rem;
+    line-height: 1.6;
+  }
+
+  h3 {
+    margin: 0 0 14px;
+    color: var(--ink);
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  .ops-focus ul {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .focus-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 18px 10px 12px;
+    border: 1px solid #E3ECF8;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 8px 22px rgba(11, 27, 63, 0.05);
+    color: var(--ink);
+    font-size: 1.04rem;
+    font-weight: 600;
+  }
+
+  .focus-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #EAF3FE;
+    color: var(--accent);
+  }
+
+  @media (max-width: 1080px) {
+    .ops-inner {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        "copy"
+        "visual"
+        "focus";
+      row-gap: 36px;
+    }
+
+    .ops-copy {
+      align-self: start;
+    }
+
+    h2 {
+      max-width: none;
+    }
+
+    .ops-visual-wrap {
+      width: 100%;
+      max-width: 820px;
+      justify-self: center;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .ops {
+      padding: 64px 16px;
+    }
+
+    .focus-item {
+      font-size: 1rem;
+    }
+  }
+</style>

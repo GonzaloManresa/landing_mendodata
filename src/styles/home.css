@@ -1,61 +1,3 @@
-/* Conversion CTA (bloque oscuro) ---------------------------------- */
-.conversion-cta {
-  padding: clamp(64px, 8vw, 104px) 22px;
-  background:
-    radial-gradient(80% 120% at 50% 0%, #1D3A54, transparent 70%),
-    var(--ink);
-  color: var(--bg);
-  text-align: center;
-}
-
-.conversion-cta .wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 26px;
-  max-width: 720px;
-}
-
-.conversion-cta .kicker {
-  justify-content: center;
-}
-
-.conversion-cta .kicker::before {
-  background: rgba(251, 250, 248, 0.5);
-}
-
-.conversion-cta .kicker {
-  color: rgba(251, 250, 248, 0.55);
-}
-
-.conversion-cta h2 {
-  margin-bottom: 8px;
-  max-width: 18ch;
-  margin-inline: auto;
-  color: var(--bg);
-  font-size: clamp(1.9rem, 3.8vw, 3rem);
-}
-
-.conversion-cta p:last-child {
-  margin: 0;
-  color: rgba(251, 250, 248, 0.72);
-}
-
-.conversion-cta .button {
-  flex: 0 0 auto;
-}
-
-.conversion-cta .button.accent {
-  background: var(--bg);
-  border-color: var(--bg);
-  color: var(--ink);
-}
-
-.conversion-cta .button.accent:hover {
-  background: #ffffff;
-  border-color: #ffffff;
-}
-
 /* Vidrio: translúcido, con luz desde arriba y filo brillante en el borde.
    Necesita variación de color detrás para que el desenfoque se note. */
 .process-step,
@@ -337,20 +279,7 @@
 
 @media (max-width: 640px) {
 
-  .conversion-cta {
-    padding: 48px 16px;
-  }
-
-  .conversion-cta .wrap {
-    align-items: stretch;
-    flex-direction: column;
-  }
-
-  .conversion-cta .button {
-    width: 100%;
-  }
-
-  .team,
+        .team,
   .process-grid {
     grid-template-columns: 1fr;
   }

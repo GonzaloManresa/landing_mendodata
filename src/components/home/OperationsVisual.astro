@@ -1,0 +1,550 @@
+---
+import LaptopFrame from '../LaptopFrame.astro';
+
+// Demostración ilustrativa de una operación conectada:
+// inventario → movimiento → trazabilidad → distribución → control.
+// Datos de ejemplo, sin empresas ni métricas de resultado.
+
+const menu = ['Inicio', 'Inventarios', 'Movimientos', 'Órdenes', 'Distribución', 'Reportes'];
+
+const kpis = [
+  { label: 'Órdenes activas', value: '248', tone: 'blue' },
+  { label: 'En preparación', value: '18', tone: 'blue' },
+  { label: 'En tránsito', value: '12', tone: 'amber' },
+  { label: 'Entregadas hoy', value: '6', tone: 'green' },
+];
+
+const orders = [
+  { code: 'OT-1042', dest: 'Sucursal Norte', status: 'En preparación', tone: 'blue', priority: 'Alta', pTone: 'red', date: '12/06' },
+  { code: 'OT-1041', dest: 'Sucursal Centro', status: 'En tránsito', tone: 'amber', priority: 'Media', pTone: 'amber', date: '11/06' },
+  { code: 'OT-1040', dest: 'Sucursal Sur', status: 'Entregada', tone: 'green', priority: 'Baja', pTone: 'gray', date: '10/06' },
+  { code: 'OT-1039', dest: 'Depósito central', status: 'En preparación', tone: 'blue', priority: 'Alta', pTone: 'red', date: '10/06' },
+  { code: 'OT-1038', dest: 'Sucursal Oeste', status: 'En tránsito', tone: 'amber', priority: 'Media', pTone: 'amber', date: '09/06' },
+];
+
+const states = [
+  { name: 'En preparación', tone: 's0' },
+  { name: 'En tránsito', tone: 's1' },
+  { name: 'Entregadas', tone: 's2' },
+  { name: 'Pendientes', tone: 's3' },
+];
+
+const flow = [
+  { step: 'Inventario', detail: 'Stock por sucursal', done: true },
+  { step: 'Movimiento', detail: 'Transferencias', done: true },
+  { step: 'Trazabilidad', detail: 'Historial de cada ítem', done: true },
+  { step: 'Distribución', detail: 'Envíos y entregas', done: false },
+  { step: 'Control', detail: 'Indicadores', done: false },
+];
+---
+<div class="ops-visual" id="operations-logistics-visual" role="img" aria-label="Representación de procesos de inventario, movimientos, trazabilidad, distribución y control operativo.">
+  <p class="demo-badge" aria-hidden="true">Demostración ilustrativa</p>
+
+  <div class="stage">
+    <div class="device">
+      <LaptopFrame>
+        <div class="screen">
+          <aside class="side">
+            <div class="brand">
+              <img src="/assets/mendodata-symbol.png" alt="" width="583" height="186">
+              <span>MendoData</span>
+            </div>
+            <ul>
+              {menu.map((item, i) => <li class={i === 3 ? 'is-active' : undefined}><i></i>{item}</li>)}
+            </ul>
+          </aside>
+
+          <div class="main">
+            <div class="top">
+              <strong>Operaciones</strong>
+              <span class="select">Últimos 30 días</span>
+              <span class="avatar"></span>
+            </div>
+
+            <div class="kpis">
+              {kpis.map((kpi) => (
+                <div class="card kpi">
+                  <span class={`kpi-icon ${kpi.tone}`}></span>
+                  <b>{kpi.value}</b>
+                  <span>{kpi.label}</span>
+                </div>
+              ))}
+            </div>
+
+            <div class="middle">
+              <div class="card orders">
+                <div class="card-head"><span class="card-title">Órdenes de trabajo</span><span class="link">Ver todas →</span></div>
+                <div class="tr th"><span>Orden</span><span>Destino</span><span>Estado</span><span>Prioridad</span><span>Fecha</span></div>
+                {orders.map((o) => (
+                  <div class="tr">
+                    <span>{o.code}</span>
+                    <span>{o.dest}</span>
+                    <span><em class={`tag ${o.tone}`}>{o.status}</em></span>
+                    <span><em class={`tag ${o.pTone}`}>{o.priority}</em></span>
+                    <span>{o.date}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div class="card states">
+                <span class="card-title">Estado de órdenes</span>
+                <div class="donut"><span><b>248</b>órdenes</span></div>
+                <ul class="legend">
+                  {states.map((s) => <li><i class={s.tone}></i>{s.name}</li>)}
+                </ul>
+              </div>
+            </div>
+
+            <div class="card flow-card">
+              <span class="card-title">Flujo operativo</span>
+              <ol class="flow">
+                {flow.map((f) => (
+                  <li class={f.done ? 'is-done' : undefined}>
+                    <span class="flow-dot"></span>
+                    <b>{f.step}</b>
+                    <span>{f.detail}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </div>
+      </LaptopFrame>
+    </div>
+  </div>
+</div>
+
+<style>
+  .ops-visual {
+    position: relative;
+    container-type: inline-size;
+    width: 100%;
+  }
+
+  .demo-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 8px 16px;
+    border: 1px solid #DCE7F7;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 8px 24px rgba(11, 27, 63, 0.08);
+    color: var(--accent);
+    font-size: 0.86rem;
+    font-weight: 600;
+  }
+
+  .demo-badge::before {
+    content: "✦";
+  }
+
+  /* 1em = 1/72 del ancho; la laptop mide 66em */
+  .stage {
+    padding: 4.6em 3em 1em;
+    font-size: calc(100cqw / 72);
+    color: #3D4B66;
+    line-height: 1.25;
+  }
+
+  .device {
+    filter: drop-shadow(0 2.4em 3em rgba(11, 27, 63, 0.16));
+  }
+
+  .stage ul,
+  .stage ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .screen {
+    display: grid;
+    grid-template-columns: 11em minmax(0, 1fr);
+    height: 37em;
+    overflow: hidden;
+    border-radius: 0.5em;
+    background: #F4F7FC;
+  }
+
+  .side {
+    padding: 1.4em 0.9em;
+    border-right: 1px solid #E6ECF5;
+    background: #FFFFFF;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.45em;
+    margin-bottom: 1.6em;
+    color: var(--ink);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .brand img {
+    width: 2.3em;
+    height: auto;
+  }
+
+  .side li {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    padding: 0.6em 0.7em;
+    border-radius: 0.5em;
+    color: #54627C;
+    font-size: 0.84em;
+  }
+
+  .side li i {
+    width: 0.9em;
+    height: 0.9em;
+    border: 0.14em solid currentColor;
+    border-radius: 0.25em;
+  }
+
+  .side li.is-active {
+    background: #E8F1FE;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    min-width: 0;
+    padding: 1.4em 1.5em;
+  }
+
+  .top {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+  }
+
+  .top strong {
+    margin-right: auto;
+    color: var(--ink);
+    font-size: 1.5em;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .select {
+    padding: 0.4em 0.8em;
+    border: 1px solid #E1E7F0;
+    border-radius: 0.5em;
+    background: #FFFFFF;
+    color: #54627C;
+    font-size: 0.72em;
+  }
+
+  .avatar {
+    width: 2.2em;
+    height: 2.2em;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .card {
+    padding: 0.9em 1em;
+    border: 1px solid #E6ECF5;
+    border-radius: 0.8em;
+    background: #FFFFFF;
+  }
+
+  .card-title {
+    display: block;
+    color: var(--ink);
+    font-size: 0.86em;
+    font-weight: 700;
+  }
+
+  .card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5em;
+  }
+
+  .link {
+    color: var(--accent);
+    font-size: 0.68em;
+    font-weight: 600;
+  }
+
+  .kpis {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.8em;
+  }
+
+  .kpi {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 0.7em;
+    align-items: center;
+  }
+
+  .kpi b {
+    color: var(--ink);
+    font-size: 1.55em;
+    font-weight: 800;
+  }
+
+  .kpi span:last-child {
+    grid-column: 2;
+    color: #6B7A93;
+    font-size: 0.66em;
+  }
+
+  .kpi-icon {
+    grid-row: span 2;
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 50%;
+    background: #E8F1FE;
+    box-shadow: inset 0 0 0 0.75em #E8F1FE, inset 0 0 0 0.9em var(--accent);
+  }
+
+  .kpi-icon.amber {
+    background: #FFF1DC;
+    box-shadow: inset 0 0 0 0.75em #FFF1DC, inset 0 0 0 0.9em #D98300;
+  }
+
+  .kpi-icon.green {
+    background: #E3F5EA;
+    box-shadow: inset 0 0 0 0.75em #E3F5EA, inset 0 0 0 0.9em #2E9A5B;
+  }
+
+  .middle {
+    display: grid;
+    grid-template-columns: 1.7fr 1fr;
+    gap: 0.8em;
+  }
+
+  .tr {
+    display: grid;
+    grid-template-columns: 0.9fr 1.5fr 1.4fr 0.9fr 0.6fr;
+    align-items: center;
+    padding: 0.5em 0.4em;
+    border-top: 1px solid #EEF2F8;
+    font-size: 0.64em;
+  }
+
+  .th {
+    border-top: 0;
+    border-radius: 0.4em;
+    background: #F4F7FC;
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 0.2em 0.6em;
+    border-radius: 0.4em;
+    font-style: normal;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .tag.blue { background: #E8F1FE; color: #0757C9; }
+  .tag.green { background: #E3F5EA; color: #1E7A45; }
+  .tag.amber { background: #FFF1DC; color: #A15C00; }
+  .tag.red { background: #FDE8E8; color: #B42323; }
+  .tag.gray { background: #EEF2F8; color: #54627C; }
+
+  .states {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7em;
+  }
+
+  .states .card-title {
+    align-self: flex-start;
+  }
+
+  .donut {
+    position: relative;
+    width: 8em;
+    height: 8em;
+    border-radius: 50%;
+    background: conic-gradient(var(--accent) 0 32%, #6FA8F9 32% 60%, #F2B53A 60% 84%, #BFD8FC 84% 100%);
+  }
+
+  .donut::after {
+    content: "";
+    position: absolute;
+    inset: 1.4em;
+    border-radius: 50%;
+    background: #FFFFFF;
+  }
+
+  .donut span {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #6B7A93;
+    font-size: 0.6em;
+  }
+
+  .donut b {
+    color: var(--ink);
+    font-size: 2em;
+    font-weight: 800;
+  }
+
+  .legend {
+    display: grid;
+    gap: 0.35em;
+    align-self: stretch;
+  }
+
+  .legend li {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    color: #54627C;
+    font-size: 0.62em;
+  }
+
+  .legend i {
+    width: 0.8em;
+    height: 0.8em;
+    border-radius: 50%;
+  }
+
+  .s0 { background: var(--accent); }
+  .s1 { background: #6FA8F9; }
+  .s2 { background: #F2B53A; }
+  .s3 { background: #BFD8FC; }
+
+  /* Flujo: inventario → movimiento → trazabilidad → distribución → control */
+  .flow {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    margin-top: 0.8em;
+  }
+
+  .flow li {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2em;
+    text-align: center;
+  }
+
+  .flow li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 1.35em;
+    left: calc(50% + 1.6em);
+    right: calc(-50% + 1.6em);
+    height: 0.2em;
+    border-radius: 0.1em;
+    background: #DCE6F4;
+  }
+
+  .flow li.is-done:not(:last-child)::after {
+    background: var(--accent);
+  }
+
+  .flow-dot {
+    width: 2.7em;
+    height: 2.7em;
+    margin-bottom: 0.3em;
+    border: 0.2em solid #DCE6F4;
+    border-radius: 50%;
+    background: #FFFFFF;
+  }
+
+  .is-done .flow-dot {
+    border-color: var(--accent);
+    background: var(--accent);
+    box-shadow: inset 0 0 0 0.55em var(--accent), inset 0 0 0 0.75em #FFFFFF;
+  }
+
+  .flow b {
+    color: var(--ink);
+    font-size: 0.78em;
+  }
+
+  .is-done b {
+    color: var(--accent);
+  }
+
+  .flow li > span:last-child {
+    color: #6B7A93;
+    font-size: 0.62em;
+  }
+
+  /* En pantallas angostas: sin menú lateral ni tabla, letra legible */
+  @container (max-width: 560px) {
+    .stage {
+      padding: 3.8em 1.4em 0.6em;
+      font-size: calc(100cqw / 40);
+    }
+
+    .demo-badge {
+      right: 50%;
+      transform: translateX(50%);
+      white-space: nowrap;
+    }
+
+    .screen {
+      grid-template-columns: minmax(0, 1fr);
+      height: auto;
+    }
+
+    .side,
+    .orders,
+    .select {
+      display: none;
+    }
+
+    .kpis {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .middle {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .flow {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.6em;
+      justify-items: start;
+    }
+
+    .flow li {
+      flex-direction: row;
+      gap: 0.6em;
+      text-align: left;
+    }
+
+    .flow li:not(:last-child)::after {
+      display: none;
+    }
+
+    .flow-dot {
+      width: 1.8em;
+      height: 1.8em;
+      margin: 0;
+    }
+  }
+</style>
