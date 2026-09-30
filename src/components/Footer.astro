@@ -1,32 +1,196 @@
+---
+import SocialIcon from './SocialIcon.astro';
+import { site, footerNav, legalLinks, contactHref, socials, whatsappUrl } from '../config/site';
+
+const whatsappHref = whatsappUrl();
+const year = new Date().getFullYear();
+---
 <footer class="site-footer">
   <div class="footer-inner">
-    <a class="brand" href="#inicio" aria-label="MendoData inicio">
-      <img class="brand-mark" src="/assets/mendodata-symbol.png" alt="" aria-hidden="true" width="583" height="186">
-      <span class="brand-word">MendoData</span>
-    </a>
-    <a href="#inicio">Volver arriba</a>
+    <div class="footer-brand">
+      <a class="brand" href="/" aria-label="MendoData, inicio">
+        <img class="brand-mark" src="/assets/mendodata-symbol.png" alt="" width="583" height="186">
+        <span class="brand-word">MendoData</span>
+      </a>
+      <p class="footer-tagline">{site.tagline}</p>
+      {socials.length > 0 && (
+        <ul class="footer-socials">
+          {socials.map((social) => (
+            <li>
+              <a href={social.url} target="_blank" rel="noopener" aria-label={`MendoData en ${social.name}`}>
+                <SocialIcon name={social.name} />
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+
+    <nav class="footer-col" aria-labelledby="footer-explora">
+      <h2 class="footer-title" id="footer-explora">Explorá</h2>
+      <ul>
+        {footerNav.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="footer-col">
+      <h2 class="footer-title">Contacto</h2>
+      <ul>
+        <li><a href={contactHref}>Formulario de contacto</a></li>
+        {whatsappHref && <li><a href={whatsappHref} target="_blank" rel="noopener">Escribinos por WhatsApp</a></li>}
+      </ul>
+    </div>
   </div>
+
+  <div class="footer-legal">
+    <p>© <span data-year>{year}</span> MendoData. Todos los derechos reservados.</p>
+    <ul>
+      {legalLinks.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+    </ul>
+  </div>
+
+  <!-- El año sale del build; esto lo corrige si el sitio no se reconstruyó -->
+  <script is:inline>
+    document.querySelectorAll('[data-year]').forEach((el) => {
+      el.textContent = String(new Date().getFullYear());
+    });
+  </script>
 </footer>
 
-<style is:global>
-  /* Footer ---------------------------------------------------------- */
+<style>
   .site-footer {
-    border-top: 1px solid var(--line);
-    padding: 26px 22px 40px;
-    color: var(--ink-mute);
+    background: var(--ink);
+    color: rgba(255, 255, 255, 0.72);
+    padding: 64px 22px calc(40px + 72px);
+  }
+
+  .footer-inner,
+  .footer-legal {
+    max-width: var(--max);
+    margin: 0 auto;
   }
 
   .footer-inner {
-    max-width: var(--max);
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 18px;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 40px;
   }
 
-  .footer-inner .brand-word {
-    color: var(--ink);
+  .brand {
+    color: #ffffff;
+  }
+
+  .brand-mark {
+    filter: brightness(0) invert(1);
+  }
+
+  .footer-tagline {
+    max-width: 34ch;
+    margin: 16px 0 20px;
+    font-size: 0.96rem;
+  }
+
+  .footer-socials,
+  .footer-col ul,
+  .footer-legal ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .footer-socials {
+    display: flex;
+    gap: 8px;
+  }
+
+  .footer-socials a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+    color: #ffffff;
+  }
+
+  .footer-socials a:hover {
+    border-color: #ffffff;
+  }
+
+  .footer-title {
+    max-width: none;
+    margin: 0 0 14px;
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .footer-col a,
+  .footer-legal a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+  }
+
+  .footer-col a:hover,
+  .footer-legal a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .site-footer :focus-visible {
+    outline-color: #ffffff;
+  }
+
+  .footer-legal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    font-size: 0.88rem;
+  }
+
+  .footer-legal p {
+    margin: 0;
+  }
+
+  .footer-legal ul {
+    display: flex;
+    gap: 20px;
+  }
+
+  @media (max-width: 940px) {
+    .footer-inner {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-brand {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .site-footer {
+      padding: 48px 16px calc(32px + 72px);
+    }
+
+    .footer-inner {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .footer-legal {
+      flex-direction: column-reverse;
+      align-items: flex-start;
+    }
   }
 </style>

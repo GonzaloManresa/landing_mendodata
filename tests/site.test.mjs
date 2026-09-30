@@ -43,3 +43,42 @@ test('home exposes the anchors the global navigation targets', () => {
 test('home no longer has the fixed mobile contact bar', () => {
   assert.doesNotMatch(readPage('index.html'), /mobile-contact-cta/);
 });
+
+const footer = (html) => html.match(/<footer[\s\S]*?<\/footer>/i)?.[0] ?? '';
+
+test('footer follows the blueprint structure', () => {
+  const f = footer(readPage('index.html'));
+  assert.ok(f, 'la página debe tener <footer>');
+  assert.match(f, /Sistemas, automatización y datos para ordenar y mejorar procesos operativos\./);
+  assert.match(f, />\s*Explorá\s*</);
+  assert.match(f, />\s*Contacto\s*</);
+  for (const [label, href] of [
+    ['Inicio', '/'],
+    ['Soluciones', '/#soluciones'],
+    ['Proyectos', '/proyectos'],
+    ['Cómo trabajamos', '/#como-trabajamos'],
+    ['Equipo', '/#equipo'],
+    ['Formulario de contacto', '/#contacto'],
+    ['Privacidad', '/legal#privacidad'],
+    ['Cookies', '/legal#cookies'],
+  ]) {
+    assert.match(f, new RegExp(`href="${href.replace(/[/#]/g, '\\$&')}"[^>]*>\\s*${label}\\s*<`), `${label} → ${href}`);
+  }
+  assert.match(f, /href="https:\/\/wa\.me\/5492615974103"[^>]*>\s*Escribinos por WhatsApp\s*</);
+  assert.match(f, /© <span data-year[^>]*>\d{4}<\/span> MendoData\. Todos los derechos reservados\./);
+});
+
+test('footer shows only confirmed social accounts', () => {
+  const f = footer(readPage('index.html'));
+  assert.match(f, /href="https:\/\/www\.instagram\.com\/mendo\.data\/"[^>]*aria-label="MendoData en Instagram"/);
+  assert.match(f, /href="https:\/\/www\.tiktok\.com\/@mendo\.data"[^>]*aria-label="MendoData en TikTok"/);
+  assert.doesNotMatch(f, /linkedin/i);
+});
+
+test('footer has no placeholder or out-of-scope links', () => {
+  const f = footer(readPage('index.html'));
+  assert.doesNotMatch(f, /href="#"/);
+  assert.doesNotMatch(f, /href="\/contacto"/);
+  assert.doesNotMatch(f, /Configurar cookies|Términos/i);
+  assert.doesNotMatch(f, /<form\b/i);
+});

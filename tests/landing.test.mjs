@@ -232,7 +232,8 @@ test('closes with the configured FormSubmit contact form', () => {
   assert.match(html, /<input[^>]+name="email"[^>]+required/i);
   assert.match(html, /<textarea[^>]+name="mensaje"[^>]+required/i);
   assert.match(html, /<button[^>]+type="submit"/i);
-  assert.doesNotMatch(html, /wa\.me\//i);
+  // El WhatsApp vive solo en el footer global; el formulario no lo ofrece.
+  assert.doesNotMatch(html.replace(/<footer[\s\S]*?<\/footer>/i, ''), /wa\.me\//i);
   const visibleContactFields = [
     ...html.matchAll(/<(?:input|textarea)[^>]+name="(nombre|email|negocio|mensaje)"[^>]*>/gi),
   ].map((match) => match[1].toLowerCase());
