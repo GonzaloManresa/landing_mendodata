@@ -6,6 +6,7 @@ import Solutions from '../components/home/Solutions.astro';
 import FeaturedProject from '../components/home/FeaturedProject.astro';
 import Operations from '../components/home/Operations.astro';
 import HowWeWork from '../components/home/HowWeWork.astro';
+import Team from '../components/home/Team.astro';
 import '../styles/home.css';
 import { seo } from '../config/site';
 ---
@@ -22,52 +23,7 @@ import { seo } from '../config/site';
 
       <HowWeWork />
 
-      <!-- QUIÉNES SOMOS: las personas de confianza detrás -->
-      <!-- REEMPLAZAR: nombres, roles, "de qué se encarga" y fotos reales del equipo -->
-      <section class="section" id="equipo" aria-labelledby="about-title">
-        <div class="wrap">
-          <div class="reveal about-head">
-            <p class="kicker">Quiénes somos</p>
-            <h2 id="about-title">Un equipo que entiende el proceso antes de escribir código</h2>
-            <p class="lead">
-              Somos un equipo de Mendoza especializado en digitalización de procesos
-              sobre el entorno Microsoft. Nos complementamos para que no tengas que
-              traducir entre lo operativo y lo técnico: uno entiende cómo trabaja tu
-              empresa, el otro lo construye.
-            </p>
-          </div>
-
-          <div class="team reveal">
-            <article class="team-member">
-              <div class="team-head">
-                <img class="team-photo team-photo-juan" src="/assets/team-juan-diego.png" alt="Juan Diego Caballero">
-                <div>
-                  <span class="team-name">Juan Diego Caballero</span>
-                  <span class="team-role">Ingeniero en Sistemas</span>
-                </div>
-              </div>
-              <p class="team-do">Construye las apps, los flujos y las integraciones sobre Power Platform para que el proceso corra solo.</p>
-            </article>
-
-            <article class="team-member">
-              <div class="team-head">
-                <img class="team-photo team-photo-gonzalo" src="/assets/team-gonzalo.jpeg" alt="Gonzalo Manresa">
-                <div>
-                  <span class="team-name">Gonzalo Manresa</span>
-                  <span class="team-role">Analista de Negocios</span>
-                </div>
-              </div>
-              <p class="team-do">Releva cómo trabaja tu empresa hoy y define qué conviene digitalizar primero para que el cambio se note rápido.</p>
-            </article>
-          </div>
-
-          <p class="team-note reveal">
-            Trabajamos con empresas que ya usan Microsoft 365 y quieren dejar atrás
-            las planillas compartidas. Sabemos qué conviene digitalizar primero y qué
-            puede esperar.
-          </p>
-        </div>
-      </section>
+      <Team />
 
       <!-- CIERRE: contacto por mail -->
       <section class="section contact" id="contacto" aria-labelledby="contact-title">

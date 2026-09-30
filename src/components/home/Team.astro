@@ -1,0 +1,249 @@
+---
+// Equipo actual (Home / Sección 7). Exactamente tres integrantes.
+// Leandro no tiene foto todavía: se muestran sus iniciales hasta sumar la real.
+type Member = {
+  id: string;
+  photoId: string;
+  name: string;
+  role: string;
+  text: string;
+  photo?: { src: string; position: string };
+  initials: string;
+};
+
+const members: Member[] = [
+  {
+    id: 'team-member-juan-diego',
+    photoId: 'team-photo-juan-diego',
+    name: 'Juan Diego Caballero',
+    role: 'Ingeniero en Software',
+    text: 'Desarrolla sistemas y soluciones digitales para MendoData.',
+    photo: { src: '/assets/team-juan-diego.jpg', position: '50% 38%' },
+    initials: 'JD',
+  },
+  {
+    id: 'team-member-gonzalo',
+    photoId: 'team-photo-gonzalo',
+    name: 'Gonzalo Manresa',
+    role: 'Analista de Negocios',
+    text: 'Entiende los procesos y ayuda a definir cada solución.',
+    photo: { src: '/assets/team-gonzalo.jpeg', position: '50% 24%' },
+    initials: 'GM',
+  },
+  {
+    id: 'team-member-leandro',
+    photoId: 'team-photo-leandro',
+    name: 'Leandro Hirschegger',
+    role: 'Marketing y Desarrollo Comercial',
+    text: 'Trabaja en marketing, comunicación y desarrollo comercial.',
+    initials: 'LH',
+  },
+];
+---
+<section class="team" id="equipo" aria-labelledby="equipo-title">
+  <div class="team-inner">
+    <header class="team-head">
+      <p class="team-kicker">Nuestro equipo</p>
+      <h2 id="equipo-title">El equipo detrás de <span class="hl">MendoData</span></h2>
+      <p class="team-lead">Somos un equipo de tres personas que combina tecnología, análisis de negocios, marketing y desarrollo comercial para construir soluciones adaptadas a cada empresa.</p>
+    </header>
+
+    <div class="team-grid">
+      {members.map((member) => (
+        <article class="member" id={member.id}>
+          {member.photo ? (
+            <img
+              class="member-photo"
+              id={member.photoId}
+              src={member.photo.src}
+              alt={`${member.name}, ${member.role} de MendoData.`}
+              width="240"
+              height="240"
+              loading="lazy"
+              style={`object-position: ${member.photo.position}`}
+            />
+          ) : (
+            <span class="member-photo member-initials" id={member.photoId} aria-hidden="true">{member.initials}</span>
+          )}
+          <h3>{member.name}</h3>
+          <p class="member-role">{member.role}</p>
+          <p class="member-text">{member.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .team {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(72px, 9vw, 120px) 22px;
+    background: var(--bg);
+  }
+
+  .team::before,
+  .team::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    width: 44%;
+    height: 70%;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .team::before {
+    top: -30%;
+    left: -18%;
+    background: radial-gradient(closest-side, rgba(10, 108, 245, 0.1), transparent);
+  }
+
+  .team::after {
+    right: -20%;
+    bottom: -34%;
+    background: radial-gradient(closest-side, rgba(10, 108, 245, 0.1), transparent);
+  }
+
+  .team-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1340px;
+    margin: 0 auto;
+  }
+
+  .team-head {
+    max-width: 1000px;
+    margin: 0 auto clamp(40px, 5vw, 56px);
+    text-align: center;
+  }
+
+  .team-kicker {
+    margin: 0 0 18px;
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    max-width: none;
+    margin: 0 0 20px;
+    color: var(--ink);
+    font-size: clamp(2.1rem, 4.4vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.06;
+    letter-spacing: -0.045em;
+  }
+
+  .hl {
+    color: var(--accent);
+  }
+
+  .team-lead {
+    max-width: 62ch;
+    margin: 0 auto;
+    color: var(--ink-soft);
+    font-size: clamp(1.02rem, 1.4vw, 1.2rem);
+    line-height: 1.6;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+    max-width: 1310px;
+    margin: 0 auto;
+  }
+
+  .member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 28px 28px 40px;
+    border: 1px solid #EAEFF6;
+    border-radius: 24px;
+    background: #FFFFFF;
+    box-shadow: 0 16px 44px rgba(11, 27, 63, 0.07);
+    text-align: center;
+  }
+
+  .member-photo {
+    width: clamp(160px, 17vw, 240px);
+    height: auto;
+    aspect-ratio: 1;
+    margin-bottom: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #EAF3FE;
+  }
+
+  .member-initials {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-size: clamp(2.6rem, 4vw, 3.6rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  h3 {
+    margin: 0 0 6px;
+    color: var(--ink);
+    font-size: clamp(1.3rem, 1.8vw, 1.6rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  .member-role {
+    margin: 0 0 16px;
+    color: var(--accent);
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+
+  .member-text {
+    max-width: 30ch;
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 1.04rem;
+    line-height: 1.55;
+  }
+
+  /* Tablet: dos arriba y la tercera centrada */
+  @media (max-width: 980px) {
+    .team-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .member {
+      grid-column: span 2;
+    }
+
+    .member:nth-child(3) {
+      grid-column: 2 / span 2;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .team {
+      padding: 64px 16px;
+    }
+
+    .team-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .member,
+    .member:nth-child(3) {
+      grid-column: auto;
+    }
+
+    .member-photo {
+      width: 180px;
+    }
+  }
+</style>

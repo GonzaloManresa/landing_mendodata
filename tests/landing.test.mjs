@@ -1,7 +1,7 @@
-import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { pageSource, projectRoot } from './helpers.mjs';
+import { pageSource } from './helpers.mjs';
 
 const distCssDir = new URL('../dist/_astro/', import.meta.url);
 
@@ -17,7 +17,6 @@ const visibleText = html
 
 test('renders the current landing sections', () => {
   const requiredSnippets = [
-    'Un equipo que entiende el proceso antes de escribir código',
     'Contanos qué proceso querés digitalizar',
   ];
 
@@ -30,43 +29,6 @@ test('never claims a Microsoft partnership', () => {
   assert.doesNotMatch(visibleText, /\bpartner\b/i);
   assert.doesNotMatch(visibleText, /socio de microsoft/i);
   assert.doesNotMatch(visibleText, /sin pagar licencias/i);
-});
-
-test('presents the approved MendoData team profiles', () => {
-  const teamMembers = [...html.matchAll(/<article class="team-member">([\s\S]*?)<\/article>/gi)]
-    .map((match) => match[1]);
-  const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const profilesByCard = [
-    [
-      'Juan Diego Caballero',
-      'Ingeniero en Sistemas',
-      'Construye las apps, los flujos y las integraciones sobre Power Platform para que el proceso corra solo.',
-    ],
-    [
-      'Gonzalo Manresa',
-      'Analista de Negocios',
-      'Releva c\u00f3mo trabaja tu empresa hoy y define qu\u00e9 conviene digitalizar primero para que el cambio se note r\u00e1pido.',
-    ],
-  ];
-
-  assert.equal(teamMembers.length, 2);
-  for (const [index, profile] of profilesByCard.entries()) {
-    for (const profileText of profile) {
-      assert.match(teamMembers[index], new RegExp(escapeRegExp(profileText), 'i'));
-    }
-  }
-
-  assert.doesNotMatch(html, /<span class="team-name">Nombre Apellido<\/span>/i);
-});
-test('uses the approved accessible team photos and face-prioritized crops', () => {
-  assert.equal(existsSync(`${projectRoot}/public/assets/team-gonzalo.jpeg`), true);
-  assert.equal(existsSync(`${projectRoot}/public/assets/team-juan-diego.png`), true);
-  assert.match(html, /<img class="team-photo team-photo-juan" src="\/assets\/team-juan-diego\.png" alt="Juan Diego Caballero">/i);
-  assert.match(html, /<img class="team-photo team-photo-gonzalo" src="\/assets\/team-gonzalo\.jpeg" alt="Gonzalo Manresa">/i);
-  assert.match(html, /\.team-photo-gonzalo\s*\{[^}]*object-position:\s*50%\s+24%;/i);
-  assert.match(html, /\.team-photo-juan\s*\{[^}]*object-position:\s*50%\s+38%;/i);
-  assert.doesNotMatch(html, /<span class="team-photo" aria-hidden="true">(?:JD|GM)<\/span>/i);
-  assert.match(html, /\.team-photo\s*\{[^}]*width:\s*96px;[^}]*height:\s*96px;[^}]*object-fit:\s*cover;/i);
 });
 
 test('keeps reveal content visible until JavaScript opts into animation', () => {
@@ -205,7 +167,6 @@ test('uses Inter throughout with a heavy tight display weight', () => {
     /--font-accent:\s*"Newsreader", "Iowan Old Style", Georgia, serif;/i,
   );
   assert.match(html, /h3\s*\{[^}]*font-weight:\s*600;/i);
-  assert.match(html, /\.team-name\s*\{[^}]*font-family:\s*var\(--font-display\);/i);
   assert.doesNotMatch(html, /Manrope/i);
 });
 
