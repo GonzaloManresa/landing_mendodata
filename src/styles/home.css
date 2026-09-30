@@ -720,25 +720,25 @@
 }
 
 /* Servicios: filas numeradas -------------------------------------- */
-#servicios {
+#soluciones {
   background:
     radial-gradient(58% 48% at 12% 18%, rgba(22, 104, 176, 0.16), transparent 62%),
     radial-gradient(52% 46% at 88% 78%, rgba(47, 125, 92, 0.13), transparent 62%),
     linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%);
 }
 
-#servicios .process-grid {
+#soluciones .process-grid {
   counter-reset: svc;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
 }
 
-#servicios .process-step {
+#soluciones .process-step {
   counter-increment: svc;
   padding: clamp(26px, 3vw, 34px);
 }
 
-#servicios .process-step::before {
+#soluciones .process-step::before {
   content: "0" counter(svc);
   display: block;
   margin-bottom: 16px;
@@ -750,12 +750,12 @@
   color: var(--accent);
 }
 
-#servicios .process-step h3 {
+#soluciones .process-step h3 {
   margin: 0 0 8px;
   font-size: 1.12rem;
 }
 
-#servicios .process-step p {
+#soluciones .process-step p {
   margin: 0;
 }
 
@@ -827,12 +827,8 @@
   scroll-margin-top: 82px;
 }
 
-.mobile-contact-cta {
-  display: none;
-}
-
 /* Quiénes somos (equipo) ------------------------------------------ */
-#nosotros {
+#equipo {
   background:
     radial-gradient(52% 44% at 18% 22%, rgba(22, 104, 176, 0.13), transparent 62%),
     linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
@@ -1035,7 +1031,7 @@
     max-width: 520px;
   }
 
-  #servicios .process-grid,
+  #soluciones .process-grid,
   .example .process-grid,
   .process-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1108,7 +1104,7 @@
   .team,
   .help-list,
   .process-grid,
-  #servicios .process-grid,
+  #soluciones .process-grid,
   .example .process-grid {
     grid-template-columns: 1fr;
   }
@@ -1117,27 +1113,4 @@
     grid-template-columns: 1fr;
   }
 
-
-  .mobile-contact-cta {
-    position: fixed;
-    right: 16px;
-    bottom: max(16px, env(safe-area-inset-bottom));
-    left: 16px;
-    z-index: 20;
-    display: inline-flex;
-    min-height: 50px;
-    opacity: 1;
-    visibility: visible;
-    transition:
-      opacity 160ms ease,
-      transform 160ms ease,
-      visibility 160ms ease;
-  }
-
-  .mobile-contact-cta.is-hidden {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(12px);
-    pointer-events: none;
-  }
 }

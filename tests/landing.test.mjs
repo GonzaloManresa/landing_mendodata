@@ -1,18 +1,12 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { runInNewContext } from 'node:vm';
 import { pageSource, projectRoot } from './helpers.mjs';
 
 const distCssDir = new URL('../dist/_astro/', import.meta.url);
 
 const html = pageSource('index.html');
 
-// Astro emite los scripts como <script type="module"> inline (y minificados)
-function readBehaviorScript() {
-  const scripts = [...html.matchAll(/<script type="module">([\s\S]*?)<\/script>/gi)];
-  return scripts.find((match) => match[1].includes('mobile-contact-cta'))[1];
-}
 const visibleText = html
   .replace(/<script[\s\S]*?<\/script>/gi, '')
   .replace(/<style[\s\S]*?<\/style>/gi, '')
@@ -66,9 +60,9 @@ test('contrasts the manual approval process against the digitized one', () => {
 
 test('names the Microsoft tools without claiming a partnership', () => {
   const services = html.match(
-    /<section[^>]+id="servicios"[\s\S]*?<\/section>/i,
+    /<section[^>]+id="soluciones"[\s\S]*?<\/section>/i,
   )?.[0];
-  assert.ok(services, 'la sección #servicios debe existir');
+  assert.ok(services, 'la sección #soluciones debe existir');
 
   assert.match(services, /Tres herramientas, un proceso que funciona solo/i);
   assert.match(services, /Power Apps · Aplicaciones internas a medida/i);
@@ -138,35 +132,6 @@ test('guides Instagram visitors from the hero and example to contact', () => {
   );
 });
 
-test('keeps a progressively enhanced contact CTA available on mobile', () => {
-  // el script se empaqueta minificado: sus aserciones de fuente leen el .astro
-  const pageScriptSource = readFileSync(new URL('../src/pages/index.astro', import.meta.url), 'utf8');
-  assert.match(
-    html,
-    /<a[^>]+class="[^"]*mobile-contact-cta[^"]*"[^>]+href="#contacto"[^>]*>\s*Contanos tu caso\s*<\/a>/i,
-  );
-  assert.match(
-    html,
-    /\.mobile-contact-cta\s*\{[^}]*display:\s*none;/i,
-  );
-  assert.match(
-    html,
-    /@media\s*\(max-width:\s*640px\)[\s\S]*\.mobile-contact-cta\s*\{[^}]*display:\s*inline-flex;/i,
-  );
-  assert.match(
-    html,
-    /\.mobile-contact-cta\.is-hidden\s*\{[^}]*pointer-events:\s*none;/i,
-  );
-  assert.match(pageScriptSource, /const contactSection = document\.querySelector\('#contacto'\)/i);
-  assert.match(pageScriptSource, /const contactObserver = new IntersectionObserver/i);
-  assert.match(pageScriptSource, /contactObserver\.observe\(contactSection\)/i);
-  assert.match(
-    pageScriptSource,
-    /mobileContactCta\.classList\.toggle\('is-hidden',\s*entry\.isIntersecting\)/i,
-  );
-  assert.doesNotMatch(html, /addEventListener\(['"]submit/i);
-});
-
 test('keeps reveal content visible until JavaScript opts into animation', () => {
   assert.match(
     html,
@@ -182,53 +147,6 @@ test('keeps reveal content visible until JavaScript opts into animation', () => 
     html,
     /\.reveal\.is-visible\s*\{[^}]*opacity:\s*1;[^}]*transform:\s*translateY\(0\);/i,
   );
-});
-
-test('toggles the mobile contact CTA as the contact section enters and leaves view', () => {
-  const behaviorScript = readBehaviorScript();
-  const hiddenClasses = new Set();
-  const mobileContactCta = {
-    classList: {
-      toggle(name, force) {
-        if (force) hiddenClasses.add(name);
-        else hiddenClasses.delete(name);
-      },
-    },
-  };
-  const contactSection = {};
-  const observers = [];
-
-  class IntersectionObserver {
-    constructor(callback) {
-      this.callback = callback;
-      this.observed = [];
-      observers.push(this);
-    }
-
-    observe(target) {
-      this.observed.push(target);
-    }
-
-    unobserve() {}
-  }
-
-  runInNewContext(behaviorScript, {
-    document: {
-      querySelectorAll: () => [],
-      querySelector: (selector) => selector === '#contacto' ? contactSection : mobileContactCta,
-    },
-    window: { IntersectionObserver },
-    IntersectionObserver,
-  });
-
-  const contactObserver = observers.at(-1);
-  assert.deepEqual(contactObserver.observed, [contactSection]);
-
-  contactObserver.callback([{ isIntersecting: true }]);
-  assert.equal(hiddenClasses.has('is-hidden'), true);
-
-  contactObserver.callback([{ isIntersecting: false }]);
-  assert.equal(hiddenClasses.has('is-hidden'), false);
 });
 
 test('drops the removed sections', () => {
@@ -288,30 +206,15 @@ test('keeps unsupported product claims out of visible copy', () => {
 
 test('includes baseline accessibility and usability hooks', () => {
   assert.match(html, /<main\b/i);
-  assert.match(html, /aria-label="MendoData"/i);
+  assert.match(html, /aria-label="Principal"/i);
   assert.match(html, /href="#contacto"/i);
   assert.match(html, /href="#ejemplo"/i);
-  assert.match(html, /href="#proceso"/i);
-  assert.match(html, /href="#nosotros"/i);
-  assert.match(html, /href="#servicios"/i);
+  assert.match(html, /href="\/#como-trabajamos"/i);
+  assert.match(html, /href="\/#equipo"/i);
+  assert.match(html, /href="\/#soluciones"/i);
   assert.match(html, /prefers-reduced-motion/i);
   assert.match(html, /<div class="showcase"/i);
   assert.match(html, /#contacto\s*\{[^}]*scroll-margin-top:/i);
-  assert.match(
-    html,
-    /\.mobile-contact-cta[\s\S]*min-height:\s*50px/i,
-  );
-});
-
-test('hides the nav links before they run out of room', () => {
-  assert.match(
-    html,
-    /@media\s*\(max-width:\s*820px\)\s*\{\s*\.nav-link\s*\{[^}]*display:\s*none;/i,
-  );
-  assert.doesNotMatch(
-    html,
-    /@media\s*\(max-width:\s*640px\)\s*\{\s*\.nav-link/i,
-  );
 });
 
 test('closes with the configured FormSubmit contact form', () => {

@@ -151,6 +151,11 @@ main {
   overflow: clip;
 }
 
+/* Anclas: el Header sticky no tapa el título de la sección */
+section[id] {
+  scroll-margin-top: 96px;
+}
+
 /* Typography ------------------------------------------------------ */
 h1,
 h2 {

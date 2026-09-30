@@ -9,9 +9,10 @@ interface Props {
   description?: string;
   path?: string;
   noindex?: boolean;
+  current?: string;
 }
 
-const { title, description, path, noindex = false } = Astro.props;
+const { title, description, path, noindex = false, current } = Astro.props;
 const canonical = path ? new URL(path, site.url).href : undefined;
 ---
 <!doctype html>
@@ -42,7 +43,7 @@ const canonical = path ? new URL(path, site.url).href : undefined;
   </head>
   <body>
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
-    <Header />
+    <Header current={current} />
     <main id="contenido">
       <slot />
     </main>

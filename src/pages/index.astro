@@ -287,7 +287,7 @@ import { seo } from '../config/site';
       </section>
 
       <!-- SERVICIOS: las tres herramientas -->
-      <section class="section" id="servicios" aria-labelledby="services-title">
+      <section class="section" id="soluciones" aria-labelledby="services-title">
         <div class="wrap">
           <div class="reveal process-head">
             <p class="kicker">Qué hacemos</p>
@@ -344,7 +344,7 @@ import { seo } from '../config/site';
       </section>
 
       <!-- CÓMO TRABAJAMOS: 3 pasos del proceso -->
-      <section class="section process" id="proceso" aria-labelledby="process-title">
+      <section class="section process" id="como-trabajamos" aria-labelledby="process-title">
         <div class="wrap">
           <div class="reveal process-head">
             <p class="kicker">Cómo trabajamos</p>
@@ -390,7 +390,7 @@ import { seo } from '../config/site';
 
       <!-- QUIÉNES SOMOS: las personas de confianza detrás -->
       <!-- REEMPLAZAR: nombres, roles, "de qué se encarga" y fotos reales del equipo -->
-      <section class="section" id="nosotros" aria-labelledby="about-title">
+      <section class="section" id="equipo" aria-labelledby="about-title">
         <div class="wrap">
           <div class="reveal about-head">
             <p class="kicker">Quiénes somos</p>
@@ -491,19 +491,4 @@ import { seo } from '../config/site';
           </form>
         </div>
       </section>
-  <a class="mobile-contact-cta button accent" href="#contacto">Contanos tu caso</a>
-  <script>
-    const mobileContactCta = document.querySelector('.mobile-contact-cta');
-    const contactSection = document.querySelector('#contacto');
-
-    if (mobileContactCta && contactSection && 'IntersectionObserver' in window) {
-      const contactObserver = new IntersectionObserver((entries) => {
-        for (const entry of entries) {
-          mobileContactCta.classList.toggle('is-hidden', entry.isIntersecting);
-        }
-      }, { threshold: 0.05 });
-
-      contactObserver.observe(contactSection);
-    }
-  </script>
 </BaseLayout>
