@@ -1,8 +1,10 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { runInNewContext } from 'node:vm';
 import { pageSource, projectRoot } from './helpers.mjs';
+
+const distCssDir = new URL('../dist/_astro/', import.meta.url);
 
 const html = pageSource('index.html');
 
@@ -387,5 +389,17 @@ test('leads with a tabbed product panel over the scenic backdrop', () => {
   assert.ok(flow, 'el diagrama del flujo debe existir en el ejemplo');
   for (const tool of ['Power Apps', 'Power Automate', 'Power BI']) {
     assert.match(flow, new RegExp(tool, 'i'));
+  }
+});
+
+test('emits balanced braces in every generated stylesheet', () => {
+  const files = readdirSync(distCssDir).filter((name) => name.endsWith('.css'));
+  assert.ok(files.length > 0);
+
+  for (const name of files) {
+    const css = readFileSync(new URL(name, distCssDir), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+    const open = (css.match(/\{/g) ?? []).length;
+    const close = (css.match(/\}/g) ?? []).length;
+    assert.equal(open, close, `${name}: ${open} "{" vs ${close} "}"`);
   }
 });
