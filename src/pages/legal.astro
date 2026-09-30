@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/page-intro.css';
+import { seo } from '../config/site';
+---
+<BaseLayout title={seo.legal.title} description={seo.legal.description} path={seo.legal.path}>
+  <section class="page-intro" aria-labelledby="legal-title">
+    <div class="wrap">
+      <p class="kicker">LEGAL</p>
+      <h1 id="legal-title">Privacidad y cookies</h1>
+      <p class="lead">Información sobre el tratamiento de datos y el uso de cookies en el sitio de MendoData.</p>
+    </div>
+  </section>
+
+  <!-- Contenido pendiente: se completa con el blueprint 05 y datos reales -->
+  <section class="section legal-section" id="privacidad" aria-labelledby="privacidad-title">
+    <div class="wrap">
+      <h2 id="privacidad-title">Privacidad</h2>
+    </div>
+  </section>
+
+  <section class="section legal-section" id="cookies" aria-labelledby="cookies-title">
+    <div class="wrap">
+      <h2 id="cookies-title">Cookies</h2>
+    </div>
+  </section>
+</BaseLayout>

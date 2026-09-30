@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/page-intro.css';
+import { seo } from '../config/site';
+---
+<BaseLayout title={seo.proyectos.title} description={seo.proyectos.description} path={seo.proyectos.path} current="/proyectos">
+  <section class="page-intro" aria-labelledby="proyectos-title">
+    <div class="wrap">
+      <p class="kicker">PROYECTOS</p>
+      <h1 id="proyectos-title">Soluciones construidas alrededor de problemas reales.</h1>
+      <p class="lead">Mostramos cómo convertimos necesidades operativas en sistemas, automatizaciones y soluciones de datos adaptadas a cada empresa.</p>
+    </div>
+  </section>
+</BaseLayout>
