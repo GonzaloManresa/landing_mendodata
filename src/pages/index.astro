@@ -5,6 +5,7 @@ import Problems from '../components/home/Problems.astro';
 import Solutions from '../components/home/Solutions.astro';
 import FeaturedProject from '../components/home/FeaturedProject.astro';
 import Operations from '../components/home/Operations.astro';
+import HowWeWork from '../components/home/HowWeWork.astro';
 import '../styles/home.css';
 import { seo } from '../config/site';
 ---
@@ -19,50 +20,7 @@ import { seo } from '../config/site';
 
       <Operations />
 
-      <!-- CÓMO TRABAJAMOS: 3 pasos del proceso -->
-      <section class="section process" id="como-trabajamos" aria-labelledby="process-title">
-        <div class="wrap">
-          <div class="reveal process-head">
-            <p class="kicker">Cómo trabajamos</p>
-            <h2 id="process-title">De la primera charla al proceso funcionando</h2>
-            <p class="lead">
-              Empezamos por un proceso concreto, el que más duele. Cuando funciona,
-              seguimos con el siguiente.
-            </p>
-          </div>
-
-          <div class="process-grid reveal">
-            <article class="process-step">
-              <span class="process-num" aria-hidden="true">1</span>
-              <h3>Relevamos el proceso</h3>
-              <p>
-                Nos sentamos con quienes lo ejecutan todos los días y mapeamos cómo
-                funciona hoy, con sus excepciones y sus atajos. Primera reunión sin
-                compromiso.
-              </p>
-            </article>
-
-            <article class="process-step">
-              <span class="process-num" aria-hidden="true">2</span>
-              <h3>Lo construimos sobre Microsoft</h3>
-              <p>
-                Armamos la app, los flujos y el tablero sobre las herramientas que tu
-                empresa ya tiene. Te mostramos avances mientras lo hacemos, no al
-                final.
-              </p>
-            </article>
-
-            <article class="process-step">
-              <span class="process-num" aria-hidden="true">3</span>
-              <h3>Implementamos y acompañamos</h3>
-              <p>
-                Capacitamos al equipo, ajustamos lo que aparece en el uso real y
-                quedamos disponibles para lo que siga.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
+      <HowWeWork />
 
       <!-- QUIÉNES SOMOS: las personas de confianza detrás -->
       <!-- REEMPLAZAR: nombres, roles, "de qué se encarga" y fotos reales del equipo -->

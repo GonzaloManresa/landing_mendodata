@@ -1,6 +1,5 @@
 /* Vidrio: translúcido, con luz desde arriba y filo brillante en el borde.
    Necesita variación de color detrás para que el desenfoque se note. */
-.process-step,
 .team-member {
   border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: var(--radius-card);
@@ -20,68 +19,24 @@
     0 22px 48px rgba(20, 41, 61, 0.11);
 }
 
-/* Process (Cómo trabajamos) --------------------------------------- */
-.process {
-  background:
-    radial-gradient(56% 46% at 86% 16%, rgba(22, 104, 176, 0.14), transparent 62%),
-    radial-gradient(48% 44% at 10% 84%, rgba(47, 125, 92, 0.11), transparent 62%),
-    var(--bg);
-}
-
-.process-head,
 .about-head {
   max-width: 70ch;
   margin-inline: auto;
   text-align: center;
 }
 
-.process-head .kicker,
 .about-head .kicker,
 .contact .kicker {
   justify-content: center;
 }
 
-.process-head h2,
 .about-head h2 {
   max-width: 20ch;
   margin-inline: auto;
 }
 
-.process-head .lead,
 .about-head .lead {
   margin-inline: auto;
-}
-
-.process-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(24px, 4vw, 48px);
-  margin-top: clamp(36px, 5vw, 52px);
-}
-
-.process-step {
-  padding: clamp(26px, 3vw, 34px);
-}
-
-.process-num {
-  display: block;
-  margin-bottom: 14px;
-  font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1;
-  color: var(--accent);
-}
-
-.process-step h3 {
-  margin: 0 0 8px;
-  font-size: 1.15rem;
-}
-
-.process-step p {
-  margin: 0;
-  color: var(--ink-soft);
 }
 
 /* Quiénes somos (equipo) ------------------------------------------ */
@@ -270,17 +225,8 @@
   font-size: 0.9rem;
 }
 
-@media (max-width: 940px) {
-  .process-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-}
-
 @media (max-width: 640px) {
-
-        .team,
-  .process-grid {
+  .team {
     grid-template-columns: 1fr;
   }
 

@@ -17,7 +17,6 @@ const visibleText = html
 
 test('renders the current landing sections', () => {
   const requiredSnippets = [
-    'De la primera charla al proceso funcionando',
     'Un equipo que entiende el proceso antes de escribir código',
     'Contanos qué proceso querés digitalizar',
   ];
@@ -207,7 +206,6 @@ test('uses Inter throughout with a heavy tight display weight', () => {
   );
   assert.match(html, /h3\s*\{[^}]*font-weight:\s*600;/i);
   assert.match(html, /\.team-name\s*\{[^}]*font-family:\s*var\(--font-display\);/i);
-  assert.match(html, /\.process-num\s*\{[^}]*font-family:\s*var\(--font-display\);/i);
   assert.doesNotMatch(html, /Manrope/i);
 });
 

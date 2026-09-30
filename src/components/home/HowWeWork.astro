@@ -1,0 +1,387 @@
+---
+// Copy exacto del blueprint (Home / Sección 6)
+const steps = [
+  {
+    id: 'process-step-consulta',
+    icon: 'chat',
+    title: 'Consulta inicial',
+    text: 'Nos contás qué proceso, problema o necesidad querés mejorar.',
+  },
+  {
+    id: 'process-step-contexto',
+    icon: 'search',
+    title: 'Entendimiento del contexto',
+    text: 'Conocemos cómo funciona actualmente la operación, quiénes participan y qué limitaciones existen.',
+  },
+  {
+    id: 'process-step-propuesta',
+    icon: 'doc',
+    title: 'Recomendación y propuesta',
+    text: 'Definimos qué solución conviene y presentamos su alcance, tiempos estimados e inversión.',
+  },
+  {
+    id: 'process-step-implementacion',
+    icon: 'gear',
+    title: 'Desarrollo e implementación',
+    text: 'Construimos, validamos e implementamos la solución, acompañando su puesta en funcionamiento.',
+  },
+];
+---
+<section class="how" id="como-trabajamos" aria-labelledby="como-trabajamos-title">
+  <div class="how-inner">
+    <header class="how-head">
+      <p class="how-kicker" aria-hidden="true">Cómo trabajamos</p>
+      <h2 id="como-trabajamos-title">Cómo <span class="hl">trabajamos</span></h2>
+      <p class="how-lead">No empezamos por una herramienta. Primero entendemos cómo funciona tu operación y después definimos la solución adecuada.</p>
+    </header>
+
+    <ol class="steps">
+      {steps.map((step, index) => (
+        <li class="step" id={step.id}>
+          <div class="step-marker" aria-hidden="true">
+            <span class="step-number">{index + 1}</span>
+            <span class="step-icon">
+              <svg viewBox="0 0 24 24" width="52" height="52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                {step.icon === 'chat' && (
+                  <Fragment>
+                    <path d="M4 5.5h11a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H9l-4 3.5V15.5H4a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2z" />
+                    <path d="M17 9.5h3a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2h-1v2.5L16 19h-3" />
+                    <path d="M6.5 10.5h.01M9.5 10.5h.01M12.5 10.5h.01" />
+                  </Fragment>
+                )}
+                {step.icon === 'search' && (
+                  <Fragment>
+                    <path d="M13 21H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8l4 4v4" />
+                    <path d="M8 8h5M8 12h4" />
+                    <circle cx="16.5" cy="16.5" r="3" />
+                    <path d="m21 21-2.3-2.3" />
+                  </Fragment>
+                )}
+                {step.icon === 'doc' && (
+                  <Fragment>
+                    <path d="M14 3H6.5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8.5z" />
+                    <path d="M14 3v5.5h5.5" />
+                    <path d="m8 12.5 1.2 1.2 2.3-2.3M13.5 12.5h3M8 17l1.2 1.2 2.3-2.3M13.5 17h3" />
+                  </Fragment>
+                )}
+                {step.icon === 'gear' && (
+                  <Fragment>
+                    <circle cx="12" cy="12" r="3" />
+                    <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z" />
+                  </Fragment>
+                )}
+              </svg>
+            </span>
+          </div>
+          <div class="step-card">
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+
+    <aside class="how-note">
+      <span class="how-note-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <circle cx="12" cy="12" r="9.5" />
+          <path d="M12 11v5.5M12 7.5h.01" />
+        </svg>
+      </span>
+      <p>Después de recibir tu consulta, nos ponemos en contacto para entender mejor la necesidad. Si tiene sentido avanzar, coordinamos una primera conversación.</p>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .how {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(72px, 9vw, 120px) 22px;
+    background: var(--surface);
+  }
+
+  .how::before,
+  .how::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    width: 40%;
+    height: 70%;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .how::before {
+    top: -34%;
+    left: -18%;
+    background: radial-gradient(closest-side, rgba(10, 108, 245, 0.1), transparent);
+  }
+
+  .how::after {
+    top: -10%;
+    right: -26%;
+    background: radial-gradient(closest-side, rgba(10, 108, 245, 0.08), transparent);
+  }
+
+  .how-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1340px;
+    margin: 0 auto;
+  }
+
+  .how-head {
+    max-width: 820px;
+    margin: 0 auto clamp(40px, 5vw, 56px);
+    text-align: center;
+  }
+
+  .how-kicker {
+    margin: 0 0 18px;
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    max-width: none;
+    margin: 0 0 20px;
+    color: var(--ink);
+    font-size: clamp(2.2rem, 4.6vw, 4rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.045em;
+  }
+
+  .hl {
+    color: var(--accent);
+  }
+
+  .how-lead {
+    margin: 0 auto;
+    max-width: 56ch;
+    color: var(--ink-soft);
+    font-size: clamp(1.02rem, 1.4vw, 1.2rem);
+    line-height: 1.6;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .step-marker {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* Línea que conecta cada etapa con la siguiente (solo decorativa) */
+  .step:not(:last-child) .step-marker::after {
+    content: "";
+    position: absolute;
+    top: 105px;
+    left: calc(50% + 66px);
+    width: calc(100% + 22px - 132px);
+    height: 2px;
+    background: var(--accent);
+    opacity: 0.55;
+  }
+
+  .step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    margin-bottom: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #FFFFFF;
+    font-weight: 700;
+  }
+
+  .step-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    box-shadow:
+      0 0 0 10px #EEF5FF,
+      0 12px 30px rgba(11, 27, 63, 0.08);
+    color: var(--accent);
+  }
+
+  .step-marker::before {
+    content: "";
+    order: 3;
+    width: 2px;
+    height: 24px;
+    margin-top: 10px;
+    background: #9EC3F8;
+  }
+
+  .step-card {
+    flex: 1;
+    width: 100%;
+    padding: 28px 26px 30px;
+    border: 1px solid #EAEFF6;
+    border-radius: 20px;
+    background: #FFFFFF;
+    box-shadow: 0 14px 36px rgba(11, 27, 63, 0.06);
+    text-align: center;
+  }
+
+  h3 {
+    margin: 0 0 12px;
+    color: var(--ink);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+
+  .step-card p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+
+  .how-note {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin: clamp(36px, 4vw, 52px) auto 0;
+    padding: 26px clamp(24px, 10vw, 150px);
+    border-radius: 22px;
+    background: #EEF5FF;
+  }
+
+  .how-note-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    padding-right: 24px;
+    border-right: 1px solid #CFE0FB;
+    color: var(--accent);
+  }
+
+  .how-note p {
+    margin: 0;
+    color: var(--ink);
+    font-size: 1.04rem;
+    line-height: 1.55;
+  }
+
+  /* Tablet: grilla 2 × 2, sin líneas horizontales */
+  @media (max-width: 1080px) {
+    .steps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: 36px;
+    }
+
+    .step:not(:last-child) .step-marker::after {
+      display: none;
+    }
+  }
+
+  /* Mobile: secuencia vertical con número, ícono y tarjeta en fila */
+  @media (max-width: 640px) {
+    .how {
+      padding: 64px 16px;
+    }
+
+    .steps {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: 18px;
+    }
+
+    .step {
+      position: relative;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .step-marker {
+      width: auto;
+      flex: 0 0 auto;
+    }
+
+    .step-marker::before {
+      display: none;
+    }
+
+    .step-number {
+      position: absolute;
+      top: -6px;
+      left: -6px;
+      z-index: 1;
+      width: 26px;
+      height: 26px;
+      margin: 0;
+      font-size: 0.8rem;
+    }
+
+    .step-icon {
+      width: 64px;
+      height: 64px;
+      box-shadow: 0 0 0 6px #EEF5FF;
+    }
+
+    .step-icon svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    /* Conexión vertical sutil entre etapas */
+    .step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 78px;
+      bottom: -18px;
+      left: 31px;
+      width: 2px;
+      background: #CFE0FB;
+    }
+
+    .step-card {
+      padding: 18px 20px;
+      text-align: left;
+    }
+
+    h3 {
+      font-size: 1.12rem;
+    }
+
+    .how-note {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 20px 22px;
+    }
+
+    .how-note-icon {
+      padding: 0;
+      border: 0;
+    }
+  }
+</style>
