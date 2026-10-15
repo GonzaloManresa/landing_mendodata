@@ -1,7 +1,7 @@
 ---
 import HeroVisual from './HeroVisual.astro';
 
-// Copy del blueprint (Home / Sección 1); el H1 lo definió el cliente después del lanzamiento
+// Copy del blueprint (Home / Sección 1); eyebrow, H1 y bajada los definió el cliente después del lanzamiento
 const trust = [
   { icon: 'process', text: 'Entendemos el proceso antes de desarrollar.' },
   { icon: 'tools', text: 'Elegimos la tecnología según tu problema.' },
@@ -11,12 +11,12 @@ const trust = [
 <section class="hero" id="inicio" aria-labelledby="hero-title">
   <div class="hero-inner">
     <div class="hero-copy">
-      <p class="hero-eyebrow">Sistemas, automatización y datos para ordenar y mejorar procesos operativos.</p>
+      <p class="hero-eyebrow">Sistemas · Automatización · Datos</p>
       <h1 id="hero-title">
         Sistemas <span class="hl">a medida</span> <br class="br-wide">para pymes
       </h1>
       <p class="hero-lead">
-        Cuando la información está dispersa, las tareas son demasiado manuales o los procesos dependen de demasiadas personas, entendemos cómo funciona la operación y construimos e implementamos la solución adecuada.
+        Ordenamos la información y automatizamos las tareas manuales de tu operación.
       </p>
       <a class="button accent hero-cta" href="#contacto">
         Contanos qué necesitás resolver
@@ -24,7 +24,6 @@ const trust = [
           <path d="M5 12h14M13 6l6 6-6 6" />
         </svg>
       </a>
-      <p class="hero-note">Primero entendemos el problema. Después definimos la tecnología adecuada.</p>
     </div>
 
     <HeroVisual />
@@ -115,28 +114,29 @@ const trust = [
   }
 
   .hero-eyebrow {
-    max-width: 52ch;
-    margin: 0 0 18px;
+    margin: 0 0 1rem;
     color: var(--accent);
     font-size: 0.8rem;
     font-weight: 600;
     letter-spacing: 0.12em;
     line-height: 1.6;
     text-transform: uppercase;
+    white-space: nowrap;
   }
 
   h1 {
-    margin: 0 0 22px;
+    margin: 0 0 1.25rem;
     color: var(--ink);
-    font-size: clamp(2.3rem, 3.4vw, 3.1rem);
+    font-size: clamp(2.75rem, 6vw, 5.5rem);
     font-weight: 800;
-    line-height: 1.08;
-    letter-spacing: -0.04em;
+    line-height: 1.02;
+    letter-spacing: -0.03em;
     text-wrap: balance;
   }
 
   .hl {
     color: var(--accent);
+    white-space: nowrap;
   }
 
   /* Cortes del mockup: solo cuando hay ancho para las cuatro líneas */
@@ -147,11 +147,11 @@ const trust = [
   }
 
   .hero-lead {
-    max-width: 50ch;
-    margin: 0 0 32px;
+    max-width: 34ch;
+    margin: 0 0 2rem;
     color: var(--ink-soft);
-    font-size: clamp(1.02rem, 1.35vw, 1.2rem);
-    line-height: 1.6;
+    font-size: 1.15rem;
+    line-height: 1.55;
   }
 
   .hero-cta {
@@ -175,12 +175,6 @@ const trust = [
   .hero-cta:active {
     transform: translateY(0);
     box-shadow: 0 8px 18px rgba(10, 108, 245, 0.24);
-  }
-
-  .hero-note {
-    margin: 16px 0 0;
-    color: var(--ink-mute);
-    font-size: 0.95rem;
   }
 
   .trust {
@@ -252,10 +246,6 @@ const trust = [
       row-gap: 40px;
     }
 
-    h1 {
-      font-size: clamp(2rem, 8.6vw, 2.5rem);
-    }
-
     .hero-cta {
       width: 100%;
       padding: 0 22px;
@@ -274,6 +264,13 @@ const trust = [
 
     .trust-item + .trust-item {
       border-left: 0;
+    }
+  }
+
+  /* El eyebrow va en una línea: en pantallas muy angostas se compacta */
+  @media (max-width: 360px) {
+    .hero-eyebrow {
+      letter-spacing: 0.06em;
     }
   }
 

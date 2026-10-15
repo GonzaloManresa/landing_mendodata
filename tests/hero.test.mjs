@@ -14,14 +14,14 @@ const text = (fragment) => fragment
 test('hero uses the approved blueprint copy', () => {
   assert.ok(hero, 'la sección #inicio debe existir');
   const copy = text(hero);
-  assert.match(copy, /Sistemas, automatización y datos para ordenar y mejorar procesos operativos\./);
+  assert.match(copy, /Sistemas · Automatización · Datos/);
   const h1Text = (hero.match(/<h1[\s\S]*?<\/h1>/)?.[0] ?? '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
   assert.match(
     h1Text,
     /^Sistemas a medida para pymes$/,
   );
-  assert.match(copy, /Cuando la información está dispersa, las tareas son demasiado manuales o los procesos dependen de demasiadas personas, entendemos cómo funciona la operación y construimos e implementamos la solución adecuada\./);
-  assert.match(copy, /Primero entendemos el problema\. Después definimos la tecnología adecuada\./);
+  assert.match(copy, /Ordenamos la información y automatizamos las tareas manuales de tu operación\./);
+  assert.doesNotMatch(copy, /Primero entendemos el problema\. Después definimos la tecnología adecuada\./);
 });
 
 test('hero highlights "a medida" in the headline', () => {
