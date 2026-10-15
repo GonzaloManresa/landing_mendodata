@@ -1,7 +1,7 @@
 ---
 import HeroVisual from './HeroVisual.astro';
 
-// Copy exacto del blueprint (Home / Sección 1)
+// Copy del blueprint (Home / Sección 1); el H1 lo definió el cliente después del lanzamiento
 const trust = [
   { icon: 'process', text: 'Entendemos el proceso antes de desarrollar.' },
   { icon: 'tools', text: 'Elegimos la tecnología según tu problema.' },
@@ -13,7 +13,7 @@ const trust = [
     <div class="hero-copy">
       <p class="hero-eyebrow">Sistemas, automatización y datos para ordenar y mejorar procesos operativos.</p>
       <h1 id="hero-title">
-        Ordenamos y digitalizamos <br class="br-wide">procesos para que tu empresa <br class="br-wide"><span class="hl">gane tiempo, reduzca errores</span> <br class="br-wide">y tenga <span class="hl">más control</span>.
+        Sistemas <span class="hl">a medida</span> <br class="br-wide">para pymes
       </h1>
       <p class="hero-lead">
         Cuando la información está dispersa, las tareas son demasiado manuales o los procesos dependen de demasiadas personas, entendemos cómo funciona la operación y construimos e implementamos la solución adecuada.
@@ -132,6 +132,7 @@ const trust = [
     font-weight: 800;
     line-height: 1.08;
     letter-spacing: -0.04em;
+    text-wrap: balance;
   }
 
   .hl {

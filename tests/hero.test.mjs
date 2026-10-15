@@ -18,16 +18,15 @@ test('hero uses the approved blueprint copy', () => {
   const h1Text = (hero.match(/<h1[\s\S]*?<\/h1>/)?.[0] ?? '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
   assert.match(
     h1Text,
-    /^Ordenamos y digitalizamos procesos para que tu empresa gane tiempo, reduzca errores y tenga más control\.$/,
+    /^Sistemas a medida para pymes$/,
   );
   assert.match(copy, /Cuando la información está dispersa, las tareas son demasiado manuales o los procesos dependen de demasiadas personas, entendemos cómo funciona la operación y construimos e implementamos la solución adecuada\./);
   assert.match(copy, /Primero entendemos el problema\. Después definimos la tecnología adecuada\./);
 });
 
-test('hero highlights the three benefits in the headline', () => {
+test('hero highlights "a medida" in the headline', () => {
   const h1 = hero.match(/<h1[\s\S]*?<\/h1>/)?.[0] ?? '';
-  assert.match(h1, /<span class="hl"[^>]*>gane tiempo, reduzca errores<\/span>/);
-  assert.match(h1, /<span class="hl"[^>]*>más control<\/span>/);
+  assert.match(h1, /<span class="hl"[^>]*>a medida<\/span>/);
 });
 
 test('hero has a single primary CTA to the contact section', () => {
