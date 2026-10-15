@@ -1,157 +1,100 @@
 ---
-import HeroVisual from './HeroVisual.astro';
-
-// Copy del blueprint (Home / Sección 1); eyebrow, H1 y bajada los definió el cliente después del lanzamiento
-const trust = [
-  { icon: 'process', text: 'Entendemos el proceso antes de desarrollar.' },
-  { icon: 'tools', text: 'Elegimos la tecnología según tu problema.' },
-  { icon: 'support', text: 'Acompañamos la implementación.' },
-];
+// Hero split 50/50: texto a la izquierda, foto del equipo a sangre a la derecha.
+// H1 y bajada los definió el cliente después del lanzamiento.
+// El mockup del dashboard (HeroVisual) y la franja de confianza (HeroTrust) salieron
+// del Hero en este rediseño; los componentes se conservan en el repo.
 ---
 <section class="hero" id="inicio" aria-labelledby="hero-title">
-  <div class="hero-inner">
-    <div class="hero-copy">
-      <p class="hero-eyebrow">Sistemas · Automatización · Datos</p>
-      <h1 id="hero-title">
-        Sistemas <span class="hl">a medida</span> <br class="br-wide">para pymes
-      </h1>
-      <p class="hero-lead">
-        Ordenamos la información y automatizamos las tareas manuales de tu operación.
-      </p>
+  <div class="hero-copy">
+    <h1 id="hero-title">
+      <span class="line">Sistemas</span> <span class="line hl">a medida</span> <span class="line">para pymes</span>
+    </h1>
+    <p class="hero-lead">
+      Ordenamos la información y automatizamos las tareas manuales de tu operación.
+    </p>
+    <div class="hero-actions">
       <a class="button accent hero-cta" href="#contacto">
-        Contanos qué necesitás resolver
+        Contanos qué necesitás
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M5 12h14M13 6l6 6-6 6" />
         </svg>
       </a>
+      <a class="hero-link" href="#proyecto-destacado">Ver proyectos</a>
     </div>
+  </div>
 
-    <HeroVisual />
+  <div class="hero-media">
+    <!-- Foto pendiente: reemplazar este div por
+         <img src="/img/equipo.jpg" alt="Equipo de MendoData" width="1600" height="1200"> -->
+    <div class="hero-photo-placeholder" aria-hidden="true">[FOTO DEL EQUIPO]</div>
 
-    <ul class="trust" aria-label="Nuestro enfoque">
-      {trust.map((item) => (
-        <li class="trust-item">
-          <span class="trust-icon" aria-hidden="true">
-            {item.icon === 'process' && (
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="6.5" />
-                <path d="M20.5 20.5 16 16M8.5 11h5M11 8.5v5" />
-              </svg>
-            )}
-            {item.icon === 'tools' && (
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 7h10M18 7h2M4 17h2M10 17h10" />
-                <circle cx="16" cy="7" r="2.2" />
-                <circle cx="8" cy="17" r="2.2" />
-              </svg>
-            )}
-            {item.icon === 'support' && (
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 3.5 19 6v5.5c0 4.3-2.9 7.6-7 9-4.1-1.4-7-4.7-7-9V6z" />
-                <path d="m9 12 2.2 2.2L15.5 10" />
-              </svg>
-            )}
-          </span>
-          <span class="trust-text">{item.text}</span>
-        </li>
-      ))}
-    </ul>
+    <div class="hero-card">
+      <!-- Cada círculo se puede reemplazar por <img src="..." alt=""> con la cara de cada integrante -->
+      <div class="hero-avatars" aria-hidden="true">
+        <span class="hero-avatar"></span>
+        <span class="hero-avatar"></span>
+        <span class="hero-avatar"></span>
+      </div>
+      <p class="hero-card-text">
+        <strong>Primero entendemos tu operación.</strong>
+        <span>Después elegimos la tecnología.</span>
+      </p>
+    </div>
   </div>
 </section>
 
 <style>
   .hero {
-    position: relative;
-    overflow: hidden;
-    padding: clamp(40px, 6vw, 88px) 22px clamp(56px, 7vw, 96px);
-    background: var(--bg);
-  }
-
-  /* Manchas celestes suaves en los bordes, como en el mockup */
-  .hero::before,
-  .hero::after {
-    content: "";
-    position: absolute;
-    z-index: 0;
-    border-radius: 50%;
-    pointer-events: none;
-  }
-
-  .hero::before {
-    top: -38%;
-    right: -14%;
-    width: 62%;
-    height: 90%;
-    background: radial-gradient(closest-side, rgba(10, 108, 245, 0.16), transparent);
-  }
-
-  .hero::after {
-    bottom: -40%;
-    left: -18%;
-    width: 60%;
-    height: 80%;
-    background: radial-gradient(closest-side, rgba(10, 108, 245, 0.13), transparent);
-  }
-
-  .hero-inner {
-    position: relative;
-    z-index: 1;
-    max-width: 1340px;
-    margin: 0 auto;
     display: grid;
-    grid-template-columns: minmax(0, 52fr) minmax(0, 48fr);
-    grid-template-areas:
-      "copy visual"
-      "trust visual";
-    column-gap: clamp(16px, 2vw, 32px);
-    row-gap: 40px;
-    align-items: center;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    min-height: min(100svh, 820px);
+    background: var(--surface);
   }
 
   .hero-copy {
-    grid-area: copy;
-    align-self: end;
-  }
-
-  .hero-eyebrow {
-    margin: 0 0 1rem;
-    color: var(--accent);
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    line-height: 1.6;
-    text-transform: uppercase;
-    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 28px;
+    container-type: inline-size;
+    /* Arriba deja lugar al header superpuesto */
+    padding: 128px 64px 64px;
   }
 
   h1 {
-    margin: 0 0 1.25rem;
+    margin: 0;
     color: var(--ink);
-    font-size: clamp(2.75rem, 6vw, 5.5rem);
+    font-family: "Bricolage Grotesque", var(--font-display);
+    /* Tope por ancho de columna: "para pymes" siempre entra en una línea */
+    font-size: min(clamp(3rem, 7.5vw, 7rem), 18cqi);
     font-weight: 800;
-    line-height: 1.02;
-    letter-spacing: -0.03em;
-    text-wrap: balance;
+    line-height: 0.9;
+    letter-spacing: -0.05em;
   }
 
-  .hl {
-    color: var(--accent);
+  /* Una línea por bloque: Sistemas / a medida / para pymes */
+  .line {
+    display: block;
     white-space: nowrap;
   }
 
-  /* Cortes del mockup: solo cuando hay ancho para las cuatro líneas */
-  @media (max-width: 1240px) {
-    .br-wide {
-      display: none;
-    }
+  .hl {
+    color: #0A5BD3;
   }
 
   .hero-lead {
-    max-width: 34ch;
-    margin: 0 0 2rem;
+    max-width: 440px;
+    margin: 0;
     color: var(--ink-soft);
-    font-size: 1.15rem;
-    line-height: 1.55;
+    font-size: 1.2rem;
+    line-height: 1.5;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 28px;
   }
 
   .hero-cta {
@@ -174,103 +117,136 @@ const trust = [
 
   .hero-cta:active {
     transform: translateY(0);
-    box-shadow: 0 8px 18px rgba(10, 108, 245, 0.24);
   }
 
-  .trust {
-    grid-area: trust;
-    align-self: start;
-    display: flex;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .trust-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex: 1 1 0;
-    padding: 0 18px;
-    color: var(--ink);
-    font-size: 0.92rem;
-    font-weight: 500;
-    line-height: 1.35;
-  }
-
-  .trust-item:first-child {
-    padding-left: 0;
-  }
-
-  .trust-item + .trust-item {
-    border-left: 1px solid var(--line);
-  }
-
-  .trust-icon {
+  .hero-link {
     display: inline-flex;
-    flex: 0 0 auto;
     align-items: center;
-    justify-content: center;
-    width: 46px;
-    height: 46px;
-    border-radius: 999px;
-    background: var(--accent-soft);
+    min-height: 44px;
+    color: var(--ink);
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 6px;
+  }
+
+  .hero-link:hover {
     color: var(--accent);
   }
 
-  @media (max-width: 1080px) {
-    .hero-inner {
+  .hero-media {
+    position: relative;
+    overflow: hidden;
+    background: #DCE4F1;
+  }
+
+  .hero-media > img,
+  .hero-photo-placeholder {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-media > img {
+    object-fit: cover;
+  }
+
+  .hero-photo-placeholder {
+    display: grid;
+    place-items: center;
+    background: #DCE4F1;
+    color: var(--ink-mute);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+
+  .hero-card {
+    position: absolute;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 20px 24px;
+    border-radius: 18px;
+    background: var(--surface);
+    box-shadow: 0 16px 40px rgba(11, 27, 63, 0.14);
+  }
+
+  .hero-avatars {
+    display: flex;
+    flex: 0 0 auto;
+    padding-left: 12px;
+  }
+
+  .hero-avatar,
+  .hero-avatars > img {
+    width: 44px;
+    height: 44px;
+    margin-left: -12px;
+    border: 3px solid var(--surface);
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .hero-avatar:nth-child(1) { background: #0B1B3F; }
+  .hero-avatar:nth-child(2) { background: #0A5BD3; }
+  .hero-avatar:nth-child(3) { background: #8FB6FF; }
+
+  .hero-card-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0;
+    color: var(--ink);
+    font-size: 0.98rem;
+    line-height: 1.4;
+  }
+
+  .hero-card-text span {
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 899px) {
+    .hero {
       grid-template-columns: minmax(0, 1fr);
-      grid-template-areas:
-        "copy"
-        "visual"
-        "trust";
-      row-gap: 48px;
+      min-height: 0;
     }
 
+    /* El header vuelve a ser normal: no hace falta dejarle lugar */
     .hero-copy {
-      align-self: start;
+      padding: 40px 22px 48px;
     }
 
-    h1 {
-      max-width: 20ch;
+    .hero-media {
+      height: 420px;
     }
   }
 
   @media (max-width: 640px) {
-    .hero {
-      padding: 32px 16px 56px;
-    }
-
-    .hero-inner {
-      row-gap: 40px;
+    .hero-copy {
+      padding: 32px 16px 40px;
     }
 
     .hero-cta {
-      width: 100%;
-      padding: 0 22px;
-      font-size: 1.02rem;
+      padding: 0 24px 0 26px;
+      font-size: 1rem;
     }
 
-    .trust {
-      flex-direction: column;
-      gap: 16px;
+    .hero-card {
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      gap: 14px;
+      padding: 16px 18px;
     }
 
-    .trust-item,
-    .trust-item:first-child {
-      padding: 0;
-    }
-
-    .trust-item + .trust-item {
-      border-left: 0;
-    }
-  }
-
-  /* El eyebrow va en una línea: en pantallas muy angostas se compacta */
-  @media (max-width: 360px) {
-    .hero-eyebrow {
-      letter-spacing: 0.06em;
+    .hero-card-text {
+      font-size: 0.92rem;
     }
   }
 

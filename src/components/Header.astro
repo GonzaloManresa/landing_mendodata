@@ -3,11 +3,12 @@ import { nav, contactHref, headerCta } from '../config/site';
 
 interface Props {
   current?: string;
+  overlay?: boolean;
 }
 
-const { current } = Astro.props;
+const { current, overlay = false } = Astro.props;
 ---
-<header class="site-header">
+<header class:list={["site-header", { "is-overlay": overlay }]}>
   <nav class="nav" aria-label="Principal">
     <a class="brand" href="/" aria-label="MendoData, inicio">
       <img class="brand-mark" src="/assets/mendodata-symbol.png" alt="" width="583" height="186">
@@ -72,6 +73,14 @@ const { current } = Astro.props;
         toggle.focus();
       }
     });
+
+    // Header superpuesto al Hero: recupera el fondo apenas se scrollea
+    const header = nav.closest('.site-header');
+    if (header?.classList.contains('is-overlay')) {
+      const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
 
     // Si la ventana vuelve a desktop con el menú abierto, se cierra
     window.matchMedia('(min-width: 941px)').addEventListener('change', (event) => {
@@ -260,6 +269,44 @@ const { current } = Astro.props;
     .nav {
       min-height: 62px;
       padding: 8px 8px 8px 16px;
+    }
+  }
+
+  /* Home desktop: el header flota sobre el Hero split; el logo cae sobre la
+     columna blanca y los links sobre la foto. Al scrollear vuelve a ser la píldora. */
+  @media (min-width: 900px) {
+    .is-overlay {
+      position: fixed;
+      left: 0;
+      right: 0;
+    }
+
+    .is-overlay .nav {
+      max-width: none;
+      transition:
+        background 200ms ease,
+        border-color 200ms ease,
+        box-shadow 200ms ease,
+        padding 200ms ease;
+    }
+
+    :global(.js) .is-overlay:not(.is-scrolled) .nav {
+      padding-left: 42px;
+      border-color: transparent;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+    }
+
+    .is-overlay .nav-menu,
+    .is-overlay .nav-list {
+      gap: clamp(20px, 2vw, 32px);
+    }
+  }
+
+  @media (min-width: 900px) and (prefers-reduced-motion: reduce) {
+    .is-overlay .nav {
+      transition: none;
     }
   }
 
