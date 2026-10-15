@@ -2,7 +2,8 @@
 import HeroVisual from './HeroVisual.astro';
 
 // Hero split 50/50: texto a la izquierda, mockup del dashboard a la derecha.
-// H1 y bajada los definió el cliente después del lanzamiento.
+// H1 y bajada los definió el cliente después del lanzamiento. El H1 combina Inter 800
+// con "a medida" en Newsreader Italic, como acento de marca.
 // La franja de confianza (HeroTrust) y la tarjeta "Primero entendemos…" (HeroCard)
 // salieron del Hero; los componentes se conservan en el repo.
 ---
@@ -52,7 +53,7 @@ import HeroVisual from './HeroVisual.astro';
   h1 {
     margin: 0;
     color: var(--ink);
-    font-family: "Bricolage Grotesque", var(--font-display);
+    font-family: var(--font-display);
     /* Tope por ancho de columna: "para pymes" siempre entra en una línea */
     font-size: min(clamp(3rem, 7.5vw, 7rem), 18cqi);
     font-weight: 800;
@@ -66,8 +67,20 @@ import HeroVisual from './HeroVisual.astro';
     white-space: nowrap;
   }
 
+  /* Acento de marca: Newsreader Italic. Su ojo es más chico que el de Inter,
+     por eso va un poco más grande y con interlineado compensado. */
   .hl {
     color: #0A5BD3;
+    font-family: var(--font-accent);
+    font-size: 1.08em;
+    font-style: italic;
+    font-weight: 500;
+    line-height: calc(0.9em / 1.08);
+    letter-spacing: -0.01em;
+    /* Su ojo bajo la deja visualmente pegada a "Sistemas": se baja un poco
+       para que el aire entre las tres líneas se vea parejo */
+    position: relative;
+    top: 0.08em;
   }
 
   .hero-lead {

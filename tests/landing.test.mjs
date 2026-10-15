@@ -140,7 +140,7 @@ test('closes with the configured FormSubmit contact form', () => {
 test('uses Inter throughout with a heavy tight display weight', () => {
   assert.match(
     html,
-    /family=Inter:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@1,6\.\.72,400&display=swap/i,
+    /family=Inter:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@1,6\.\.72,500&display=swap/i,
   );
   assert.match(
     html,
