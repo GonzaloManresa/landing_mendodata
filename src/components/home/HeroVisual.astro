@@ -168,39 +168,45 @@ const rows = [
 </div>
 
 <style>
+  /* Vive en la columna derecha del Hero split, que recorta con overflow: hidden.
+     La laptop mide ~110% de la columna y se corta contra el borde de la pantalla. */
   .hero-visual {
-    grid-area: visual;
-    position: relative;
-    container-type: inline-size;
-    /* en desktop el visual se asoma un poco fuera del contenedor, como en el mockup */
-    width: calc(100% + clamp(0px, 8vw, 140px));
-    max-width: 820px;
-    margin-right: calc(-1 * clamp(0px, 8vw, 140px));
-    justify-self: end;
-    align-self: start;
+    position: absolute;
+    inset: 0;
+    container-type: size;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 12px;
+    /* Arriba deja lugar al header superpuesto */
+    padding: 96px 0 24px;
   }
 
   .demo-badge {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
     z-index: 3;
-    margin: 0;
+    margin: 0 0 0 64px;
     padding: 6px 12px;
     border: 1px solid var(--line);
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.92);
     color: var(--ink-soft);
-    font-size: 0.74rem;
+    font-size: 12px;
     font-weight: 600;
   }
 
-  /* 1em = 1/72 del ancho: la escena mide 72em × 62em */
+  /* La escena mide 72em × 52em: laptop de 62em a la derecha y el celular
+     asomando a la izquierda. 1em sale del ancho (laptop = 110% de la columna),
+     con tope por alto para que entre entera en el Hero. */
   .stage {
     position: relative;
-    font-size: calc(100cqw / 72);
+    flex: 0 0 auto;
+    font-size: min(calc(110cqw / 62), calc((100cqh - 48px) / 52));
     width: 72em;
-    height: 62em;
+    height: 52em;
+    /* La laptop arranca a 10em del borde de la escena: así queda a 64px de la columna */
+    margin-left: calc(64px - 10em);
     color: #1B2A4A;
     font-family: var(--font-body);
     line-height: 1.25;
@@ -215,7 +221,7 @@ const rows = [
   /* Laptop ----------------------------------------------------------- */
   .laptop {
     position: absolute;
-    top: 3.5em;
+    top: 0;
     right: 0;
     width: 62em;
     filter: drop-shadow(0 2.4em 3em rgba(11, 27, 63, 0.16));
@@ -593,7 +599,7 @@ const rows = [
   /* Celular ---------------------------------------------------------- */
   .phone {
     position: absolute;
-    left: 0;
+    left: 6em;
     bottom: 0;
     z-index: 2;
     width: 19.5em;
@@ -702,44 +708,41 @@ const rows = [
   }
 
   /* Tablet: el Hero pasa a una columna y el visual va centrado ------- */
-  @media (max-width: 1080px) {
+  /* Una columna: el mockup va debajo del texto, entero y centrado */
+  @media (max-width: 899px) {
     .hero-visual {
-      width: 100%;
-      max-width: 720px;
-      margin-right: 0;
-      justify-self: center;
-    }
-  }
-
-  /* Mobile: solo el celular, más grande y legible -------------------- */
-  @media (max-width: 640px) {
-    .hero-visual {
-      justify-self: center;
-      width: 100%;
-      max-width: 320px;
-      margin-right: 0;
+      position: relative;
+      inset: auto;
+      container-type: inline-size;
+      align-items: center;
+      padding: 0;
     }
 
     .demo-badge {
-      left: 50%;
-      transform: translateX(-50%);
-      white-space: nowrap;
+      margin: 0;
     }
 
+    /* 75em de ancho útil: la base de la laptop sobresale 3em de la escena */
     .stage {
-      font-size: calc(100cqw / 21);
-      width: 21em;
-      height: auto;
-      padding-top: 3em;
-    }
-
-    .laptop {
-      display: none;
+      font-size: calc(100cqw / 75);
+      margin-left: 0;
     }
 
     .phone {
-      position: relative;
-      width: 21em;
+      left: 0;
+    }
+  }
+
+  /* Mobile: el celular no entra legible junto a la laptop; queda solo la laptop */
+  @media (max-width: 640px) {
+    .stage {
+      font-size: calc(100cqw / 68);
+      width: 62em;
+      height: 41.6em;
+    }
+
+    .phone {
+      display: none;
     }
   }
 </style>

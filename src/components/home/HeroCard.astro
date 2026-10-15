@@ -1,0 +1,63 @@
+---
+// Tarjeta "Primero entendemos tu operación" que acompañó al Hero split.
+// Salió del Hero porque con el mockup tapaba el celular; se conserva para reutilizarla.
+---
+<div class="hero-card">
+  <!-- Cada círculo se puede reemplazar por <img src="..." alt=""> con la cara de cada integrante -->
+  <div class="hero-avatars" aria-hidden="true">
+    <span class="hero-avatar"></span>
+    <span class="hero-avatar"></span>
+    <span class="hero-avatar"></span>
+  </div>
+  <p class="hero-card-text">
+    <strong>Primero entendemos tu operación.</strong>
+    <span>Después elegimos la tecnología.</span>
+  </p>
+</div>
+
+<style>
+  .hero-card {
+    max-width: 380px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 20px 24px;
+    border-radius: 18px;
+    background: var(--surface);
+    box-shadow: 0 16px 40px rgba(11, 27, 63, 0.14);
+  }
+
+  .hero-avatars {
+    display: flex;
+    flex: 0 0 auto;
+    padding-left: 12px;
+  }
+
+  .hero-avatar,
+  .hero-avatars > img {
+    width: 44px;
+    height: 44px;
+    margin-left: -12px;
+    border: 3px solid var(--surface);
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .hero-avatar:nth-child(1) { background: #0B1B3F; }
+  .hero-avatar:nth-child(2) { background: #0A5BD3; }
+  .hero-avatar:nth-child(3) { background: #8FB6FF; }
+
+  .hero-card-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0;
+    color: var(--ink);
+    font-size: 0.98rem;
+    line-height: 1.4;
+  }
+
+  .hero-card-text span {
+    color: var(--ink-soft);
+  }
+</style>

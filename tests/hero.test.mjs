@@ -37,15 +37,19 @@ test('hero has a primary CTA to contact and a link to the featured project', () 
   assert.doesNotMatch(hero, /wa\.me|calendly/i);
 });
 
-test('hero shows the photo placeholder and the floating card', () => {
+test('hero shows the illustrative dashboard mockup', () => {
   assert.match(hero, /class="hero-media"/);
-  assert.match(text(hero), /\[FOTO DEL EQUIPO\]/);
-  assert.equal((hero.match(/class="hero-avatar"/g) ?? []).length, 3);
-  assert.match(text(hero), /Primero entendemos tu operación\. Después elegimos la tecnología\./);
+  assert.match(hero, /id="hero-visual"/);
+  assert.match(
+    hero,
+    /role="img"[^>]*aria-label="Interfaz digital para organizar procesos operativos, información y datos empresariales\."/,
+  );
+  assert.match(text(hero), /Demostración ilustrativa/);
+  assert.doesNotMatch(text(hero), /\[FOTO DEL EQUIPO\]/);
 });
 
-test('hero no longer includes the dashboard mockup or the trust strip', () => {
-  assert.doesNotMatch(hero, /id="hero-visual"|Demostración ilustrativa|class="trust"/);
+test('hero no longer includes the trust strip or the floating card', () => {
+  assert.doesNotMatch(hero, /class="trust"|class="hero-card"/);
 });
 
 test('home header overlays the hero and other pages keep the normal header', () => {

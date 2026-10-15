@@ -1,8 +1,10 @@
 ---
-// Hero split 50/50: texto a la izquierda, foto del equipo a sangre a la derecha.
+import HeroVisual from './HeroVisual.astro';
+
+// Hero split 50/50: texto a la izquierda, mockup del dashboard a la derecha.
 // H1 y bajada los definió el cliente después del lanzamiento.
-// El mockup del dashboard (HeroVisual) y la franja de confianza (HeroTrust) salieron
-// del Hero en este rediseño; los componentes se conservan en el repo.
+// La franja de confianza (HeroTrust) y la tarjeta "Primero entendemos…" (HeroCard)
+// salieron del Hero; los componentes se conservan en el repo.
 ---
 <section class="hero" id="inicio" aria-labelledby="hero-title">
   <div class="hero-copy">
@@ -24,22 +26,8 @@
   </div>
 
   <div class="hero-media">
-    <!-- Foto pendiente: reemplazar este div por
-         <img src="/img/equipo.jpg" alt="Equipo de MendoData" width="1600" height="1200"> -->
-    <div class="hero-photo-placeholder" aria-hidden="true">[FOTO DEL EQUIPO]</div>
+    <HeroVisual />
 
-    <div class="hero-card">
-      <!-- Cada círculo se puede reemplazar por <img src="..." alt=""> con la cara de cada integrante -->
-      <div class="hero-avatars" aria-hidden="true">
-        <span class="hero-avatar"></span>
-        <span class="hero-avatar"></span>
-        <span class="hero-avatar"></span>
-      </div>
-      <p class="hero-card-text">
-        <strong>Primero entendemos tu operación.</strong>
-        <span>Después elegimos la tecnología.</span>
-      </p>
-    </div>
   </div>
 </section>
 
@@ -138,77 +126,10 @@
   .hero-media {
     position: relative;
     overflow: hidden;
-    background: #DCE4F1;
-  }
-
-  .hero-media > img,
-  .hero-photo-placeholder {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  .hero-media > img {
-    object-fit: cover;
-  }
-
-  .hero-photo-placeholder {
-    display: grid;
-    place-items: center;
-    background: #DCE4F1;
-    color: var(--ink-mute);
-    font-size: 0.95rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-  }
-
-  .hero-card {
-    position: absolute;
-    left: 40px;
-    right: 40px;
-    bottom: 40px;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    padding: 20px 24px;
-    border-radius: 18px;
-    background: var(--surface);
-    box-shadow: 0 16px 40px rgba(11, 27, 63, 0.14);
-  }
-
-  .hero-avatars {
-    display: flex;
-    flex: 0 0 auto;
-    padding-left: 12px;
-  }
-
-  .hero-avatar,
-  .hero-avatars > img {
-    width: 44px;
-    height: 44px;
-    margin-left: -12px;
-    border: 3px solid var(--surface);
-    border-radius: 50%;
-    object-fit: cover;
-  }
-
-  .hero-avatar:nth-child(1) { background: #0B1B3F; }
-  .hero-avatar:nth-child(2) { background: #0A5BD3; }
-  .hero-avatar:nth-child(3) { background: #8FB6FF; }
-
-  .hero-card-text {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    margin: 0;
-    color: var(--ink);
-    font-size: 0.98rem;
-    line-height: 1.4;
-  }
-
-  .hero-card-text span {
-    color: var(--ink-soft);
+    /* Grilla de puntos sutil */
+    background:
+      radial-gradient(circle, #C5D1E6 1.5px, transparent 1.6px) 0 0 / 24px 24px,
+      #DCE4F1;
   }
 
   @media (max-width: 899px) {
@@ -223,7 +144,7 @@
     }
 
     .hero-media {
-      height: 420px;
+      padding: 40px 22px;
     }
   }
 
@@ -237,17 +158,10 @@
       font-size: 1rem;
     }
 
-    .hero-card {
-      left: 16px;
-      right: 16px;
-      bottom: 16px;
-      gap: 14px;
-      padding: 16px 18px;
+    .hero-media {
+      padding: 32px 16px;
     }
 
-    .hero-card-text {
-      font-size: 0.92rem;
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {
