@@ -9,6 +9,8 @@ export type Client = {
   // Ruta pública sin extensión, dentro de /clientes
   logo: string;
   alt: string;
+  // Solo el ícono del logo (sin texto), para el globito del Hero
+  icon?: string;
 };
 
 export const clients: Client[] = [
@@ -17,17 +19,20 @@ export const clients: Client[] = [
     sector: 'Viajes grupales',
     logo: '/clientes/mundo-ahorro',
     alt: 'Logo de Mundo Ahorro',
+    icon: '/clientes/mundo-ahorro-icon.webp',
   },
   {
     name: 'VAB Climatización',
     sector: 'Climatización · Santiago del Estero',
     logo: '/clientes/vab-climatizacion',
     alt: 'Logo de VAB Climatización',
+    icon: '/clientes/vab-climatizacion-icon.webp',
   },
   {
     name: 'SC Consulting',
     sector: 'Logística y mantenimiento · Chile',
     logo: '/clientes/sc-consulting',
     alt: 'Logo de SC Consulting',
+    icon: '/clientes/sc-consulting-icon.webp',
   },
 ];

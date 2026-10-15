@@ -1,5 +1,9 @@
 ---
 import HeroVisual from './HeroVisual.astro';
+import { clients } from '../../data/clients';
+
+// Globito de prueba social: íconos de los primeros 3 clientes que tienen ícono
+const proofClients = clients.filter((client) => client.icon).slice(0, 3);
 
 // Hero split 50/50: texto a la izquierda, mockup del dashboard a la derecha.
 // H1 y bajada los definió el cliente después del lanzamiento. El H1 combina Inter 800
@@ -24,6 +28,16 @@ import HeroVisual from './HeroVisual.astro';
       </a>
       <a class="hero-link" href="#proyecto-destacado">Ver proyectos</a>
     </div>
+    <div class="hero-proof">
+      <span class="proof-logos">
+        {proofClients.map((client) => (
+          <span class="proof-logo">
+            <img src={client.icon} alt={client.alt} width="40" height="40">
+          </span>
+        ))}
+      </span>
+      <span class="proof-text"><strong>+8</strong> proyectos</span>
+    </div>
   </div>
 
   <div class="hero-media">
@@ -37,6 +51,9 @@ import HeroVisual from './HeroVisual.astro';
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     min-height: min(100svh, 820px);
+    /* Recorta la laptop contra el borde derecho sin generar scroll horizontal;
+       la columna derecha no recorta, así el celular puede asomarse sobre el texto */
+    overflow: clip;
     background: var(--surface);
   }
 
@@ -47,7 +64,7 @@ import HeroVisual from './HeroVisual.astro';
     gap: 28px;
     container-type: inline-size;
     /* Arriba deja lugar al header superpuesto */
-    padding: 128px 64px 64px;
+    padding: 128px 40px 64px 64px;
   }
 
   h1 {
@@ -136,13 +153,57 @@ import HeroVisual from './HeroVisual.astro';
     color: var(--accent);
   }
 
+  /* Globito: íconos de clientes superpuestos + cantidad de proyectos */
+  .hero-proof {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    gap: 14px;
+    padding: 8px 20px 8px 10px;
+    border: 1px solid #EAEFF6;
+    border-radius: 999px;
+    background: var(--surface);
+    box-shadow: 0 12px 32px rgba(11, 27, 63, 0.1);
+  }
+
+  .proof-logos {
+    display: flex;
+    padding-left: 10px;
+  }
+
+  .proof-logo {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin-left: -10px;
+    overflow: hidden;
+    border: 2px solid var(--surface);
+    border-radius: 50%;
+    background: var(--surface);
+    box-shadow: 0 0 0 1px #E2E8F2;
+  }
+
+  .proof-logo img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+  }
+
+  .proof-text {
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .proof-text strong {
+    color: var(--ink);
+    font-weight: 800;
+  }
+
   .hero-media {
     position: relative;
-    overflow: hidden;
-    /* Grilla de puntos sutil */
-    background:
-      radial-gradient(circle, #C5D1E6 1.5px, transparent 1.6px) 0 0 / 24px 24px,
-      #DCE4F1;
   }
 
   @media (max-width: 899px) {
@@ -153,17 +214,17 @@ import HeroVisual from './HeroVisual.astro';
 
     /* El header vuelve a ser normal: no hace falta dejarle lugar */
     .hero-copy {
-      padding: 40px 22px 48px;
+      padding: 40px 22px 24px;
     }
 
     .hero-media {
-      padding: 40px 22px;
+      padding: 8px 22px 40px;
     }
   }
 
   @media (max-width: 640px) {
     .hero-copy {
-      padding: 32px 16px 40px;
+      padding: 32px 16px 16px;
     }
 
     .hero-cta {
@@ -172,7 +233,7 @@ import HeroVisual from './HeroVisual.astro';
     }
 
     .hero-media {
-      padding: 32px 16px;
+      padding: 8px 16px 32px;
     }
 
   }

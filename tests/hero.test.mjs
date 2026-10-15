@@ -63,3 +63,15 @@ test('hero drops the previous Microsoft-centered content', () => {
   assert.doesNotMatch(hero, /showcase|tab-input|Ver un ejemplo/);
   assert.equal((home.match(/<h1\b/g) ?? []).length, 1);
 });
+
+test('hero shows the clients bubble with three client icons and the project count', () => {
+  const proof = hero.match(/<div class="hero-proof"[\s\S]*?<\/div>/)?.[0] ?? '';
+  assert.ok(proof, 'el globito debe existir');
+  const imgs = proof.match(/<img\b[^>]*>/g) ?? [];
+  assert.equal(imgs.length, 3);
+  for (const img of imgs) {
+    assert.match(img, /src="\/clientes\/[a-z-]+-icon\.webp"/);
+    assert.match(img, /alt="Logo de [^"]+"/);
+  }
+  assert.match(text(proof), /\+8 proyectos/);
+});

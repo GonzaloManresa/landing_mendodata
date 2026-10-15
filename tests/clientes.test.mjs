@@ -44,3 +44,12 @@ test('logos are lazy loaded with fixed dimensions', () => {
     assert.match(img, /height="\d+"/);
   }
 });
+
+test('every client logo and icon file exists in public/clientes', async () => {
+  const { existsSync } = await import('node:fs');
+  for (const client of clients) {
+    assert.ok(existsSync(`public${client.logo}.webp`), `${client.logo}.webp`);
+    if (client.icon) assert.ok(existsSync(`public${client.icon}`), client.icon);
+  }
+  assert.equal((section.match(/<img\b[^>]*alt="Logo de /g) ?? []).length, clients.length, 'el set visible usa los logos');
+});
