@@ -1,0 +1,235 @@
+---
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+import { clients } from '../../data/clients';
+
+// Resuelve el logo en build: el primer archivo que exista en public/.
+// Sin archivo, la tarjeta muestra el nombre en texto.
+const extensions = ['svg', 'png', 'webp'];
+const items = clients.map((client) => {
+  const ext = extensions.find((e) => existsSync(join(process.cwd(), 'public', `${client.logo}.${e}`)));
+  return { ...client, src: ext ? `${client.logo}.${ext}` : null };
+});
+
+// Marquee infinito: el track repite el set hasta que cada mitad cubra el ancho
+// máximo del contenedor (1340px) y anima -50%. Las copias van con aria-hidden.
+const cardSpan = 270; // tarjeta de desktop + separación
+const setsPerHalf = Math.max(1, Math.ceil(1340 / (items.length * cardSpan)));
+const copies = setsPerHalf * 2;
+// ~30px por segundo: lento y legible
+const duration = Math.round((items.length * cardSpan * setsPerHalf) / 30);
+---
+<section class="clients" id="clientes" aria-labelledby="clientes-title">
+  <div class="clients-inner">
+    <header class="clients-head">
+      <p class="clients-kicker">Clientes</p>
+      <h2 id="clientes-title">Empresas que ya confiaron en <span class="hl">MendoData</span></h2>
+    </header>
+
+    <div class="marquee">
+      <ul class="track" style={`--duration: ${duration}s`}>
+        {Array.from({ length: copies }, (_, copy) =>
+          items.map((client) => (
+            <li class="client-card" aria-hidden={copy > 0 ? 'true' : undefined} data-copy={copy > 0 ? '' : undefined}>
+              <span class="client-logo">
+                {client.src ? (
+                  <img src={client.src} alt={copy > 0 ? '' : client.alt} width="180" height="52" loading="lazy" decoding="async">
+                ) : (
+                  <span class="client-name">{client.name}</span>
+                )}
+              </span>
+              <span class="client-sector">{client.sector}</span>
+            </li>
+          ))
+        )}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .clients {
+    padding: clamp(72px, 9vw, 120px) 0;
+    background: var(--bg);
+  }
+
+  .clients-inner {
+    max-width: 1340px;
+    margin: 0 auto;
+  }
+
+  .clients-head {
+    max-width: 900px;
+    margin: 0 auto clamp(36px, 5vw, 52px);
+    padding: 0 22px;
+    text-align: center;
+  }
+
+  .clients-kicker {
+    margin: 0 0 18px;
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    max-width: 18ch;
+    margin: 0 auto;
+    color: var(--ink);
+    font-size: clamp(2.1rem, 4.2vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+  }
+
+  .hl {
+    color: var(--accent);
+  }
+
+  /* Carrusel -------------------------------------------------------- */
+  .marquee {
+    overflow: hidden;
+    /* Fade lateral: los logos entran y salen suavemente */
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  }
+
+  .track {
+    display: flex;
+    width: max-content;
+    margin: 0;
+    padding: 12px 0 20px;
+    list-style: none;
+    animation: clients-marquee var(--duration, 50s) linear infinite;
+  }
+
+  .marquee:hover .track {
+    animation-play-state: paused;
+  }
+
+  @keyframes clients-marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* La separación va como margen de cada tarjeta para que -50% caiga justo */
+  .client-card {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 230px;
+    height: 140px;
+    margin-right: 40px;
+    padding: 20px 18px;
+    border: 1px solid #EAEFF6;
+    border-radius: 22px;
+    background: var(--surface);
+    box-shadow: 0 14px 40px rgba(11, 27, 63, 0.06);
+    text-align: center;
+  }
+
+  .client-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 52px;
+  }
+
+  .client-logo img {
+    width: 100%;
+    max-width: 180px;
+    height: 52px;
+    object-fit: contain;
+    filter: grayscale(1);
+    opacity: 0.7;
+    transition: filter 200ms ease, opacity 200ms ease;
+  }
+
+  .client-card:hover .client-logo img {
+    filter: none;
+    opacity: 1;
+  }
+
+  .client-name {
+    color: var(--ink-soft);
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  .client-sector {
+    color: var(--ink-mute);
+    font-size: 0.82rem;
+    line-height: 1.35;
+  }
+
+  /* Sin hover (pantallas táctiles): logos en color */
+  @media (hover: none) {
+    .client-logo img {
+      filter: none;
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .clients-head {
+      padding: 0 16px;
+    }
+
+    .client-card {
+      width: 160px;
+      height: 124px;
+      margin-right: 24px;
+      padding: 16px 12px;
+      border-radius: 18px;
+    }
+
+    .client-logo,
+    .client-logo img {
+      height: 40px;
+    }
+
+    .client-name {
+      font-size: 1rem;
+    }
+
+    .client-sector {
+      font-size: 0.76rem;
+    }
+  }
+
+  /* Sin animación: un solo set, estático, centrado y en varias filas si hace falta */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee {
+      mask-image: none;
+      -webkit-mask-image: none;
+    }
+
+    .track {
+      width: auto;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      padding: 12px 22px 20px;
+      animation: none;
+    }
+
+    .client-card {
+      margin-right: 0;
+    }
+
+    .client-card[data-copy] {
+      display: none;
+    }
+
+    .client-logo img {
+      transition: none;
+    }
+  }
+</style>

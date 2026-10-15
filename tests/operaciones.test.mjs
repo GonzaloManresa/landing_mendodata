@@ -9,10 +9,10 @@ const text = (fragment) => fragment
   .replace(/\s+/g, ' ')
   .trim();
 
-test('operations section comes right after the featured project', () => {
+test('operations section comes right after the clients section', () => {
   assert.ok(section, 'la sección #operaciones-logistica debe existir');
   const ids = [...home.matchAll(/<section[^>]+id="([^"]+)"/g)].map((m) => m[1]);
-  assert.deepEqual(ids.slice(0, 6), ['inicio', 'problemas-operativos', 'soluciones', 'proyecto-destacado', 'operaciones-logistica', 'como-trabajamos']);
+  assert.deepEqual(ids.slice(0, 7), ['inicio', 'problemas-operativos', 'soluciones', 'proyecto-destacado', 'clientes', 'operaciones-logistica', 'como-trabajamos']);
   assert.doesNotMatch(home, /conversion-cta/);
 });
 
