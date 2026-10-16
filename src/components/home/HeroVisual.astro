@@ -1,26 +1,15 @@
 ---
 import LaptopFrame from '../LaptopFrame.astro';
 
-// Visual del Hero: laptop + celular dibujados en HTML/CSS.
-// Es una demostración conceptual (datos de ejemplo), no un proyecto real.
+// Visual del Hero: laptop con una captura del sistema de demo (empresa ficticia,
+// datos de ejemplo) + celular dibujado en HTML/CSS. No es un proyecto real.
 // Todo se mide en `em`; el tamaño base sale del ancho del contenedor,
 // así la composición escala entera sin deformarse.
-
-const sidebar = ['Inicio', 'Procesos', 'Inventario', 'Compras', 'Ventas', 'Reportes'];
 
 const kpis = [
   { label: 'Pedidos procesados', value: '2.847', delta: '+12%', up: true, icon: 'box' },
   { label: 'Tareas automatizadas', value: '436', delta: '+8%', up: true, icon: 'bolt' },
   { label: 'Pendientes de aprobación', value: '24', delta: '-20%', up: false, icon: 'doc' },
-];
-
-const bars = [
-  { month: 'Ene', a: 18, b: 26 },
-  { month: 'Feb', a: 24, b: 34 },
-  { month: 'Mar', a: 30, b: 44 },
-  { month: 'Abr', a: 36, b: 58 },
-  { month: 'May', a: 44, b: 70 },
-  { month: 'Jun', a: 52, b: 88 },
 ];
 
 const areas = [
@@ -31,12 +20,6 @@ const areas = [
   { name: 'Otros', pct: 7 },
 ];
 
-const rows = [
-  { date: '10/06', item: 'Orden de compra', area: 'Compras', status: 'Completado', ok: true },
-  { date: '09/06', item: 'Pedido de cliente', area: 'Ventas', status: 'Completado', ok: true },
-  { date: '08/06', item: 'Reposición de stock', area: 'Inventario', status: 'En proceso', ok: false },
-  { date: '07/06', item: 'Aprobación de gasto', area: 'Administración', status: 'Completado', ok: true },
-];
 ---
 <div class="hero-visual" id="hero-visual">
   <p class="demo-badge">Demostración ilustrativa</p>
@@ -45,83 +28,8 @@ const rows = [
     <!-- Laptop -->
     <div class="laptop">
       <LaptopFrame>
-        <div class="screen app">
-          <aside class="app-side">
-            <div class="app-brand">
-              <img src="/assets/mendodata-symbol.png" alt="" width="583" height="186">
-              <span>MendoData</span>
-            </div>
-            <ul>
-              {sidebar.map((item, i) => <li class={i === 0 ? 'is-active' : undefined}><i></i>{item}</li>)}
-            </ul>
-          </aside>
-
-          <div class="app-main">
-            <div class="app-top">
-              <strong>Panel operativo</strong>
-              <span class="app-select">Últimos 30 días</span>
-              <span class="app-bell"></span>
-              <span class="app-avatar">MD</span>
-            </div>
-
-            <div class="kpis">
-              {kpis.map((kpi) => (
-                <div class="card kpi">
-                  <span class="kpi-label">{kpi.label}</span>
-                  <span class="kpi-value">{kpi.value}</span>
-                  <span class:list={['kpi-delta', { down: !kpi.up }]}>{kpi.up ? '↑' : '↓'} {kpi.delta}</span>
-                  <span class="kpi-icon"></span>
-                </div>
-              ))}
-            </div>
-
-            <div class="charts">
-              <div class="card">
-                <span class="card-title">Actividad mensual</span>
-                <div class="bars">
-                  <div class="bars-axis"><span>200</span><span>150</span><span>100</span><span>50</span><span>0</span></div>
-                  {bars.map((bar) => (
-                    <div class="bar-col">
-                      <div class="bar-pair">
-                        <i style={`height:${bar.a}%`}></i>
-                        <i class="strong" style={`height:${bar.b}%`}></i>
-                      </div>
-                      <span>{bar.month}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div class="card donut-card">
-                <span class="card-title">Registros por área</span>
-                <div class="donut-wrap">
-                  <div class="donut"><span><b>436</b>registros</span></div>
-                  <ul class="legend">
-                    {areas.map((area, i) => <li><i class={`c${i}`}></i>{area.name}<b>{area.pct}%</b></li>)}
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div class="card table-card">
-              <div class="table-head">
-                <span class="card-title">Últimos registros</span>
-                <span class="link">Ver todos →</span>
-              </div>
-              <div class="table">
-                <div class="tr th"><span>Fecha</span><span>Proceso</span><span>Área</span><span>Estado</span></div>
-                {rows.map((row) => (
-                  <div class="tr">
-                    <span>{row.date}</span>
-                    <span>{row.item}</span>
-                    <span>{row.area}</span>
-                    <span><em class:list={['status', { wait: !row.ok }]}>{row.status}</em></span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- Pantalla real del sistema de demo (empresa ficticia, datos de ejemplo) -->
+        <img class="screen screen-shot" src="/assets/hero-screen.webp" alt="" width="1600" height="863" decoding="async">
       </LaptopFrame>
     </div>
 
@@ -221,7 +129,7 @@ const rows = [
   /* Laptop ----------------------------------------------------------- */
   .laptop {
     position: absolute;
-    top: 0;
+    top: 3em;
     right: 0;
     width: 62em;
     filter: drop-shadow(0 2.4em 3em rgba(11, 27, 63, 0.16));
@@ -232,17 +140,13 @@ const rows = [
     background: #F4F7FC;
   }
 
-  .app {
-    display: grid;
-    grid-template-columns: 11em minmax(0, 1fr);
-    height: 37em;
+  /* La pantalla toma la proporción de la captura (1600 × 863) para no recortarla */
+  .screen-shot {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1600 / 863;
     border-radius: 0.5em;
-  }
-
-  .app-side {
-    padding: 1.3em 0.9em;
-    background: #FFFFFF;
-    border-right: 1px solid #E6ECF5;
   }
 
   .app-brand {
@@ -261,51 +165,6 @@ const rows = [
     height: auto;
   }
 
-  .app-side li {
-    display: flex;
-    align-items: center;
-    gap: 0.6em;
-    padding: 0.6em 0.7em;
-    border-radius: 0.5em;
-    color: #54627C;
-    font-size: 0.82em;
-  }
-
-  .app-side li i {
-    width: 0.9em;
-    height: 0.9em;
-    border: 0.14em solid currentColor;
-    border-radius: 0.25em;
-  }
-
-  .app-side li.is-active {
-    background: #E8F1FE;
-    color: var(--accent);
-    font-weight: 600;
-  }
-
-  .app-main {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    min-width: 0;
-    padding: 1.3em 1.4em;
-  }
-
-  .app-top {
-    display: flex;
-    align-items: center;
-    gap: 1em;
-  }
-
-  .app-top strong {
-    margin-right: auto;
-    font-size: 1.35em;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-  }
-
   .app-select {
     padding: 0.35em 0.8em;
     border: 1px solid #E1E7F0;
@@ -313,26 +172,6 @@ const rows = [
     background: #FFFFFF;
     color: #54627C;
     font-size: 0.72em;
-  }
-
-  .app-bell {
-    width: 1em;
-    height: 1.1em;
-    border: 0.14em solid #54627C;
-    border-radius: 0.5em 0.5em 0.15em 0.15em;
-  }
-
-  .app-avatar {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.2em;
-    height: 2.2em;
-    border-radius: 50%;
-    background: var(--accent);
-    color: #FFFFFF;
-    font-size: 0.7em;
-    font-weight: 700;
   }
 
   .card {
@@ -349,12 +188,6 @@ const rows = [
     color: var(--ink);
     font-size: 0.82em;
     font-weight: 700;
-  }
-
-  .kpis {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.9em;
   }
 
   .kpi {
@@ -403,63 +236,6 @@ const rows = [
     border-radius: 0.28em;
   }
 
-  .charts {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 0.9em;
-  }
-
-  .bars {
-    display: grid;
-    grid-template-columns: 2em repeat(6, minmax(0, 1fr));
-    align-items: end;
-    gap: 0.5em;
-    height: 9.5em;
-    margin-top: 0.8em;
-  }
-
-  .bars-axis {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: calc(100% - 1.3em);
-    align-self: start;
-    color: #8A97AD;
-    font-size: 0.56em;
-  }
-
-  .bar-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.35em;
-    height: 100%;
-  }
-
-  .bar-col > span {
-    color: #8A97AD;
-    font-size: 0.56em;
-  }
-
-  .bar-pair {
-    display: flex;
-    align-items: flex-end;
-    gap: 0.25em;
-    flex: 1;
-    width: 100%;
-    justify-content: center;
-  }
-
-  .bar-pair i {
-    width: 0.8em;
-    border-radius: 0.25em 0.25em 0 0;
-    background: #A9CBFB;
-  }
-
-  .bar-pair i.strong {
-    background: var(--accent);
-  }
-
   .donut-wrap {
     display: flex;
     align-items: center;
@@ -488,24 +264,6 @@ const rows = [
     inset: 1.5em;
     border-radius: 50%;
     background: #FFFFFF;
-  }
-
-  .donut span {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #6B7A93;
-    font-size: 0.6em;
-  }
-
-  .donut b {
-    color: var(--ink);
-    font-size: 1.9em;
-    font-weight: 800;
   }
 
   .donut.small {
@@ -549,52 +307,6 @@ const rows = [
   .legend .c2 { background: #4F9BF8; }
   .legend .c3 { background: #8FC0FB; }
   .legend .c4 { background: #CFE2FD; }
-
-  .table-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 0.6em;
-  }
-
-  .link {
-    color: var(--accent);
-    font-size: 0.66em;
-    font-weight: 600;
-  }
-
-  .tr {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1.6fr 1.4fr;
-    align-items: center;
-    padding: 0.5em 0.6em;
-    border-top: 1px solid #EEF2F8;
-    color: #3D4B66;
-    font-size: 0.64em;
-  }
-
-  .tr.th {
-    border-top: 0;
-    border-radius: 0.4em;
-    background: #F4F7FC;
-    color: var(--ink);
-    font-weight: 700;
-  }
-
-  .status {
-    display: inline-block;
-    padding: 0.2em 0.7em;
-    border-radius: 0.4em;
-    background: #E3F5EA;
-    color: #1E7A45;
-    font-style: normal;
-    font-weight: 600;
-  }
-
-  .status.wait {
-    background: #FFF1DC;
-    color: #A15C00;
-  }
 
   /* Celular ---------------------------------------------------------- */
   .phone {
@@ -738,7 +450,8 @@ const rows = [
     .stage {
       font-size: calc(100cqw / 68);
       width: 62em;
-      height: 41.6em;
+      /* Laptop sola: pantalla de 32em + marco y base */
+      height: 39.6em;
     }
 
     .phone {
