@@ -110,7 +110,7 @@ test('the WhatsApp number lives only in site.ts', () => {
   walk(join(projectRoot, 'src'));
   const withNumber = files
     .filter((file) => readFileSync(file, 'utf8').includes('5492615974103'))
-    .map((file) => file.slice(projectRoot.length));
+    .map((file) => file.slice(projectRoot.length).replaceAll('\\', '/'));
   assert.deepEqual(withNumber, ['src/config/site.ts']);
 });
 

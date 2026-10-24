@@ -1,0 +1,6 @@
+---
+import mockupHtml from '../mockups/MendoData_Landing_Mockup_V10.html?raw';
+const previewHtml = mockupHtml.replace('</head>', '<meta name="robots" content="noindex, nofollow"/></head>');
+---
+
+<Fragment set:html={previewHtml} />
